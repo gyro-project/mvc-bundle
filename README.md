@@ -31,10 +31,10 @@ For this reason the following features are provided by this bundle:
 Add bundle to your application kernel:
 
 ```php
-$bundles = array(
+$bundles = [
     // ...
     new Gyro\Bundle\MVCBundle\GyroMVCBundle(),
-);
+];
 ```
 
 Disable view listener in SensioFrameworkExtraBundle if you are using that (not a requirement anymore):
@@ -59,14 +59,14 @@ be inferred from Controller+Action-Method names.
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/DefaultController.php
+namespace App\Controller;
 
 class DefaultController
 {
     public function helloAction($name = 'Fabien')
     {
-        return array('name' => $name);
+        return ['name' => $name];
     }
 }
 ```
@@ -82,8 +82,8 @@ For this case you can change the previous example to return a ``TemplateView`` i
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/DefaultController.php
+namespace App\Controller;
 
 use Gyro\MVC\TemplateView;
 
@@ -92,10 +92,10 @@ class DefaultController
     public function helloAction($name = 'Fabien')
     {
         return new TemplateView(
-            array('name' => $name),
-            'hallo', // AcmeDemoBundle:Default:hallo.html.twig instead of hello.html.twig
+            ['name' => $name],
+            'hallo', // :Default:hallo.html.twig instead of hello.html.twig
             201,
-            array('X-Foo' => 'Bar')
+            ['X-Foo' => 'Bar']
         );
     }
 }
@@ -121,8 +121,8 @@ Response class.
 
 ```php
 <?php
-# src/Acme/DemoBundle/View/Default/HelloView.php
-namespace Acme\DemoBundle\View\Default;
+# src/App/View/Default/HelloView.php
+namespace App\View\Default;
 
 class HelloView
 {
@@ -144,9 +144,9 @@ In your controller you just return the view model:
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/HelloController.php
+# src/App/Controller/HelloController.php
 
-namespace Acme\DemoBundle\Controller;
+namespace App\Controller;
 
 class HelloController
 {
@@ -157,7 +157,7 @@ class HelloController
 }
 ```
 
-It gets rendered as ``AcmeBundle:Hello:hello.html.twig``,
+It gets rendered as ``:Hello:hello.html.twig``,
 where the view model is available as the ``view`` twig variable:
 
 ```
@@ -176,8 +176,8 @@ your controller and a listener will turn it into a proper Symfony ``RedirectResp
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/DefaultController.php
+namespace App\Controller;
 
 use Gyro\MVC\RedirectRoute;
 
@@ -185,9 +185,7 @@ class DefaultController
 {
     public function redirectAction()
     {
-        return new RedirectRoute('hello', array(
-            'name' => 'Fabien'
-        ));
+        return new RedirectRoute('hello', ['name' => 'Fabien']);
     }
 }
 ```
@@ -204,8 +202,8 @@ metadata:
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/DefaultController.php
+namespace App\Controller;
 
 use Gyro\MVC\Headers;
 use Gyro\MVC\Flash;
@@ -240,8 +238,8 @@ it you have access to various security related methods:
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/DefaultController.php
+namespace App\Controller;
 
 use Gyro\MVC\TokenContext;
 
@@ -280,8 +278,9 @@ that hides all this:
 
 ```php
 <?php
-# src/Acme/DemoBundle/Controller/DefaultController.php
-namespace Acme\DemoBundle\Controller;
+# src/App/Controller/ProductController.php
+
+namespace App\Controller;
 
 use Gyro\MVC\FormRequest;
 use Gyro\MVC\RedirectRoute;
@@ -300,14 +299,14 @@ class ProductController
         $product = $this->repository->find($id);
 
         if (!$formRequest->handle(new ProductEditType(), $product)) {
-            return array('form' => $formRequest->createFormView(), 'entity' => $product);
+            return ['form' => $formRequest->createFormView(), 'entity' => $product];
         }
 
         $product = $formRequest->getValidData();
 
         $this->repository->save($product);
 
-        return new RedirectRoute('Product.show', array('id' => $id));
+        return new RedirectRoute('Product.show', ['id' => $id]);
     }
 }
 ```
@@ -332,10 +331,13 @@ Usually the libraries you are using or your own code throw exceptions that can b
 into HTTP errors other than the 500 server error. To prevent having to do this in the controller
 over and over again you can configure to convert those exceptions in a listener:
 
-    gyro_mvc:
-        convert_exceptions:
-            Doctrine\ORM\EntityNotFoundException: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-            Doctrine\ORM\ORMException: 500
+```yaml
+# config/packages/gyro_mvc.yml
+gyro_mvc:
+    convert_exceptions:
+        Doctrine\ORM\EntityNotFoundException: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+        Doctrine\ORM\ORMException: 500
+```
 
 Notable facts about the conversion:
 
