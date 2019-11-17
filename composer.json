@@ -1,12 +1,11 @@
 {
-    "name": "qafoolabs/no-framework-bundle",
+    "name": "gyro/no-framework-bundle",
     "type": "symfony-bundle",
     "keywords": ["symfony", "bundle"],
     "description": "Various improvements for Symfony applications",
     "license": "MIT",
     "authors": [
-        {"name": "Benjamin Eberlei", "email": "benjamin@qafoo.com"},
-        {"name": "Manuel Pichler", "email": "manuel@qafoo.com"}
+        {"name": "Benjamin Eberlei", "email": "kontakt@beberlei.de"}
     ],
     "require-dev": {
         "php": "~7.2",
@@ -21,8 +20,8 @@
     },
     "autoload": {
         "psr-0": {
-            "QafooLabs\\Bundle\\NoFrameworkBundle\\": "src/",
-            "QafooLabs\\MVC\\": "src/"
+            "Gyro\\Bundle\\NoFrameworkBundle\\": "src/",
+            "Gyro\\MVC\\": "src/"
         }
     }
 }
