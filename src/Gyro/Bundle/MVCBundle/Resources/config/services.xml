@@ -10,10 +10,6 @@
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="gyro_mvc.controller_utils" class="Gyro\Bundle\MVCBundle\Controller\ControllerUtils" public="true">
-            <argument type="service" id="service_container" />
-        </service>
-
         <service id="gyro_mvc.view_listener" class="Gyro\Bundle\MVCBundle\EventListener\ViewListener">
             <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" priority="10" />
 

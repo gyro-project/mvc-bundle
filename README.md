@@ -326,21 +326,6 @@ public function indexAction(Session $session)
 }
 ```
 
-## ParamConverter for Flash Messages
-
-Passing `Gyro\MVC\Flash` is not supported anymore. You must
-migrate the code to use `yield new Flash($type, $message);` instead.
-
-```
-
-## Helper for Controllers as Service
-
-We added a ``controller_utils`` service that offers the functionality
-of the Symfony base controller plus some extras.
-
-See my blog post [Extending Symfony2: Controller Utils](http://www.whitewashing.de/2013/06/27/extending_symfony2__controller_utilities.html)
-for reasoning.
-
 ## Convert Exceptions
 
 Usually the libraries you are using or your own code throw exceptions that can be turned

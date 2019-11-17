@@ -17,11 +17,6 @@ class ContainerTest extends TestCase
         $container = $this->createContainer(array());
 
         $this->assertInstanceOf(
-            'Gyro\Bundle\MVCBundle\Controller\ControllerUtils',
-            $container->get('gyro_mvc.controller_utils')
-        );
-
-        $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ViewListener',
             $container->get('gyro_mvc.view_listener')
         );
