@@ -1,9 +1,11 @@
 # Gyro MVCBundle
 
-## Goals
-
 Decouple and simplify Symfony controllers by adding various abstractions that
 avoid having to use Symfony services or classes inside the controllers.
+
+This bundle succeeds the "QafooLabsNoFrameworkBundle" package.
+
+## Goals
 
 This allows to write controllers that only have dependencies on the
 domain/model and let them act as true "application services" that can even be
@@ -15,18 +17,17 @@ believe Context to controllers should be explicitly passed to avoid hiding it
 in services.
 
 Ultimately this should make Controllers testable with lightweight unit- and
-integration tests.  Elaborate seperation of Symfony from your business logic
+integration tests. Elaborate seperation of Symfony from your business logic
 should become unnecessary by building controllers that don't depend on Symfony
 from the beginning (except maybe Request/Response classes).
 
-For this reason the following features are provided by this bundle:
-
-- Returning View data from controllers
-- Returning RedirectRoute
-- Helper for Controllers as Service
-- Convert Exceptions from Domain/Library Types to Framework Types
-
 ## Installation
+
+From Packagist via Composer:
+
+```sh
+composer require gyro/mvc-bundle
+```
 
 Add bundle to your application kernel:
 
@@ -35,15 +36,6 @@ $bundles = [
     // ...
     new Gyro\Bundle\MVCBundle\GyroMVCBundle(),
 ];
-```
-
-Disable view listener in SensioFrameworkExtraBundle if you are using that (not a requirement anymore):
-
-```yml
-# app/config/config.yml
-sensio_framework_extra:
-    view:
-        annotations: false
 ```
 
 ## Returning View data from controllers
@@ -57,6 +49,9 @@ to the controller actions.
 You can just return arrays from controllers and the template names will
 be inferred from Controller+Action-Method names.
 
+If you return from the `App\Controller` default namespace, then the template is
+fetched from ':Ctrl:action.html.twig`.
+
 ```php
 <?php
 # src/App/Controller/DefaultController.php
@@ -66,7 +61,7 @@ class DefaultController
 {
     public function helloAction($name = 'Fabien')
     {
-        return ['name' => $name];
+        return ['name' => $name]; // :Default:hello.html.twig
     }
 }
 ```
@@ -291,7 +286,7 @@ class ProductController
 
     public function __construct(ProductRepository $repository)
     {
-        $this->repository;
+        $this->repository = $repository;
     }
 
     public function editAction(FormRequest $formRequest, $id)
@@ -358,3 +353,10 @@ and body to keep javascript and CSS in place.
 The GyroMVCBundle provides out of the box support for the
 turbolinks JS library in the browser by setting the `Turbolinks-Location`
 header after redirects.
+
+This feature needs to be enabled:
+
+```yaml
+gyro_mvc:
+    turbolinks: true
+```
