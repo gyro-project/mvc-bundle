@@ -25,6 +25,23 @@ class ContainerTest extends TestCase
             'Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener',
             $container->get('gyro_mvc.param_converter_listener')
         );
+
+        $this->assertFalse($container->has('gyro_mvc.turbolinks_listener'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_compiles_with_turbolinks_container()
+    {
+        $container = $this->createContainer(['turbolinks' => true]);
+
+        $this->assertTrue($container->has('gyro_mvc.turbolinks_listener'));
+
+        $this->assertInstanceOf(
+            'Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener',
+            $container->get('gyro_mvc.turbolinks_listener')
+        );
     }
 
     /**

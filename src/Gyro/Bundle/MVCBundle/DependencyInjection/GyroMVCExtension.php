@@ -25,12 +25,14 @@ class GyroMVCExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->setAlias('controller_utils', 'gyro_mvc.controller_utils');
-
         if ($config['convert_exceptions']) {
             $container->setParameter('gyro_mvc.convert_exceptions_map', $config['convert_exceptions']);
         } else {
             $container->removeDefinition('gyro_mvc.convert_exception_listener');
+        }
+
+        if ($config['turbolinks']) {
+            $loader->load('turbolinks.xml');
         }
     }
 }

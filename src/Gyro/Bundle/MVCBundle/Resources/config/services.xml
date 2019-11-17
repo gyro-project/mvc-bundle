@@ -75,9 +75,5 @@
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
-
-        <service id="gyro_mvc.turbolinks_listener" class="Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener">
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
-        </service>
     </services>
 </container>
