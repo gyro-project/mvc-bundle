@@ -25,7 +25,7 @@ from the beginning (except maybe Request/Response classes).
 
 From Packagist via Composer:
 
-```sh
+```shell
 composer require gyro/mvc-bundle
 ```
 
@@ -155,7 +155,7 @@ class HelloController
 It gets rendered as ``:Hello:hello.html.twig``,
 where the view model is available as the ``view`` twig variable:
 
-```
+```twig
 Hello {{ view.name }} or {{ view.reversedName }}!
 ```
 
@@ -314,7 +314,7 @@ for controllers.
 
 You can pass the session as an argument to a controller:
 
-```
+```php
 public function indexAction(Session $session)
 {
 }
