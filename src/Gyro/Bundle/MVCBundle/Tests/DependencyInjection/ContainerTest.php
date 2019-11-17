@@ -3,7 +3,7 @@
 namespace Gyro\Bundle\MVCBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Gyro\Bundle\MVCBundle\DependencyInjection\GyroNoFrameworkExtension;
+use Gyro\Bundle\MVCBundle\DependencyInjection\GyroMVCExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -18,17 +18,17 @@ class ContainerTest extends TestCase
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\Controller\ControllerUtils',
-            $container->get('qafoo_labs_noframework.controller_utils')
+            $container->get('gyro_mvc.controller_utils')
         );
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ViewListener',
-            $container->get('qafoo_labs_noframework.view_listener')
+            $container->get('gyro_mvc.view_listener')
         );
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener',
-            $container->get('qafoo_labs_noframework.param_converter_listener')
+            $container->get('gyro_mvc.param_converter_listener')
         );
     }
 
@@ -43,11 +43,11 @@ class ContainerTest extends TestCase
             )
         ));
 
-        $this->assertEquals(array('foo' => 'bar'), $container->getParameter('qafoo_labs_noframework.convert_exceptions_map'));
+        $this->assertEquals(array('foo' => 'bar'), $container->getParameter('gyro_mvc.convert_exceptions_map'));
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener',
-            $container->get('qafoo_labs_noframework.convert_exception_listener')
+            $container->get('gyro_mvc.convert_exception_listener')
         );
     }
 
@@ -61,7 +61,7 @@ class ContainerTest extends TestCase
             'kernel.root_dir'    => __DIR__.'/../../../../' // src dir
         )));
 
-        $loader = new GyroNoFrameworkExtension();
+        $loader = new GyroMVCExtension();
         $container->set('twig', \Phake::mock('Twig\Environment'));
         $container->set('kernel', \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'));
         $container->set('controller_name_converter', \Phake::mock('Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser'));

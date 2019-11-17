@@ -5,23 +5,23 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="qafoo_labs_noframework.controller.name_parser" class="Gyro\Bundle\MVCBundle\Controller\QafooControllerNameParser">
+        <service id="gyro_mvc.controller.name_parser" class="Gyro\Bundle\MVCBundle\Controller\QafooControllerNameParser">
             <argument type="service" id="controller_name_converter" />
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="qafoo_labs_noframework.controller_utils" class="Gyro\Bundle\MVCBundle\Controller\ControllerUtils" public="true">
+        <service id="gyro_mvc.controller_utils" class="Gyro\Bundle\MVCBundle\Controller\ControllerUtils" public="true">
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="qafoo_labs_noframework.view_listener" class="Gyro\Bundle\MVCBundle\EventListener\ViewListener">
+        <service id="gyro_mvc.view_listener" class="Gyro\Bundle\MVCBundle\EventListener\ViewListener">
             <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" priority="10" />
 
             <call method="addConverter">
                 <argument type="service">
                     <service class="Gyro\Bundle\MVCBundle\Controller\ResultConverter\ArrayToTemplateResponseConverter">
                         <argument type="service" id="twig" />
-                        <argument type="service" id="qafoo_labs_noframework.template_guesser" />
+                        <argument type="service" id="gyro_mvc.template_guesser" />
                         <argument>twig</argument>
                     </service>
                 </argument>
@@ -54,33 +54,33 @@
             </call>
         </service>
 
-        <service id="qafoo_labs_noframework.template_guesser" class="Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser">
-            <argument type="service" id="qafoo_labs_noframework.bundle_location" />
-            <argument type="service" id="qafoo_labs_noframework.controller.name_parser" />
+        <service id="gyro_mvc.template_guesser" class="Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser">
+            <argument type="service" id="gyro_mvc.bundle_location" />
+            <argument type="service" id="gyro_mvc.controller.name_parser" />
         </service>
 
-        <service id="qafoo_labs_noframework.bundle_location" class="Gyro\Bundle\MVCBundle\View\BundleLocation">
+        <service id="gyro_mvc.bundle_location" class="Gyro\Bundle\MVCBundle\View\BundleLocation">
             <argument type="service" id="kernel" />
         </service>
 
-        <service id="qafoo_labs_noframework.convert_exception_listener" class="Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener">
+        <service id="gyro_mvc.convert_exception_listener" class="Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener">
             <argument type="service" id="logger" />
-            <argument>%qafoo_labs_noframework.convert_exceptions_map%</argument>
+            <argument>%gyro_mvc.convert_exceptions_map%</argument>
 
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="100" />
         </service>
 
-        <service id="qafoo_labs_noframework.param_converter.service_provider" class="Gyro\Bundle\MVCBundle\ParamConverter\SymfonyServiceProvider">
+        <service id="gyro_mvc.param_converter.service_provider" class="Gyro\Bundle\MVCBundle\ParamConverter\SymfonyServiceProvider">
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="qafoo_labs_noframework.param_converter_listener" class="Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener">
-            <argument type="service" id="qafoo_labs_noframework.param_converter.service_provider" />
+        <service id="gyro_mvc.param_converter_listener" class="Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener">
+            <argument type="service" id="gyro_mvc.param_converter.service_provider" />
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <service id="qafoo_labs_noframework.turbolinks_listener" class="Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener">
+        <service id="gyro_mvc.turbolinks_listener" class="Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener">
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
     </services>

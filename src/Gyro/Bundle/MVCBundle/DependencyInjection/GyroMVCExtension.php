@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class GyroNoFrameworkExtension extends Extension
+class GyroMVCExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -25,12 +25,12 @@ class GyroNoFrameworkExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->setAlias('controller_utils', 'qafoo_labs_noframework.controller_utils');
+        $container->setAlias('controller_utils', 'gyro_mvc.controller_utils');
 
         if ($config['convert_exceptions']) {
-            $container->setParameter('qafoo_labs_noframework.convert_exceptions_map', $config['convert_exceptions']);
+            $container->setParameter('gyro_mvc.convert_exceptions_map', $config['convert_exceptions']);
         } else {
-            $container->removeDefinition('qafoo_labs_noframework.convert_exception_listener');
+            $container->removeDefinition('gyro_mvc.convert_exception_listener');
         }
     }
 }
