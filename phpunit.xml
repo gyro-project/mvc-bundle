@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="Gyro NoFrameworkBundle">
-            <directory>src/Gyro/Bundle/NoFrameworkBundle/Tests</directory>
+        <testsuite name="Gyro MVCBundle">
+            <directory>src/Gyro/Bundle/MVCBundle/Tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

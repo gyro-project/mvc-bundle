@@ -1,5 +1,5 @@
 {
-    "name": "gyro/no-framework-bundle",
+    "name": "gyro/mvc-bundle",
     "type": "symfony-bundle",
     "keywords": ["symfony", "bundle"],
     "description": "Various improvements for Symfony applications",
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Gyro\\Bundle\\NoFrameworkBundle\\": "src/",
+            "Gyro\\Bundle\\MVCBundle\\": "src/",
             "Gyro\\MVC\\": "src/"
         }
     }
