@@ -1,7 +1,7 @@
 # Widget Containers
 
 Symfony lacks a component based HMVC approach, which decouples components from
-each other fully. The widget support in `QafooLabsFrameworkExtraBundle` adds
+each other fully. The widget support in `GyroMVCBundle` adds
 this support based on a model developed by Facebook and improved by
 ResearchGate.
 

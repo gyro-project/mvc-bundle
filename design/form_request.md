@@ -94,7 +94,7 @@ public function editAction(FormRequest $formRequest, $id)
 
 Nortworthy Implementation Details:
 
-- During a normal request QafooLabsFrameworkExtraBundle will create a Symfony
+- During a normal request GyroMVCBundle will create a Symfony
   specific instance that wraps the FormFactory and the original Symfony request
   instance using the ParamConverter API of the SensioFrameworkExtraBundle.
 
