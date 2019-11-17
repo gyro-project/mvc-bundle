@@ -5,7 +5,7 @@ namespace Gyro\Bundle\MVCBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class QafooControllerNameParser
+class GyroControllerNameParser
 {
     private $symfonyParser;
     private $container;

@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\View;
 
-use Gyro\Bundle\MVCBundle\Controller\QafooControllerNameParser;
+use Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser;
 
 /**
  * Guess Templates based on Symfony and SensioFrameworkExtra conventions
@@ -15,11 +15,11 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     private $bundleLocation;
 
     /**
-     * @var \Gyro\Bundle\MVCBundle\Controller\QafooControllerNameParser
+     * @var \Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser
      */
     private $parser;
 
-    public function __construct(BundleLocation $bundleLocation, QafooControllerNameParser $parser)
+    public function __construct(BundleLocation $bundleLocation, GyroControllerNameParser $parser)
     {
         $this->bundleLocation = $bundleLocation;
         $this->parser = $parser;

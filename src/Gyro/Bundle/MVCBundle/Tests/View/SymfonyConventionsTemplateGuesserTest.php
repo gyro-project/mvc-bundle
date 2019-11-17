@@ -12,7 +12,7 @@ class SymfonyConventionsTemplateGuesserTest extends TestCase
     public function setUp() : void
     {
         $this->bundleLocation = \Phake::mock('Gyro\Bundle\MVCBundle\View\BundleLocation');
-        $this->parser = \Phake::mock('Gyro\Bundle\MVCBundle\Controller\QafooControllerNameParser');
+        $this->parser = \Phake::mock('Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser');
 
         $this->guesser = new SymfonyConventionsTemplateGuesser(
             $this->bundleLocation,
