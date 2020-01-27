@@ -2,20 +2,17 @@
 
 namespace Gyro\MVC;
 
-use Symfony\Component\Form\FormTypeInterface;
-
 interface FormRequest
 {
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string   $formType
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *
      * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle($formType, $bindData = null, array $options = []) : bool;
+    public function handle(string $formType, $bindData = null, array $options = []) : bool;
 
     /**
      * Use this to retrieve the validated data from the form even when you attached `$bindData`.

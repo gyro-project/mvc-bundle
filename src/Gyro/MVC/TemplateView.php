@@ -17,8 +17,8 @@ class TemplateView
     private $headers;
 
     /**
-     * @param object|array<string,mixed>  $viewParams
-     * @param array<string,string> $headers
+     * @param object|array<string,mixed> $viewParams
+     * @param array<string,string>       $headers
      */
     public function __construct($viewParams, ?string $actionTemplateName = null, int $statusCode = 200, array $headers = [])
     {

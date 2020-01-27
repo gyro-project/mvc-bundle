@@ -3,7 +3,6 @@
 namespace Gyro\Bundle\MVCBundle;
 
 use Gyro\MVC\TokenContext;
-use Gyro\MVC\Exception;
 use Gyro\MVC\Exception\UnauthenticatedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -22,8 +21,9 @@ class MockTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @psalm-suppress UndefinedInterfaceMethod
      * @return string|int
+     *
+     * @psalm-suppress UndefinedInterfaceMethod
      */
     public function getCurrentUserId()
     {
@@ -82,8 +82,9 @@ class MockTokenContext implements TokenContext
     }
 
     /**
-     * @psalm-suppress DeprecatedClass
      * @param mixed $attributes
+     *
+     * @psalm-suppress DeprecatedClass
      */
     public function isGranted($attributes, ?object $object = null) : bool
     {

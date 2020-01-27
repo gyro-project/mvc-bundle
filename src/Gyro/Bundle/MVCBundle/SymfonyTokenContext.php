@@ -25,8 +25,9 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @psalm-suppress UndefinedInterfaceMethod
      * @return string|int
+     *
+     * @psalm-suppress UndefinedInterfaceMethod
      */
     public function getCurrentUserId()
     {

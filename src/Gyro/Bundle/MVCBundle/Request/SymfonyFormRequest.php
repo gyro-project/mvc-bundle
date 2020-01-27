@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle\Request;
 
 use Gyro\MVC\Exception;
 use Gyro\MVC\FormRequest;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -34,13 +33,12 @@ class SymfonyFormRequest implements FormRequest
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string   $formType
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *
      * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle($formType, $bindData = null, array $options = []) : bool
+    public function handle(string $formType, $bindData = null, array $options = []) : bool
     {
         if ($this->form !== null) {
             throw new Exception\FormAlreadyHandledException($this->form->getName());

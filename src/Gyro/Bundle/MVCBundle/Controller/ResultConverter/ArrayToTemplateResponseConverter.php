@@ -45,7 +45,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
 
         if (is_array($result) || $result instanceof ViewStruct) {
             $result = new TemplateView($result);
-        } else if (! ($result instanceof TemplateView)) {
+        } elseif (! ($result instanceof TemplateView)) {
             throw new \RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
         }
 

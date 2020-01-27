@@ -33,8 +33,9 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     }
 
     /**
-     * @psalm-suppress ArgumentTypeCoercion
      * @return array<int,?string>
+     *
+     * @psalm-suppress ArgumentTypeCoercion
      */
     private function parseControllerCommand(string $controller, ?string $actionName = null) : array
     {
