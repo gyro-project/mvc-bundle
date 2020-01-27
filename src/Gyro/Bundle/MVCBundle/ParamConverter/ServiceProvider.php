@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-interface ServiceProviderInterface
+interface ServiceProvider
 {
     public function getFormFactory() : FormFactoryInterface;
 

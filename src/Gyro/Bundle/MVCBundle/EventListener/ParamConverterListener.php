@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
-use Gyro\Bundle\MVCBundle\ParamConverter\ServiceProviderInterface;
+use Gyro\Bundle\MVCBundle\ParamConverter\ServiceProvider;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Gyro\Bundle\MVCBundle\Request\SymfonyFormRequest;
 use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
@@ -21,7 +21,7 @@ class ParamConverterListener
      */
     private $serviceProvider;
 
-    public function __construct(ServiceProviderInterface $container)
+    public function __construct(ServiceProvider $container)
     {
         $this->serviceProvider = $container;
     }

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class SymfonyServiceProvider implements ServiceProviderInterface
+class SymfonyServiceProvider implements ServiceProvider
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
