@@ -3,7 +3,7 @@
 namespace Gyro\Bundle\MVCBundle\View;
 
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\HttpKernel\Bundle;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleLocation
 {
@@ -14,6 +14,9 @@ class BundleLocation
         $this->kernel = $kernel;
     }
 
+    /**
+     * @param class-string $className
+     */
     public function locationFor(string $className) : ?string
     {
         $bundle = $this->getBundleForClass($className);
@@ -25,9 +28,12 @@ class BundleLocation
         return $bundle->getName();
     }
 
-    protected function getBundleForClass(string $class) : ?Bundle
+    /**
+     * @param class-string $className
+     */
+    protected function getBundleForClass(string $className) : ?BundleInterface
     {
-        $reflectionClass = new \ReflectionClass($class);
+        $reflectionClass = new \ReflectionClass($className);
         $bundles = $this->kernel->getBundles();
 
         do {

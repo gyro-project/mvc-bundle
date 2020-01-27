@@ -21,6 +21,8 @@ class FlashYieldApplier implements ControllerYieldApplier
      */
     public function apply($yield, Request $request, Response $response) : void
     {
+        assert($yield instanceof Flash);
+
         if (!$request->hasSession()) {
             return;
         }

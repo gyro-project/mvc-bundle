@@ -16,12 +16,12 @@ class SymfonyFormRequest implements FormRequest
     private $request;
 
     /**
-     * @var \Symfony\Component\Form\FormFactoryInterface;
+     * @var \Symfony\Component\Form\FormFactoryInterface
      */
     private $formFactory;
 
     /**
-     * @var \Symfony\Component\Form\FormInterface;
+     * @var \Symfony\Component\Form\FormInterface
      */
     private $form;
 

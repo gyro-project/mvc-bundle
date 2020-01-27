@@ -4,6 +4,7 @@ namespace Gyro\Bundle\MVCBundle;
 
 use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception;
+use Gyro\MVC\Exception\UnauthenticatedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -25,6 +26,10 @@ class MockTokenContext implements TokenContext
      */
     public function getCurrentUserId()
     {
+        if ($this->user === null) {
+            throw new UnauthenticatedUserException();
+        }
+
         return $this->user->getId();
     }
 
@@ -37,6 +42,10 @@ class MockTokenContext implements TokenContext
      */
     public function getCurrentUsername() : string
     {
+        if ($this->user === null) {
+            throw new UnauthenticatedUserException();
+        }
+
         return $this->user->getUsername();
     }
 
@@ -50,7 +59,7 @@ class MockTokenContext implements TokenContext
     public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface
     {
         if (!is_object($this->user)) {
-            throw new Exception\UnauthenticatedUserException();
+            throw new UnauthenticatedUserException();
         }
 
         return $this->user;

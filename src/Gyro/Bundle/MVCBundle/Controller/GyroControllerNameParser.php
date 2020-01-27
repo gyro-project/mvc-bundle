@@ -35,6 +35,6 @@ class GyroControllerNameParser
     {
         $service = $this->container->get($serviceId);
 
-        return \Doctrine\Common\Util\ClassUtils::getClass($service) . '::' . $method;
+        return get_class($service) . '::' . $method;
     }
 }

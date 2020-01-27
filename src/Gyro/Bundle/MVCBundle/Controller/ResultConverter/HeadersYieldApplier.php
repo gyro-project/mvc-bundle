@@ -21,6 +21,8 @@ class HeadersYieldApplier implements ControllerYieldApplier
      */
     public function apply($yield, Request $request, Response $response) : void
     {
+        assert($yield instanceof Headers);
+
         foreach ($yield->values as $key => $value) {
             $response->headers->set($key, $value);
         }

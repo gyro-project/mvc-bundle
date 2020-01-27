@@ -29,6 +29,8 @@ class RedirectConverter implements ControllerResultConverter
      */
     public function convert($result, Request $request) : Response
     {
+        assert($result instanceof RedirectRoute);
+
         $response = new Response("", 302);
 
         $response->headers->set(

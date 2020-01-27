@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Psr\Log\LoggerInterface;
@@ -16,25 +16,25 @@ use Throwable;
 class ConvertExceptionListener
 {
     /**
-     * @var LoggerInterface
+     * @var ?LoggerInterface
      */
     private $logger;
 
     /**
-     * @var array<string, string|int>
+     * @var array<class-string, class-string|int>
      */
     private $exceptionClassMap;
 
     /**
-     * @param array<string,string|int> $exceptionClassMap
+     * @param array<class-string,class-string|int> $exceptionClassMap
      */
-    public function __construct(LoggerInterface $logger = null, array $exceptionClassMap = [])
+    public function __construct(?LoggerInterface $logger = null, array $exceptionClassMap = [])
     {
         $this->logger = $logger;
         $this->exceptionClassMap = $exceptionClassMap;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event) : void
+    public function onKernelException(ExceptionEvent $event) : void
     {
         $exception = $event->getException();
 
@@ -55,12 +55,12 @@ class ConvertExceptionListener
     }
 
     /**
-     * @param string|int $convertToExceptionClass
+     * @param class-string|int $convertToExceptionClass
      */
     private function convertException(Exception $exception, $convertToExceptionClass) : ?Throwable
     {
         if (is_numeric($convertToExceptionClass)) {
-            return new HttpException($convertToExceptionClass, null, $exception);
+            return new HttpException((int) $convertToExceptionClass, null, $exception);
         }
 
         $reflectionClass = new ReflectionClass($convertToExceptionClass);
@@ -68,12 +68,16 @@ class ConvertExceptionListener
         $args = [];
 
         foreach ($constructor->getParameters() as $parameter) {
-            if ($parameter->getName() === 'previous') {
+            if ($parameter->getName() === 'message') {
+                $args[] = $exception->getMessage();
+            } elseif ($parameter->getName() === 'code') {
+                $args[] = $exception->getCode();
+            } elseif ($parameter->getName() === 'previous') {
                 $args[] = $exception;
             } elseif ($parameter->isDefaultValueAvailable()) {
                 $args[] = $parameter->getDefaultValue();
             } else {
-                return null;
+                return new HttpException(500);
             }
         }
 
@@ -81,7 +85,7 @@ class ConvertExceptionListener
     }
 
     /**
-     * @return string|int|null
+     * @return class-string|int|null
      */
     private function findConvertToExceptionClass(Exception $exception)
     {

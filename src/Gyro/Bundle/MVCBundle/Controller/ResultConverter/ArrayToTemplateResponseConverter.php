@@ -42,7 +42,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     {
         $controller = $request->attributes->get('_controller');
 
-        if (! ($result instanceof TemplateView)) {
+        if (is_array($result)) {
             $result = new TemplateView($result);
         }
 

@@ -14,6 +14,8 @@
     </projectFiles>
 
     <issueHandlers>
+        <MixedArgument errorLevel="info" />
+        <MixedArgumentTypeCoercion errorLevel="info" />
         <LessSpecificReturnType errorLevel="info" />
     </issueHandlers>
 </psalm>

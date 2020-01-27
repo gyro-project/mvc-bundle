@@ -2,6 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -13,12 +14,16 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * @psalm-suppress MixedMethodCall
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress PossiblyUndefinedMethod
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('gyro_mvc');
+        $treeBuilder = new TreeBuilder('gyro_mvc');
+        $rootNode = $treeBuilder->getRootNode();
+
+        assert($rootNode instanceof ArrayNodeDefinition);
 
         $rootNode
             ->children()
