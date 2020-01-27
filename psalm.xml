@@ -14,8 +14,13 @@
     </projectFiles>
 
     <issueHandlers>
+        <MixedAssignment errorLevel="info" />
         <MixedArgument errorLevel="info" />
         <MixedArgumentTypeCoercion errorLevel="info" />
+        <MixedInferredReturnType errorLevel="info" />
+        <MixedReturnStatement errorLevel="info" />
+        <MoreSpecificReturnType errorLevel="info" />
         <LessSpecificReturnType errorLevel="info" />
+        <LessSpecificReturnStatement errorLevel="info" />
     </issueHandlers>
 </psalm>

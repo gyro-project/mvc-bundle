@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 /**
  * Turbolinks makes navigating your web application faster.
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
  */
 class TurbolinksListener
 {
-    public function onKernelResponse(FilterResponseEvent $event) : void
+    public function onKernelResponse(ResponseEvent $event) : void
     {
         $request = $event->getRequest();
         $response = $event->getResponse();

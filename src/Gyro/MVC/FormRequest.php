@@ -9,7 +9,7 @@ interface FormRequest
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string|FormTypeInterface   $formType
+     * @param string   $formType
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *

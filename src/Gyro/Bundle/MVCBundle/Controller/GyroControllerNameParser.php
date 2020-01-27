@@ -10,6 +10,9 @@ class GyroControllerNameParser
     private $symfonyParser;
     private $container;
 
+    /**
+     * @psalm-suppress DeprecatedClass
+     */
     public function __construct(ControllerNameParser $parser, ContainerInterface $container)
     {
         $this->symfonyParser = $parser;
@@ -34,6 +37,10 @@ class GyroControllerNameParser
     private function parseServiceController(string $serviceId, string $method) : string
     {
         $service = $this->container->get($serviceId);
+
+        if (! $service) {
+            throw new \RuntimeException(sprintf('No service found for id "%s".', $serviceId));
+        }
 
         return get_class($service) . '::' . $method;
     }

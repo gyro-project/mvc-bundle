@@ -3,9 +3,12 @@
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
 use Gyro\Bundle\MVCBundle\ParamConverter\ServiceProvider;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Gyro\Bundle\MVCBundle\Request\SymfonyFormRequest;
 use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
+use Gyro\MVC\FormRequest;
+use Gyro\MVC\TokenContext;
 
 /**
  * Convert the request parameters into objects when typehinted.
@@ -17,7 +20,7 @@ use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
 class ParamConverterListener
 {
     /**
-     * @var ServiceProviderInterface
+     * @var ServiceProvider
      */
     private $serviceProvider;
 
@@ -26,7 +29,11 @@ class ParamConverterListener
         $this->serviceProvider = $container;
     }
 
-    public function onKernelController(FilterControllerEvent $event) : void
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     * @psalm-suppress PossiblyNullReference
+     */
+    public function onKernelController(ControllerEvent $event) : void
     {
         $controller = $event->getController();
         $request = $event->getRequest();
@@ -48,12 +55,12 @@ class ParamConverterListener
             $class = $param->getClass()->getName();
             $name = $param->getName();
 
-            if (is_subclass_of($class, "Symfony\\Component\\HttpFoundation\\Session\\SessionInterface") ||
-                   $class === "Symfony\\Component\\HttpFoundation\\Session\\SessionInterface") {
+            if (is_subclass_of($class, SessionInterface::class) ||
+                   $class === SessionInterface::class) {
                 $value = $request->getSession();
-            } elseif ($class === "Gyro\\MVC\\FormRequest") {
+            } elseif ($class === FormRequest::class) {
                 $value = new SymfonyFormRequest($request, $this->serviceProvider->getFormFactory());
-            } elseif ($class === "Gyro\\MVC\\TokenContext") {
+            } elseif ($class === TokenContext::class) {
                 $value = new SymfonyTokenContext(
                     $this->serviceProvider->getTokenStorage(),
                     $this->serviceProvider->getAuthorizationChecker()

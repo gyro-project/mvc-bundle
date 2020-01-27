@@ -5,6 +5,7 @@ namespace Gyro\Bundle\MVCBundle\Controller\ResultConverter;
 use Gyro\MVC\Flash;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class FlashYieldApplier implements ControllerYieldApplier
 {
@@ -27,6 +28,10 @@ class FlashYieldApplier implements ControllerYieldApplier
             return;
         }
 
-        $request->getSession()->getFlashBag()->add($yield->type, $yield->message);
+        $session = $request->getSession();
+
+        assert($session instanceof Session);
+
+        $session->getFlashBag()->add($yield->type, $yield->message);
     }
 }

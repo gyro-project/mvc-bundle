@@ -4,7 +4,7 @@ namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use OutOfBoundsException;
 
 class ConvertExceptionListenerTest extends TestCase
@@ -20,7 +20,7 @@ class ConvertExceptionListenerTest extends TestCase
             ['OutOfBoundsException' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
-            $event = new GetResponseForExceptionEvent(
+            $event = new ExceptionEvent(
                 \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
                 \Phake::mock('Symfony\Component\HttpFoundation\Request'),
                 0,
@@ -43,7 +43,7 @@ class ConvertExceptionListenerTest extends TestCase
             ['Exception' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
-            $event = new GetResponseForExceptionEvent(
+            $event = new ExceptionEvent(
                 \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
                 \Phake::mock('Symfony\Component\HttpFoundation\Request'),
                 0,
@@ -65,7 +65,7 @@ class ConvertExceptionListenerTest extends TestCase
             ['OutOfBoundsException' => 405]
         );
         $listener->onKernelException(
-            $event = new GetResponseForExceptionEvent(
+            $event = new ExceptionEvent(
                 \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
                 \Phake::mock('Symfony\Component\HttpFoundation\Request'),
                 0,

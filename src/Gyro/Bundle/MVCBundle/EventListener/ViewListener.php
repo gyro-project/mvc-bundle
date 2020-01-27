@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerResultConverter;
@@ -14,8 +14,10 @@ use Generator;
  */
 class ViewListener
 {
+    /** @var ControllerResultConverter[] */
     private $converters = [];
 
+    /** @var ControllerYieldApplier[] */
     private $yieldAppliers = [];
 
     public function addConverter(ControllerResultConverter $converter) : void
@@ -28,7 +30,7 @@ class ViewListener
         $this->yieldAppliers[] = $applier;
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event) : void
+    public function onKernelView(ViewEvent $event) : void
     {
         $request = $event->getRequest();
 
@@ -36,7 +38,7 @@ class ViewListener
             return;
         }
 
-        $controller = $request->attributes->get('_controller');
+        $controller = (string) $request->attributes->get('_controller');
         $result = $event->getControllerResult();
 
         if (!$controller || $result instanceof Response) {
@@ -47,15 +49,15 @@ class ViewListener
             ? $this->unrollGenerator($result, $request)
             : $this->convert($result, $request);
 
-        if ($response) {
-            $event->setResponse($response);
-        }
+        $event->setResponse($response);
     }
 
     private function unrollGenerator(Generator $generator, Request $request) : Response
     {
+        /* @var array<object,array> $yields */
         $yields = iterator_to_array($generator);
 
+        /* @var object|array $result */
         $result = $generator->getReturn();
 
         if (!$result) {
@@ -65,6 +67,7 @@ class ViewListener
         $response = $this->convert($result, $request);
 
         foreach ($yields as $yield) {
+            /** @var mixed $yield */
             foreach ($this->yieldAppliers as $applier) {
                 if ($applier->supports($yield)) {
                     $applier->apply($yield, $request, $response);

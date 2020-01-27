@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Gyro\Bundle\MVCBundle\View\TemplateGuesser;
 use Gyro\MVC\TemplateView;
+use Gyro\MVC\ViewStruct;
 use Twig\Environment;
 
 /**
@@ -32,7 +33,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
      */
     public function supports($result) : bool
     {
-        return is_array($result) || $result instanceof TemplateView;
+        return is_array($result) || $result instanceof TemplateView || $result instanceof ViewStruct;
     }
 
     /**
@@ -40,23 +41,22 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
      */
     public function convert($result, Request $request) : Response
     {
-        $controller = $request->attributes->get('_controller');
+        $controller = (string) $request->attributes->get('_controller');
 
-        if (is_array($result)) {
+        if (is_array($result) || $result instanceof ViewStruct) {
             $result = new TemplateView($result);
+        } else if (! ($result instanceof TemplateView)) {
+            throw new \RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
         }
 
         return $this->makeResponseFor(
             $controller,
             $result,
-            $request->getRequestFormat()
+            $request->getRequestFormat() ?: 'html'
         );
     }
 
-    /**
-     * @param mixed $controller
-     */
-    private function makeResponseFor($controller, TemplateView $templateView, string $requestFormat) : Response
+    private function makeResponseFor(string $controller, TemplateView $templateView, string $requestFormat) : Response
     {
         $viewName = $this->guesser->guessControllerTemplateName(
             $controller,

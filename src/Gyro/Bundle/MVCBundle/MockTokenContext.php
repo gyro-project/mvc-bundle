@@ -22,6 +22,7 @@ class MockTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @psalm-suppress UndefinedInterfaceMethod
      * @return string|int
      */
     public function getCurrentUserId()
@@ -81,12 +82,17 @@ class MockTokenContext implements TokenContext
     }
 
     /**
+     * @psalm-suppress DeprecatedClass
      * @param mixed $attributes
      */
     public function isGranted($attributes, ?object $object = null) : bool
     {
         if (!is_string($attributes) && strpos($attributes, 'ROLE_') === false) {
             throw new \BadMethodCallException("Only ROLE_* checks are possible with mock interface.");
+        }
+
+        if ($this->user === null) {
+            throw new UnauthenticatedUserException();
         }
 
         $roles = $this->user->getRoles();

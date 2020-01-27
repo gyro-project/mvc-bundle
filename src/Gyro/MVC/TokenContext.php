@@ -51,9 +51,8 @@ interface TokenContext
 
     /**
      * @param mixed $attributes
-     * @param mixed $object
      *
-     * @throws AccessDeniedHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function assertIsGranted($attributes, ?object $object = null) : void;
 }

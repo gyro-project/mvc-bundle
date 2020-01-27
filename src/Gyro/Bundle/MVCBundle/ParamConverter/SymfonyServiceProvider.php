@@ -21,16 +21,25 @@ class SymfonyServiceProvider implements ServiceProvider
 
     public function getFormFactory() : FormFactoryInterface
     {
-        return $this->container->get('form.factory');
+        return $this->throwOnNull($this->container->get('form.factory'));
     }
 
     public function getTokenStorage() : TokenStorageInterface
     {
-        return $this->container->get('security.token_storage');
+        return $this->throwOnNull($this->container->get('security.token_storage'));
     }
 
     public function getAuthorizationChecker() : AuthorizationCheckerInterface
     {
-        return $this->container->get('security.authorization_checker');
+        return $this->throwOnNull($this->container->get('security.authorization_checker'));
+    }
+
+    private function throwOnNull(?object $service) : object
+    {
+        if ($service === null) {
+            throw new \RuntimeException("Non-existant service");
+        }
+
+        return $service;
     }
 }

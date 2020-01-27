@@ -29,10 +29,13 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     {
         [$bundleName, $controllerName, $actionName] = $this->parseControllerCommand($controller, $actionName);
 
-        return $this->createTemplateReference($bundleName, $controllerName, $actionName, $format, $engine);
+        return $this->createTemplateReference((string) $bundleName, (string) $controllerName, (string) $actionName, $format, $engine);
     }
 
-    /** @return array<int,string> */
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     * @return array<int,?string>
+     */
     private function parseControllerCommand(string $controller, ?string $actionName = null) : array
     {
         [$className, $method] = $this->extractControllerCallable($controller);
@@ -54,10 +57,10 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     private function createTemplateReference(string $bundleName, string $controllerName, ?string $actionName, string $format, string $engine) : string
     {
         if (!$bundleName) {
-            return sprintf('%s/%s.%s.%s', $controllerName, $actionName, $format, $engine);
+            return sprintf('%s/%s.%s.%s', $controllerName, (string) $actionName, $format, $engine);
         }
 
-        return sprintf('%s:%s:%s.%s.%s', $bundleName, $controllerName, $actionName, $format, $engine);
+        return sprintf('%s:%s:%s.%s.%s', $bundleName, $controllerName, (string) $actionName, $format, $engine);
     }
 
     /** @return array<int,string> */
