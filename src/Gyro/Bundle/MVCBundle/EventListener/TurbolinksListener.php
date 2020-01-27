@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
  */
 class TurbolinksListener
 {
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event) : void
     {
         $request = $event->getRequest();
         $response = $event->getResponse();
@@ -30,7 +30,7 @@ class TurbolinksListener
 
         if ($response->isRedirect() && $request->headers->has('Turbolinks-Referrer')) {
             $session->set('turbolinks_location', $response->headers->get('Location'));
-        } else if ($session->has('turbolinks_location')) {
+        } elseif ($session->has('turbolinks_location')) {
             $response->headers->set('Turbolinks-Location', $session->get('turbolinks_location'));
             $session->remove('turbolinks_location');
         }

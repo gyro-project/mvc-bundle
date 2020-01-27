@@ -13,7 +13,7 @@ use Twig\Environment;
  *
  * Guess the template names with the same algorithm that @Template()
  * in Sensio's FrameworkExtraBundle uses.
-*/
+ */
 class ArrayToTemplateResponseConverter implements ControllerResultConverter
 {
     private $twig;
@@ -36,7 +36,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     {
         $controller = $request->attributes->get('_controller');
 
-        if ( ! ($result instanceof TemplateView)) {
+        if (! ($result instanceof TemplateView)) {
             $result = new TemplateView($result);
         }
 

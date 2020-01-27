@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle\Request;
 
 use Gyro\MVC\Exception;
 use Gyro\MVC\FormRequest;
-
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -36,13 +35,12 @@ class SymfonyFormRequest implements FormRequest
      * Attempt to handle a form and return true when handled and data is valid.
      *
      * @param string|FormTypeInterface $formType
-     * @param array|object $bindData
-     * @param array $options
-     * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
+     * @param array|object             $bindData
+     * @param array                    $options
      *
-     * @return bool
+     * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle($formType, $bindData = null, array $options = array())
+    public function handle($formType, $bindData = null, array $options = []) : bool
     {
         if ($this->form !== null) {
             throw new Exception\FormAlreadyHandledException($this->form->getName());
@@ -70,10 +68,8 @@ class SymfonyFormRequest implements FormRequest
 
     /**
      * Is the bound form valid?
-     *
-     * @return bool
      */
-    public function isValid()
+    public function isValid() : bool
     {
         $this->assertFormHandled();
 
@@ -82,20 +78,15 @@ class SymfonyFormRequest implements FormRequest
 
     /**
      * Is the request bound to a form?
-     *
-     * @return bool
      */
-    public function isBound()
+    public function isBound() : bool
     {
         $this->assertFormHandled();
 
         return $this->form->isSubmitted();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getForm()
+    public function getForm() : \Symfony\Component\Form\FormInterface
     {
         $this->assertFormHandled();
 
@@ -106,17 +97,15 @@ class SymfonyFormRequest implements FormRequest
      * Create the form view for the handled form.
      *
      * Throws exception when no form was handled yet.
-     *
-     * @return \Symfony\Component\Form\FormView
      */
-    public function createFormView()
+    public function createFormView() : \Symfony\Component\Form\FormViewInterface
     {
         $this->assertFormHandled();
 
         return $this->form->createView();
     }
 
-    private function assertFormHandled()
+    private function assertFormHandled() : void
     {
         if ($this->form === null) {
             throw new Exception\NoFormHandledException();

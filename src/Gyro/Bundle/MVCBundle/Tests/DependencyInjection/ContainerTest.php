@@ -12,9 +12,9 @@ class ContainerTest extends TestCase
     /**
      * @test
      */
-    public function it_compiles_with_container()
+    public function it_compiles_with_container() : void
     {
-        $container = $this->createContainer(array());
+        $container = $this->createContainer([]);
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ViewListener',
@@ -32,7 +32,7 @@ class ContainerTest extends TestCase
     /**
      * @test
      */
-    public function it_compiles_with_turbolinks_container()
+    public function it_compiles_with_turbolinks_container() : void
     {
         $container = $this->createContainer(['turbolinks' => true]);
 
@@ -47,15 +47,13 @@ class ContainerTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_configuring_convert_exceptions()
+    public function it_allows_configuring_convert_exceptions() : void
     {
-        $container = $this->createContainer(array(
-            'convert_exceptions' => array(
-                'foo' => 'bar',
-            )
-        ));
+        $container = $this->createContainer([
+            'convert_exceptions' => ['foo' => 'bar'],
+        ]);
 
-        $this->assertEquals(array('foo' => 'bar'), $container->getParameter('gyro_mvc.convert_exceptions_map'));
+        $this->assertEquals(['foo' => 'bar'], $container->getParameter('gyro_mvc.convert_exceptions_map'));
 
         $this->assertInstanceOf(
             'Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener',
@@ -65,13 +63,13 @@ class ContainerTest extends TestCase
 
     public function createContainer(array $config)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.debug'       => false,
-            'kernel.bundles'     => array(),
+            'kernel.bundles'     => [],
             'kernel.cache_dir'   => sys_get_temp_dir(),
             'kernel.environment' => 'test',
-            'kernel.root_dir'    => __DIR__.'/../../../../' // src dir
-        )));
+            'kernel.root_dir'    => __DIR__ . '/../../../../', // src dir
+        ]));
 
         $loader = new GyroMVCExtension();
         $container->set('twig', \Phake::mock('Twig\Environment'));
@@ -80,9 +78,9 @@ class ContainerTest extends TestCase
         $container->set('logger', \Phake::mock('Psr\Log\LoggerInterface'));
         $container->set('router', \Phake::mock('Symfony\Component\Routing\Generator\UrlGeneratorInterface'));
         $container->registerExtension($loader);
-        $loader->load(array($config), $container);
+        $loader->load([$config], $container);
 
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
 
         foreach ($container->getDefinitions() as $definition) {
             $definition->setPublic(true); // symfony 4 support

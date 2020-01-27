@@ -13,7 +13,7 @@ class HeadersYieldApplier implements ControllerYieldApplier
         return $yield instanceof Headers;
     }
 
-    public function apply($yield, Request $request, Response $response)
+    public function apply($yield, Request $request, Response $response) : void
     {
         foreach ($yield->values as $key => $value) {
             $response->headers->set($key, $value);

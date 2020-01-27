@@ -10,7 +10,7 @@ class RedirectRoute
     private $parameters;
     private $response;
 
-    public function __construct($routeName, array $parameters = array(), Response $response = null)
+    public function __construct($routeName, array $parameters = [], Response $response = null)
     {
         $this->routeName = $routeName;
         $this->parameters = $parameters;

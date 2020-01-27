@@ -5,22 +5,12 @@ namespace Gyro\Bundle\MVCBundle\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 interface ServiceProviderInterface
 {
-    /**
-     * @return FormFactoryInterface
-     */
-    public function getFormFactory();
+    public function getFormFactory() : FormFactoryInterface;
 
-    /**
-     * @return TokenStorageInterface
-     */
-    public function getTokenStorage();
+    public function getTokenStorage() : TokenStorageInterface;
 
-    /**
-     * @return AuthorizationCheckerInterface
-     */
-    public function getAuthorizationChecker();
+    public function getAuthorizationChecker() : AuthorizationCheckerInterface;
 }

@@ -16,10 +16,11 @@ class SymfonyTokenContextTest extends TestCase
         $this->authorizationChecker = \Phake::mock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         parent::setUp();
     }
+
     /**
      * @test
      */
-    public function it_retrieves_token_from_security_context()
+    public function it_retrieves_token_from_security_context() : void
     {
         $token = \Phake::mock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
         \Phake::when($this->tokenStorage)->getToken()->thenReturn($token);
@@ -33,7 +34,7 @@ class SymfonyTokenContextTest extends TestCase
     /**
      * @test
      */
-    public function it_throws_unauthenticated_user_exception_when_no_token()
+    public function it_throws_unauthenticated_user_exception_when_no_token() : void
     {
         $context = new SymfonyTokenContext($this->tokenStorage, $this->authorizationChecker);
 
@@ -45,7 +46,7 @@ class SymfonyTokenContextTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_check_has_token()
+    public function it_allows_check_has_token() : void
     {
         $context = new SymfonyTokenContext($this->tokenStorage, $this->authorizationChecker);
 

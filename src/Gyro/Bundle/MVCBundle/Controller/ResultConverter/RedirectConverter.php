@@ -18,7 +18,7 @@ class RedirectConverter implements ControllerResultConverter
 
     public function supports($result) : bool
     {
-        return ($result instanceof RedirectRoute);
+        return $result instanceof RedirectRoute;
     }
 
     public function convert($result, Request $request) : Response

@@ -25,19 +25,16 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         $this->parser = $parser;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function guessControllerTemplateName($controller, $actionName, $format, $engine)
+    public function guessControllerTemplateName(string $controller, string $actionName, string $format, string $engine) : string
     {
-        list($bundleName, $controllerName, $actionName) = $this->parseControllerCommand($controller, $actionName);
+        [$bundleName, $controllerName, $actionName] = $this->parseControllerCommand($controller, $actionName);
 
         return $this->createTemplateReference($bundleName, $controllerName, $actionName, $format, $engine);
     }
 
     private function parseControllerCommand($controller, $actionName = null)
     {
-        list($className, $method) = $this->extractControllerCallable($controller);
+        [$className, $method] = $this->extractControllerCallable($controller);
 
         $bundleName     = $this->bundleLocation->locationFor($className);
         $controllerName = $this->extractControllerName($className);
@@ -50,7 +47,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
             return ['', $controllerName, $actionName];
         }
 
-        return array($bundleName, $controllerName, $actionName);
+        return [$bundleName, $controllerName, $actionName];
     }
 
     private function createTemplateReference($bundleName, $controllerName, $actionName, $format, $engine)
@@ -64,7 +61,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
 
     private function extractControllerCallable($controller)
     {
-        if (false === strpos($controller, '::')) {
+        if (strpos($controller, '::') === false) {
             $controller = $this->parser->parse($controller);
         }
 
@@ -89,4 +86,3 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return $matchAction[1];
     }
 }
-

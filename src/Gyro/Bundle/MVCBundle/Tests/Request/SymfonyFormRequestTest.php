@@ -11,14 +11,14 @@ class SymfonyFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function it_handles_form_request()
+    public function it_handles_form_request() : void
     {
         $formRequest = new SymfonyFormRequest(
             $request = new Request(),
             $formFactory = \Phake::mock('Symfony\Component\Form\FormFactoryInterface')
         );
 
-        \Phake::when($formFactory)->create('form_type', null, array())->thenReturn(
+        \Phake::when($formFactory)->create('form_type', null, [])->thenReturn(
             $form = \Phake::mock('Symfony\Component\Form\Form')
         );
         \Phake::when($form)->isSubmitted()->thenReturn(true);
@@ -34,14 +34,14 @@ class SymfonyFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_handle_only_once()
+    public function it_allows_handle_only_once() : void
     {
         $formRequest = new SymfonyFormRequest(
             $request = new Request(),
             $formFactory = \Phake::mock('Symfony\Component\Form\FormFactoryInterface')
         );
 
-        \Phake::when($formFactory)->create('form_type', null, array())->thenReturn(
+        \Phake::when($formFactory)->create('form_type', null, [])->thenReturn(
             $form = \Phake::mock('Symfony\Component\Form\Form')
         );
 
@@ -54,7 +54,7 @@ class SymfonyFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function it_requires_handle_before_create_view()
+    public function it_requires_handle_before_create_view() : void
     {
         $formRequest = new SymfonyFormRequest(
             $request = new Request(),

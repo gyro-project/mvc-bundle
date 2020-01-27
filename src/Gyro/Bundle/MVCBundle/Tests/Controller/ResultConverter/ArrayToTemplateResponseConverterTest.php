@@ -3,10 +3,8 @@
 namespace Gyro\Bundle\MVCBundle\Tests\Controller\ResultConverter;
 
 use PHPUnit\Framework\TestCase;
-
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ArrayToTemplateResponseConverter;
 use Twig\Environment;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Gyro\Bundle\MVCBundle\View\TemplateGuesser;
 use Gyro\MVC\TemplateView;
@@ -26,13 +24,13 @@ class ArrayToTemplateResponseConverterTest extends TestCase
         );
     }
 
-    public function testSupports()
+    public function testSupports() : void
     {
         $this->assertTrue($this->converter->supports(new TemplateView(['foo' => 'bar'])));
         $this->assertTrue($this->converter->supports([]));
     }
 
-    public function testRenderArrayToTemplateStringFromController()
+    public function testRenderArrayToTemplateStringFromController() : void
     {
         $request = new Request();
         $request->attributes->set('_controller', 'ctrl');

@@ -9,7 +9,7 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @return string|integer
+     * @return string|int
      */
     public function getCurrentUserId();
 
@@ -19,9 +19,8 @@ interface TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return string
      */
-    public function getCurrentUsername();
+    public function getCurrentUsername() : string;
 
     /**
      * Get the current User object
@@ -29,19 +28,12 @@ interface TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function getCurrentUser();
+    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface;
 
-    /**
-     * @return bool
-     */
-    public function hasToken();
+    public function hasToken() : bool;
 
-    /**
-     * @return bool
-     */
-    public function hasNonAnonymousToken();
+    public function hasNonAnonymousToken() : bool;
 
     /**
      * Get the Security Token
@@ -49,21 +41,20 @@ interface TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return \Symfony\Component\Securite\Core\Authentication\Token\TokenInterface
      */
-    public function getToken();
+    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
     /**
      * @param mixed $attributes
      * @param mixed $object
-     * @return bool
      */
-    public function isGranted($attributes, $object = null);
+    public function isGranted($attributes, $object = null) : bool;
 
     /**
      * @param mixed $attributes
      * @param mixed $object
+     *
      * @throws AccessDeniedHttpException
      */
-    public function assertIsGranted($attributes, $object = null);
+    public function assertIsGranted($attributes, $object = null) : void;
 }

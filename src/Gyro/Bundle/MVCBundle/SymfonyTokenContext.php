@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle;
 
 use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception;
-
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
@@ -26,7 +25,7 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @return string|integer
+     * @return string|int
      */
     public function getCurrentUserId()
     {
@@ -39,9 +38,8 @@ class SymfonyTokenContext implements TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return string
      */
-    public function getCurrentUsername()
+    public function getCurrentUsername() : string
     {
         return $this->getToken()->getUsername();
     }
@@ -52,9 +50,8 @@ class SymfonyTokenContext implements TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return \Symfony\Component\Security\Core\User\UserInterface
      */
-    public function getCurrentUser()
+    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface
     {
         $user = $this->getToken()->getUser();
 
@@ -65,18 +62,12 @@ class SymfonyTokenContext implements TokenContext
         return $user;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasToken()
+    public function hasToken() : bool
     {
         return $this->tokenStorage->getToken() !== null;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasNonAnonymousToken()
+    public function hasNonAnonymousToken() : bool
     {
         return $this->hasToken() && ! ($this->getToken() instanceof AnonymousToken);
     }
@@ -87,9 +78,8 @@ class SymfonyTokenContext implements TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
-     * @return \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
      */
-    public function getToken()
+    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
     {
         $token = $this->tokenStorage->getToken();
 
@@ -100,15 +90,12 @@ class SymfonyTokenContext implements TokenContext
         return $token;
     }
 
-    /**
-     * @return bool
-     */
-    public function isGranted($attributes, $object = null)
+    public function isGranted($attributes, $object = null) : bool
     {
         return $this->authorizationChecker->isGranted($attributes, $object);
     }
 
-    public function assertIsGranted($attributes, $object = null)
+    public function assertIsGranted($attributes, $object = null) : void
     {
         if (!$this->isGranted($attributes, $object)) {
             throw new AccessDeniedHttpException();

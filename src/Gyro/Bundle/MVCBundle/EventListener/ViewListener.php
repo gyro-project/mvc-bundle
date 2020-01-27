@@ -5,11 +5,8 @@ namespace Gyro\Bundle\MVCBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerResultConverter;
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerYieldApplier;
-use Gyro\Bundle\MVCBundle\View\TemplateGuesser;
-use Gyro\MVC\TemplateView;
 use Generator;
 
 /**
@@ -21,21 +18,21 @@ class ViewListener
 
     private $yieldAppliers = [];
 
-    public function addConverter(ControllerResultConverter $converter)
+    public function addConverter(ControllerResultConverter $converter) : void
     {
         $this->converters[] = $converter;
     }
 
-    public function addYieldApplier(ControllerYieldApplier $applier)
+    public function addYieldApplier(ControllerYieldApplier $applier) : void
     {
         $this->yieldAppliers[] = $applier;
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event)
+    public function onKernelView(GetResponseForControllerResultEvent $event) : void
     {
         $request = $event->getRequest();
 
-        if ( ! $request->attributes->has('_controller')) {
+        if (! $request->attributes->has('_controller')) {
             return;
         }
 
@@ -46,7 +43,7 @@ class ViewListener
             return;
         }
 
-        $response = ($result instanceof Generator)
+        $response = $result instanceof Generator
             ? $this->unrollGenerator($result, $request)
             : $this->convert($result, $request);
 
@@ -96,4 +93,3 @@ class ViewListener
         ));
     }
 }
-

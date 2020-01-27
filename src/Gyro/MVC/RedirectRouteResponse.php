@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectRouteResponse extends RedirectRoute
 {
-    public function __construct($routeName, array $parameters = array(), $statusCode = 301, array $headers = array())
+    public function __construct($routeName, array $parameters = [], $statusCode = 301, array $headers = [])
     {
         parent::__construct($routeName, $parameters, new Response("", $statusCode, $headers));
     }

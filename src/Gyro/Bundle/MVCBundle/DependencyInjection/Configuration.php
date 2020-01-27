@@ -29,8 +29,7 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('turbolinks')
                     ->defaultValue(false)
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         return $treeBuilder;
     }

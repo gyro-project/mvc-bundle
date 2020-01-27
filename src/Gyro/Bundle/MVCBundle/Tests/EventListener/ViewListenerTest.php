@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerResultConverter;
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerYieldApplier;
 use Gyro\Bundle\MVCBundle\EventListener\ViewListener;
@@ -16,9 +15,9 @@ use Gyro\MVC\RedirectRoute;
 
 class ViewListenerTest extends TestCase
 {
-    const A_CONTROLLER = 'foo';
-    const A_TEMPLATE = 'bar';
-    const A_TEMPLATE_OVERWRITE = 'baz';
+    public const A_CONTROLLER = 'foo';
+    public const A_TEMPLATE = 'bar';
+    public const A_TEMPLATE_OVERWRITE = 'baz';
 
     private $listener;
     private $converter;
@@ -37,7 +36,7 @@ class ViewListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_ignores_requests_without_controller()
+    public function it_ignores_requests_without_controller() : void
     {
         $request = $this->requestForController(null);
 
@@ -49,7 +48,7 @@ class ViewListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_ignores_requests_returning_valid_response()
+    public function it_ignores_requests_returning_valid_response() : void
     {
         $result = new Response();
 
@@ -63,9 +62,9 @@ class ViewListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_generates_response_with_controller_array_result()
+    public function it_generates_response_with_controller_array_result() : void
     {
-        $result = array('foo' => 'bar');
+        $result = ['foo' => 'bar'];
 
         $request = $this->requestForController(self::A_CONTROLLER);
 
@@ -81,13 +80,14 @@ class ViewListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_generates_response_with_controller_generator_result()
+    public function it_generates_response_with_controller_generator_result() : void
     {
         $r = new RedirectRoute('foo');
         $t = new TemplateView('foo');
-        $ctrl = function() use ($r, $t) {
+        $ctrl = function () use ($r, $t) {
             yield $r;
             yield $t;
+
             return ['foo' => 'bar'];
         };
         $result = $ctrl();
@@ -113,7 +113,7 @@ class ViewListenerTest extends TestCase
         return $request;
     }
 
-    private function expectConverterToSupportResult()
+    private function expectConverterToSupportResult() : void
     {
         \Phake::when($this->converter)->supports(\Phake::anyParameters())->thenReturn(true);
     }

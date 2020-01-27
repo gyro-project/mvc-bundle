@@ -8,13 +8,12 @@ interface FormRequest
      * Attempt to handle a form and return true when handled and data is valid.
      *
      * @param string|Typeinterface $formType
-     * @param array|object $bindData
-     * @param array $options
-     * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
+     * @param array|object         $bindData
+     * @param array                $options
      *
-     * @return bool
+     * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle($formType, $bindData = null, array $options = array());
+    public function handle($formType, $bindData = null, array $options = []) : bool;
 
     /**
      * Use this to retrieve the validated data from the form even when you attached `$bindData`.
@@ -27,29 +26,20 @@ interface FormRequest
 
     /**
      * Is the bound form valid?
-     *
-     * @return bool
      */
-    public function isValid();
+    public function isValid() : bool;
 
     /**
      * Is the request bound to a form?
-     *
-     * @return bool
      */
-    public function isBound();
+    public function isBound() : bool;
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getForm();
+    public function getForm() : \Symfony\Component\Form\FormInterface;
 
     /**
      * Create the form view for the handled form.
      *
      * Throws exception when no form was handled yet.
-     *
-     * @return \Symfony\Component\Form\FormViewInterface
      */
-    public function createFormView();
+    public function createFormView() : \Symfony\Component\Form\FormViewInterface;
 }

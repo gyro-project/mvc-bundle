@@ -12,7 +12,7 @@ class TemplateView
     private $statusCode;
     private $headers;
 
-    public function __construct($viewParams, $actionTemplateName = null, $statusCode = 200, array $headers = array())
+    public function __construct($viewParams, $actionTemplateName = null, $statusCode = 200, array $headers = [])
     {
         $this->viewParams = $viewParams;
         $this->actionTemplateName = $actionTemplateName;
@@ -23,12 +23,12 @@ class TemplateView
     /**
      * @return array
      */
-    public function getViewParams()
+    public function getViewParams() : array
     {
         $viewParams = $this->viewParams;
 
         if (is_object($viewParams)) {
-            $viewParams = array('view' => $viewParams);
+            $viewParams = ['view' => $viewParams];
         }
 
         if (!isset($viewParams['view'])) {
@@ -38,18 +38,12 @@ class TemplateView
         return $viewParams;
     }
 
-    /**
-     * @return string
-     */
-    public function getActionTemplateName()
+    public function getActionTemplateName() : string
     {
         return $this->actionTemplateName;
     }
 
-    /**
-     * @return int
-     */
-    public function getStatusCode()
+    public function getStatusCode() : int
     {
         return $this->statusCode;
     }
@@ -57,7 +51,7 @@ class TemplateView
     /**
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders() : array
     {
         return $this->headers;
     }

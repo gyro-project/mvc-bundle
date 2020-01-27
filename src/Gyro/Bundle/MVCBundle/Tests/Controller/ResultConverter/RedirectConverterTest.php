@@ -3,14 +3,10 @@
 namespace Gyro\Bundle\MVCBundle\Tests\Controller\ResultConverter;
 
 use PHPUnit\Framework\TestCase;
-
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\RedirectConverter;
 use Gyro\MVC\RedirectRouteResponse;
 use Gyro\MVC\RedirectRoute;
-
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class RedirectConverterTest extends TestCase
 {
@@ -26,12 +22,12 @@ class RedirectConverterTest extends TestCase
     /**
      * @test
      */
-    public function it_redirects_when_goto_page_result()
+    public function it_redirects_when_goto_page_result() : void
     {
-        \Phake::when($this->router)->generate('foo', array('id' => 10))->thenReturn('/foo?id=10');
+        \Phake::when($this->router)->generate('foo', ['id' => 10])->thenReturn('/foo?id=10');
         $request = Request::create('GET', '/');
 
-        $response = $this->converter->convert(new RedirectRouteResponse('foo', array('id' => 10)), $request);
+        $response = $this->converter->convert(new RedirectRouteResponse('foo', ['id' => 10]), $request);
 
         $this->assertInstanceOf(
             'Symfony\Component\HttpFoundation\Response',
@@ -45,12 +41,12 @@ class RedirectConverterTest extends TestCase
     /**
      * @test
      */
-    public function it_redirects_when_redirect_route_result()
+    public function it_redirects_when_redirect_route_result() : void
     {
-        \Phake::when($this->router)->generate('foo', array('id' => 10))->thenReturn('/foo?id=10');
+        \Phake::when($this->router)->generate('foo', ['id' => 10])->thenReturn('/foo?id=10');
         $request = Request::create('GET', '/');
 
-        $response = $this->converter->convert(new RedirectRoute('foo', array('id' => 10)), $request);
+        $response = $this->converter->convert(new RedirectRoute('foo', ['id' => 10]), $request);
 
         $this->assertInstanceOf(
             'Symfony\Component\HttpFoundation\Response',
@@ -61,4 +57,3 @@ class RedirectConverterTest extends TestCase
         $this->assertEquals('/foo?id=10', $response->headers->get('Location'));
     }
 }
-

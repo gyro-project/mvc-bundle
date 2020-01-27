@@ -17,13 +17,13 @@ class CookieYieldApplierTest extends TestCase
         $this->applier = new CookieYieldApplier();
     }
 
-    public function testSupportsOnlyCookie()
+    public function testSupportsOnlyCookie() : void
     {
         $this->assertTrue($this->applier->supports(new Cookie('foo', 'bar')));
-        $this->assertFalse($this->applier->supports(new \stdClass));
+        $this->assertFalse($this->applier->supports(new \stdClass()));
     }
 
-    public function testApplySetsCookie()
+    public function testApplySetsCookie() : void
     {
         $request = new Request();
         $response = new Response();

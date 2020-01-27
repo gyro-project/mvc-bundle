@@ -3,11 +3,7 @@
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
-
 use Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener;
-use Gyro\MVC\RedirectRouteResponse;
-use Gyro\MVC\RedirectRoute;
-
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +23,7 @@ class TurbolinksListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_turbolink_location()
+    public function it_stores_turbolink_location() : void
     {
         $event = $this->createEventWith($response = new RedirectResponse('/two'));
         $this->listener->onKernelResponse($event);
@@ -40,7 +36,7 @@ class TurbolinksListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_passes_turbolinks_location_to_response()
+    public function it_passes_turbolinks_location_to_response() : void
     {
         $event = $this->createEventWith($response = new Response());
 

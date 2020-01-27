@@ -6,7 +6,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Psr\Log\LoggerInterface;
-
 use Exception;
 use ReflectionClass;
 
@@ -25,13 +24,13 @@ class ConvertExceptionListener
      */
     private $exceptionClassMap;
 
-    public function __construct(LoggerInterface $logger = null, array $exceptionClassMap = array())
+    public function __construct(LoggerInterface $logger = null, array $exceptionClassMap = [])
     {
         $this->logger = $logger;
         $this->exceptionClassMap = $exceptionClassMap;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event) : void
     {
         $exception = $event->getException();
 
@@ -59,12 +58,12 @@ class ConvertExceptionListener
 
         $reflectionClass = new ReflectionClass($convertToExceptionClass);
         $constructor = $reflectionClass->getConstructor();
-        $args = array();
+        $args = [];
 
         foreach ($constructor->getParameters() as $parameter) {
             if ($parameter->getName() === 'previous') {
                 $args[] = $exception;
-            } else if ($parameter->isDefaultValueAvailable()) {
+            } elseif ($parameter->isDefaultValueAvailable()) {
                 $args[] = $parameter->getDefaultValue();
             } else {
                 return;
@@ -87,7 +86,7 @@ class ConvertExceptionListener
         return null;
     }
 
-    private function logException(Exception $exception)
+    private function logException(Exception $exception) : void
     {
         if ($this->logger === null) {
             return;
@@ -101,6 +100,6 @@ class ConvertExceptionListener
             $exception->getLine()
         );
 
-        $this->logger->critical($message, array('exception' => $exception));
+        $this->logger->critical($message, ['exception' => $exception]);
     }
 }

@@ -10,10 +10,10 @@ class MockTokenContextTest extends TestCase
     /**
      * @test
      */
-    public function it_grants_access_from_token_roles()
+    public function it_grants_access_from_token_roles() : void
     {
         $user = \Phake::mock('Symfony\Component\Security\Core\User\UserInterface');
-        \Phake::when($user)->getRoles()->thenReturn(array('ROLE_USER', 'ROLE_ADMIN'));
+        \Phake::when($user)->getRoles()->thenReturn(['ROLE_USER', 'ROLE_ADMIN']);
 
         $context = new MockTokenContext($user);
 

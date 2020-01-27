@@ -17,13 +17,13 @@ class HeadersYieldApplierTest extends TestCase
         $this->applier = new HeadersYieldApplier();
     }
 
-    public function testSupportsOnlyHeaders()
+    public function testSupportsOnlyHeaders() : void
     {
         $this->assertTrue($this->applier->supports(new Headers(['foo' => 'bar'])));
-        $this->assertFalse($this->applier->supports(new \stdClass));
+        $this->assertFalse($this->applier->supports(new \stdClass()));
     }
 
-    public function testApplySetsHeaders()
+    public function testApplySetsHeaders() : void
     {
         $request = new Request();
         $response = new Response();

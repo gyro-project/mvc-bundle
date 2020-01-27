@@ -12,14 +12,12 @@ class ConvertExceptionListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_converts_exceptions()
+    public function it_converts_exceptions() : void
     {
         $logger = \Phake::mock('Psr\Log\LoggerInterface');
         $listener = new ConvertExceptionListener(
             $logger,
-            array(
-                'OutOfBoundsException' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
-            )
+            ['OutOfBoundsException' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
             $event = new GetResponseForExceptionEvent(
@@ -37,14 +35,12 @@ class ConvertExceptionListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_matches_subclasses_when_converting()
+    public function it_matches_subclasses_when_converting() : void
     {
         $logger = \Phake::mock('Psr\Log\LoggerInterface');
         $listener = new ConvertExceptionListener(
             $logger,
-            array(
-                'Exception' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
-            )
+            ['Exception' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
             $event = new GetResponseForExceptionEvent(
@@ -61,14 +57,12 @@ class ConvertExceptionListenerTest extends TestCase
     /**
      * @test
      */
-    public function it_converts_numbers_to_http_status_code_exception()
+    public function it_converts_numbers_to_http_status_code_exception() : void
     {
         $logger = \Phake::mock('Psr\Log\LoggerInterface');
         $listener = new ConvertExceptionListener(
             $logger,
-            array(
-                'OutOfBoundsException' => 405
-            )
+            ['OutOfBoundsException' => 405]
         );
         $listener->onKernelException(
             $event = new GetResponseForExceptionEvent(

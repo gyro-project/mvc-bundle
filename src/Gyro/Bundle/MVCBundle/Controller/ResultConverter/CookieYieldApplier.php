@@ -13,7 +13,7 @@ class CookieYieldApplier implements ControllerYieldApplier
         return $yield instanceof Cookie;
     }
 
-    public function apply($yield, Request $request, Response $response)
+    public function apply($yield, Request $request, Response $response) : void
     {
         $response->headers->setCookie($yield);
     }

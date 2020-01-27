@@ -26,7 +26,7 @@ class ParamConverterListener
         $this->serviceProvider = $container;
     }
 
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(FilterControllerEvent $event) : void
     {
         $controller = $event->getController();
         $request = $event->getRequest();
@@ -51,9 +51,9 @@ class ParamConverterListener
             if (is_subclass_of($class, "Symfony\\Component\\HttpFoundation\\Session\\SessionInterface") ||
                    $class === "Symfony\\Component\\HttpFoundation\\Session\\SessionInterface") {
                 $value = $request->getSession();
-            } else if ("Gyro\\MVC\\FormRequest" === $class) {
+            } elseif ($class === "Gyro\\MVC\\FormRequest") {
                 $value = new SymfonyFormRequest($request, $this->serviceProvider->getFormFactory());
-            } else if ("Gyro\\MVC\\TokenContext" === $class) {
+            } elseif ($class === "Gyro\\MVC\\TokenContext") {
                 $value = new SymfonyTokenContext(
                     $this->serviceProvider->getTokenStorage(),
                     $this->serviceProvider->getAuthorizationChecker()

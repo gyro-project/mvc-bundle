@@ -14,12 +14,12 @@ class BundleLocation
         $this->kernel = $kernel;
     }
 
-    public function locationFor($className)
+    public function locationFor($className) : ?string
     {
         $bundle = $this->getBundleForClass($className);
 
         if (!$bundle) {
-            return;
+            return null;
         }
 
         return $bundle->getName();
@@ -33,10 +33,11 @@ class BundleLocation
         do {
             $namespace = $reflectionClass->getNamespaceName();
             foreach ($bundles as $bundle) {
-                if (0 === strpos($namespace, $bundle->getNamespace())) {
+                if (strpos($namespace, $bundle->getNamespace()) === 0) {
                     return $bundle;
                 }
             }
+
             $reflectionClass = $reflectionClass->getParentClass();
         } while ($reflectionClass);
 

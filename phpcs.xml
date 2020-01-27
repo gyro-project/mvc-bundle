@@ -1,0 +1,43 @@
+<ruleset>
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="1"/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+
+    <!-- Ignore warnings, show progress of the run and show sniff names -->
+    <arg value="nps"/>
+
+    <file>./src/</file>
+    <exclude-pattern>./vendor/*</exclude-pattern>
+
+    <!-- Include full Doctrine Coding Standard -->
+    <rule ref="Doctrine">
+        <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame" />
+        <exclude name="Generic.Formatting.SpaceAfterNot.Incorrect" />
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes" />
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName" />
+        <exclude name="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses.IncorrectlyOrderedUses" />
+        <exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit" />
+        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.WriteOnlyProperty" />
+        <exclude name="SlevomatCodingStandard.Variables.UselessVariable.UselessVariable" /> <!-- this cannot be safely detected sadly -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator.UselessTernaryOperator" /> <!-- i find this useful at time to increase clarity! -->
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName" />
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators" />
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment" />
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />
+        <exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
+        <exclude name="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn" />
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
+        <exclude name="Squiz.Arrays.ArrayDeclaration.NoComma" />
+    </rule>
+
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array" value="eval=>null,system=>null,phpinfo=>null,printf=>null,echo=>null,print=>null,print_r=>null"/>
+        </properties>
+    </rule>
+</ruleset>

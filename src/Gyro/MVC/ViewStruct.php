@@ -22,7 +22,7 @@ namespace Gyro\MVC;
  *      }
  *
  *      # Controller/DefaultController.php
- *      class DefaultController
+ *
  *      {
  *          public function helloAction($name)
  *          {
@@ -38,7 +38,7 @@ abstract class ViewStruct
     public function __construct(array $data)
     {
         foreach ($data as $property => $value) {
-            if ( ! property_exists($this, $property)) {
+            if (! property_exists($this, $property)) {
                 $this->throwPropertyNotExists($property);
             }
 
@@ -55,10 +55,10 @@ abstract class ViewStruct
         $this->throwPropertyNotExists($name);
     }
 
-    private function throwPropertyNotExists($property)
+    private function throwPropertyNotExists($property) : void
     {
         throw new \InvalidArgumentException(
-            'View ' . get_class($this) . ' does not support property "$' . $property .
+            'View ' . static::class . ' does not support property "$' . $property .
             ' The following properties exist: ' . implode(", ", array_keys(get_object_vars($this)))
         );
     }

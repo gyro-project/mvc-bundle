@@ -19,13 +19,13 @@ class FlashYieldApplierTest extends TestCase
         $this->applier = new FlashYieldApplier();
     }
 
-    public function testSupportsOnlyFlash()
+    public function testSupportsOnlyFlash() : void
     {
         $this->assertTrue($this->applier->supports(new Flash('foo', 'bar')));
-        $this->assertFalse($this->applier->supports(new \stdClass));
+        $this->assertFalse($this->applier->supports(new \stdClass()));
     }
 
-    public function testApplySetsFlash()
+    public function testApplySetsFlash() : void
     {
         $request = new Request();
         $session = new Session(new MockArraySessionStorage());
