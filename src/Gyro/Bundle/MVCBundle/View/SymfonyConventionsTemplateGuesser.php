@@ -25,7 +25,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         $this->parser = $parser;
     }
 
-    public function guessControllerTemplateName(string $controller, string $actionName, string $format, string $engine) : string
+    public function guessControllerTemplateName(string $controller, ?string $actionName, string $format, string $engine) : string
     {
         [$bundleName, $controllerName, $actionName] = $this->parseControllerCommand($controller, $actionName);
 

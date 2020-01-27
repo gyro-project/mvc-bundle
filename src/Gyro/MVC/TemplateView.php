@@ -38,7 +38,7 @@ class TemplateView
         return $viewParams;
     }
 
-    public function getActionTemplateName() : string
+    public function getActionTemplateName() : ?string
     {
         return $this->actionTemplateName;
     }
