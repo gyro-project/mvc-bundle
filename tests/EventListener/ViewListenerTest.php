@@ -83,7 +83,7 @@ class ViewListenerTest extends TestCase
     public function it_generates_response_with_controller_generator_result() : void
     {
         $r = new RedirectRoute('foo');
-        $t = new TemplateView('foo');
+        $t = new TemplateView([]);
         $ctrl = function () use ($r, $t) {
             yield $r;
             yield $t;
