@@ -2,7 +2,7 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Gyro MVCBundle">
-            <directory>src/Gyro/Bundle/MVCBundle/Tests</directory>
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

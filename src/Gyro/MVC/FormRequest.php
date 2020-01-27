@@ -2,12 +2,14 @@
 
 namespace Gyro\MVC;
 
+use Symfony\Component\Form\FormTypeInterface;
+
 interface FormRequest
 {
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string|Typeinterface       $formType
+     * @param string|FormTypeinterface   $formType
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *
@@ -41,5 +43,5 @@ interface FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView() : \Symfony\Component\Form\FormViewInterface;
+    public function createFormView() : ?\Symfony\Component\Form\FormView;
 }

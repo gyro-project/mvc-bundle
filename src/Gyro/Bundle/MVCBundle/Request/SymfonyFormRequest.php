@@ -98,7 +98,7 @@ class SymfonyFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView() : \Symfony\Component\Form\FormViewInterface
+    public function createFormView() : \Symfony\Component\Form\FormView
     {
         $this->assertFormHandled();
 

@@ -3,17 +3,18 @@
 namespace Gyro\MVC\Form;
 
 use Gyro\MVC\FormRequest;
+use Symfony\Component\Form\FormTypeInterface;
 
 class InvalidFormRequest implements FormRequest
 {
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string|Typeinterface       $formType
+     * @param string|FormTypeinterface   $formType
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *
-     * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
+     * @throws \Gyro\MVC\Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
     public function handle($formType, $bindData = null, array $options = []) : bool
     {
@@ -58,8 +59,8 @@ class InvalidFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView() : \Symfony\Component\Form\FormViewInterface
+    public function createFormView() : \Symfony\Component\Form\FormView
     {
-        return null;
+        return new \Symfony\Component\Form\FormView();
     }
 }

@@ -25,5 +25,10 @@
             "Gyro\\Bundle\\MVCBundle\\": "src/",
             "Gyro\\MVC\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gyro\\Bundle\\MVCBundle\\": "tests/"
+        }
     }
 }
