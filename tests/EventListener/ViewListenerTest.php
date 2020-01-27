@@ -3,7 +3,7 @@
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -120,7 +120,7 @@ class ViewListenerTest extends TestCase
 
     private function createEventWith(Request $request, $controllerResult = null)
     {
-        return new GetResponseForControllerResultEvent(
+        return new ViewEvent(
             \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
             $request,
             HttpKernelInterface::MASTER_REQUEST,

@@ -33,7 +33,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     }
 
     /**
-     * @return array<int,?string>
+     * @return array<int,string|null>
      *
      * @psalm-suppress ArgumentTypeCoercion
      */

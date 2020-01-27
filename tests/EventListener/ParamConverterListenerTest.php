@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -35,7 +35,7 @@ class ParamConverterListenerTest extends TestCase
 
         $method = function (Session $session, TokenContext $context) : void {
         };
-        $event  = new FilterControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event  = new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
 
         $this->listener->onKernelController($event);
 
@@ -65,7 +65,7 @@ class ParamConverterListenerTest extends TestCase
     private function assertRequestHasContext($controller) : void
     {
         $request = new Request();
-        $event   = new FilterControllerEvent($this->kernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event   = new ControllerEvent($this->kernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
 
         $this->listener->onKernelController($event);
 
