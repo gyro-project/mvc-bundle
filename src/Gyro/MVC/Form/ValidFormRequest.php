@@ -6,9 +6,13 @@ use Gyro\MVC\FormRequest;
 
 class ValidFormRequest implements FormRequest
 {
+    /** @var array<string,mixed> */
     private $validData;
 
-    public function __construct($validData)
+    /**
+     * @param array<string,mixed> $validData
+     */
+    public function __construct(array $validData)
     {
         $this->validData = $validData;
     }
@@ -16,9 +20,9 @@ class ValidFormRequest implements FormRequest
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string|Typeinterface $formType
-     * @param array|object         $bindData
-     * @param array                $options
+     * @param string|Typeinterface       $formType
+     * @param array<string,mixed>|object $bindData
+     * @param array<string,mixed>        $options
      *
      * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */

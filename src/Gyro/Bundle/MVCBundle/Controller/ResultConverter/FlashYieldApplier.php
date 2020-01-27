@@ -8,11 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FlashYieldApplier implements ControllerYieldApplier
 {
+    /**
+     * @param mixed $yield
+     */
     public function supports($yield) : bool
     {
         return $yield instanceof Flash;
     }
 
+    /**
+     * @param mixed $yield
+     */
     public function apply($yield, Request $request, Response $response) : void
     {
         if (!$request->hasSession()) {

@@ -27,11 +27,17 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
         $this->engine = $engine;
     }
 
+    /**
+     * @param mixed $result
+     */
     public function supports($result) : bool
     {
         return is_array($result) || $result instanceof TemplateView;
     }
 
+    /**
+     * @param mixed $result
+     */
     public function convert($result, Request $request) : Response
     {
         $controller = $request->attributes->get('_controller');
@@ -47,7 +53,10 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
         );
     }
 
-    private function makeResponseFor($controller, TemplateView $templateView, $requestFormat) : Response
+    /**
+     * @param mixed $controller
+     */
+    private function makeResponseFor($controller, TemplateView $templateView, string $requestFormat) : Response
     {
         $viewName = $this->guesser->guessControllerTemplateName(
             $controller,

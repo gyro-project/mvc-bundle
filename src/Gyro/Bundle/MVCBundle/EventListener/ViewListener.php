@@ -75,6 +75,9 @@ class ViewListener
         return $response;
     }
 
+    /**
+     * @param mixed $result
+     */
     private function convert($result, Request $request) : Response
     {
         if ($result instanceof Response) {

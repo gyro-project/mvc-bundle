@@ -6,28 +6,37 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectRoute
 {
+    /** @var string */
     private $routeName;
+    /** @var array<string,string> */
     private $parameters;
+    /** @var ?Response */
     private $response;
 
-    public function __construct($routeName, array $parameters = [], Response $response = null)
+    /**
+     * @param array<string,string> $parameters
+     */
+    public function __construct(string $routeName, array $parameters = [], Response $response = null)
     {
         $this->routeName = $routeName;
         $this->parameters = $parameters;
         $this->response = $response;
     }
 
-    public function getRouteName()
+    public function getRouteName() : string
     {
         return $this->routeName;
     }
 
-    public function getParameters()
+    /**
+     * @return array<string,string>
+     */
+    public function getParameters() : array
     {
         return $this->parameters;
     }
 
-    public function getResponse()
+    public function getResponse() : ?Response
     {
         return $this->response;
     }

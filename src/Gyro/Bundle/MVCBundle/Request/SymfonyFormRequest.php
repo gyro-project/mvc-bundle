@@ -34,9 +34,9 @@ class SymfonyFormRequest implements FormRequest
     /**
      * Attempt to handle a form and return true when handled and data is valid.
      *
-     * @param string|FormTypeInterface $formType
-     * @param array|object             $bindData
-     * @param array                    $options
+     * @param string|FormTypeInterface   $formType
+     * @param array<string,mixed>|object $bindData
+     * @param array<string,mixed>        $options
      *
      * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */

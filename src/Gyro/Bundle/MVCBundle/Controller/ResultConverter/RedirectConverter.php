@@ -16,11 +16,17 @@ class RedirectConverter implements ControllerResultConverter
         $this->router = $router;
     }
 
+    /**
+     * @param mixed $result
+     */
     public function supports($result) : bool
     {
         return $result instanceof RedirectRoute;
     }
 
+    /**
+     * @param mixed $result
+     */
     public function convert($result, Request $request) : Response
     {
         $response = new Response("", 302);

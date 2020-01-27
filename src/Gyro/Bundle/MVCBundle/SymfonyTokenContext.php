@@ -90,12 +90,18 @@ class SymfonyTokenContext implements TokenContext
         return $token;
     }
 
-    public function isGranted($attributes, $object = null) : bool
+    /**
+     * @param mixed $attributes
+     */
+    public function isGranted($attributes, ?object $object = null) : bool
     {
         return $this->authorizationChecker->isGranted($attributes, $object);
     }
 
-    public function assertIsGranted($attributes, $object = null) : void
+    /**
+     * @param mixed $attributes
+     */
+    public function assertIsGranted($attributes, ?object $object = null) : void
     {
         if (!$this->isGranted($attributes, $object)) {
             throw new AccessDeniedHttpException();

@@ -35,6 +35,9 @@ namespace Gyro\MVC;
  */
 abstract class ViewStruct
 {
+    /**
+     * @param array<string,mixed> $data
+     */
     public function __construct(array $data)
     {
         foreach ($data as $property => $value) {
@@ -46,7 +49,8 @@ abstract class ViewStruct
         }
     }
 
-    public function __get($name)
+    /** @return mixed */
+    public function __get(string $name)
     {
         if (property_exists($this, $name)) {
             return $this->$name;
@@ -55,7 +59,7 @@ abstract class ViewStruct
         $this->throwPropertyNotExists($name);
     }
 
-    private function throwPropertyNotExists($property) : void
+    private function throwPropertyNotExists(string $property) : void
     {
         throw new \InvalidArgumentException(
             'View ' . static::class . ' does not support property "$' . $property .

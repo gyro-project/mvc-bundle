@@ -8,11 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CookieYieldApplier implements ControllerYieldApplier
 {
+    /**
+     * @param mixed $yield
+     */
     public function supports($yield) : bool
     {
         return $yield instanceof Cookie;
     }
 
+    /**
+     * @param mixed $yield
+     */
     public function apply($yield, Request $request, Response $response) : void
     {
         $response->headers->setCookie($yield);

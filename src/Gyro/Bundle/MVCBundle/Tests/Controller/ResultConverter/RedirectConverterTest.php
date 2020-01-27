@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle\Tests\Controller\ResultConverter;
 
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\RedirectConverter;
-use Gyro\MVC\RedirectRouteResponse;
 use Gyro\MVC\RedirectRoute;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +26,7 @@ class RedirectConverterTest extends TestCase
         \Phake::when($this->router)->generate('foo', ['id' => 10])->thenReturn('/foo?id=10');
         $request = Request::create('GET', '/');
 
-        $response = $this->converter->convert(new RedirectRouteResponse('foo', ['id' => 10]), $request);
+        $response = $this->converter->convert(new RedirectRoute('foo', ['id' => 10]), $request);
 
         $this->assertInstanceOf(
             'Symfony\Component\HttpFoundation\Response',

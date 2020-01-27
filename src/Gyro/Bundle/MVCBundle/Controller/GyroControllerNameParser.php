@@ -16,7 +16,7 @@ class GyroControllerNameParser
         $this->container = $container;
     }
 
-    public function parse($controller)
+    public function parse(string $controller) : string
     {
         $parts = explode(":", $controller);
 
@@ -31,7 +31,7 @@ class GyroControllerNameParser
         return $this->parseServiceController($parts[0], $parts[1]);
     }
 
-    private function parseServiceController($serviceId, $method)
+    private function parseServiceController(string $serviceId, string $method) : string
     {
         $service = $this->container->get($serviceId);
 

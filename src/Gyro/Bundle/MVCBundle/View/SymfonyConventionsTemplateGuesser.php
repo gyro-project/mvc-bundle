@@ -32,7 +32,8 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return $this->createTemplateReference($bundleName, $controllerName, $actionName, $format, $engine);
     }
 
-    private function parseControllerCommand($controller, $actionName = null)
+    /** @return array<int,string> */
+    private function parseControllerCommand(string $controller, ?string $actionName = null) : array
     {
         [$className, $method] = $this->extractControllerCallable($controller);
 
@@ -50,7 +51,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return [$bundleName, $controllerName, $actionName];
     }
 
-    private function createTemplateReference($bundleName, $controllerName, $actionName, $format, $engine)
+    private function createTemplateReference(string $bundleName, string $controllerName, ?string $actionName, string $format, string $engine) : string
     {
         if (!$bundleName) {
             return sprintf('%s/%s.%s.%s', $controllerName, $actionName, $format, $engine);
@@ -59,7 +60,8 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return sprintf('%s:%s:%s.%s.%s', $bundleName, $controllerName, $actionName, $format, $engine);
     }
 
-    private function extractControllerCallable($controller)
+    /** @return array<int,string> */
+    private function extractControllerCallable(string $controller) : array
     {
         if (strpos($controller, '::') === false) {
             $controller = $this->parser->parse($controller);
@@ -68,7 +70,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return explode('::', $controller, 2);
     }
 
-    private function extractControllerName($className)
+    private function extractControllerName(string $className) : string
     {
         if (!preg_match('/([^\\\\]+)Controller$/', $className, $matchController)) {
             throw new \InvalidArgumentException(sprintf('The "%s" class does not look like a controller class (it must be in a "Controller" sub-namespace and the class name must end with "Controller")', $className));
@@ -77,7 +79,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return $matchController[1];
     }
 
-    private function extractActionName($method)
+    private function extractActionName(string $method) : string
     {
         if (!preg_match('/^(.+)Action$/', $method, $matchAction)) {
             throw new \InvalidArgumentException(sprintf('The "%s" method does not look like an action method (it does not end with Action)', $method));

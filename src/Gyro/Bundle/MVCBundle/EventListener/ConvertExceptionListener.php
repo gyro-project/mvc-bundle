@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Psr\Log\LoggerInterface;
 use Exception;
 use ReflectionClass;
+use Throwable;
 
 /**
  * Converts Exceptions into Symfony HttpKernel Exceptions before rendering the exception page.
@@ -20,10 +21,13 @@ class ConvertExceptionListener
     private $logger;
 
     /**
-     * @var array<string, string>
+     * @var array<string, string|int>
      */
     private $exceptionClassMap;
 
+    /**
+     * @param array<string,string|int> $exceptionClassMap
+     */
     public function __construct(LoggerInterface $logger = null, array $exceptionClassMap = [])
     {
         $this->logger = $logger;
@@ -50,7 +54,10 @@ class ConvertExceptionListener
         $event->setException($convertedException);
     }
 
-    private function convertException(Exception $exception, $convertToExceptionClass)
+    /**
+     * @param string|int $convertToExceptionClass
+     */
+    private function convertException(Exception $exception, $convertToExceptionClass) : ?Throwable
     {
         if (is_numeric($convertToExceptionClass)) {
             return new HttpException($convertToExceptionClass, null, $exception);
@@ -66,13 +73,16 @@ class ConvertExceptionListener
             } elseif ($parameter->isDefaultValueAvailable()) {
                 $args[] = $parameter->getDefaultValue();
             } else {
-                return;
+                return null;
             }
         }
 
         return $reflectionClass->newInstanceArgs($args);
     }
 
+    /**
+     * @return string|int|null
+     */
     private function findConvertToExceptionClass(Exception $exception)
     {
         $exceptionClass = get_class($exception);

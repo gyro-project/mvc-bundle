@@ -10,7 +10,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class MockTokenContext implements TokenContext
 {
     private $user;
-    private $token;
 
     public function __construct(UserInterface $user = null)
     {
@@ -72,7 +71,10 @@ class MockTokenContext implements TokenContext
         throw new \BadMethodCallException("getToken() not supported in MockTokenContext");
     }
 
-    public function isGranted($attributes, $object = null) : bool
+    /**
+     * @param mixed $attributes
+     */
+    public function isGranted($attributes, ?object $object = null) : bool
     {
         if (!is_string($attributes) && strpos($attributes, 'ROLE_') === false) {
             throw new \BadMethodCallException("Only ROLE_* checks are possible with mock interface.");
@@ -89,7 +91,10 @@ class MockTokenContext implements TokenContext
         return false;
     }
 
-    public function assertIsGranted($attributes, $object = null) : void
+    /**
+     * @param mixed $attributes
+     */
+    public function assertIsGranted($attributes, ?object $object = null) : void
     {
         if (!$this->isGranted($attributes, $object)) {
             throw new AccessDeniedHttpException();

@@ -14,7 +14,7 @@ class BundleLocation
         $this->kernel = $kernel;
     }
 
-    public function locationFor($className) : ?string
+    public function locationFor(string $className) : ?string
     {
         $bundle = $this->getBundleForClass($className);
 

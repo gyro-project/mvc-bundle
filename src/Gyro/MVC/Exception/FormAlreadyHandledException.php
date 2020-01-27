@@ -6,7 +6,7 @@ use RuntimeException;
 
 class FormAlreadyHandledException extends RuntimeException
 {
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct(sprintf(
             'The \Gyro\MVC\FormRequest was already handled with form %s earlier. ' .

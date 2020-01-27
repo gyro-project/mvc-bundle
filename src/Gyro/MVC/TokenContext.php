@@ -46,9 +46,8 @@ interface TokenContext
 
     /**
      * @param mixed $attributes
-     * @param mixed $object
      */
-    public function isGranted($attributes, $object = null) : bool;
+    public function isGranted($attributes, ?object $object = null) : bool;
 
     /**
      * @param mixed $attributes
@@ -56,5 +55,5 @@ interface TokenContext
      *
      * @throws AccessDeniedHttpException
      */
-    public function assertIsGranted($attributes, $object = null) : void;
+    public function assertIsGranted($attributes, ?object $object = null) : void;
 }
