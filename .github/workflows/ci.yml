@@ -1,0 +1,29 @@
+on: [check_suite, check_run]
+name: Check Suite
+jobs:
+  ci:
+    name: CI Pipeline
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.2', '7.3', '7.4']
+        composer: ['--prefer-lowest', ' ']
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, intl
+        ini-values: post_max_size=256M, short_open_tag=On
+        coverage: xdebug    
+        tools: composer
+
+    - name: "Composer"
+      run: "composer update ${{ matrix.composer }} --prefer-stable"
+
+    - name: "PHPUnit"
+      run: "php vendor/bin/phpunit"
