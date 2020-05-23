@@ -27,3 +27,6 @@ jobs:
 
     - name: "PHPUnit"
       run: "php vendor/bin/phpunit"
+
+    - name: "Psalm"
+      run: "php vendor/bin/psalm"
