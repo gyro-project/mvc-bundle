@@ -1,8 +1,8 @@
 on: push
 name: Check Suite
 jobs:
-  ci:
-    name: CI Pipeline
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,8 +19,14 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         extensions: mbstring, intl
         ini-values: post_max_size=256M, short_open_tag=On
-        coverage: xdebug    
-        tools: composer
+        tools: "cs2pr"
+
+    - name: "Cache dependencies installed with composer"
+      uses: "actions/cache@v1"
+      with:
+        path: "~/.composer/cache"
+        key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
+        restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
 
     - name: "Composer"
       run: "composer update ${{ matrix.composer }} --prefer-stable"
@@ -28,5 +34,60 @@ jobs:
     - name: "PHPUnit"
       run: "php vendor/bin/phpunit"
 
+  phpcs:
+    name: PHP Codesniffer
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        extensions: mbstring, intl
+        ini-values: post_max_size=256M, short_open_tag=On
+        tools: "cs2pr"
+
+    - name: "Cache dependencies installed with composer"
+      uses: "actions/cache@v1"
+      with:
+        path: "~/.composer/cache"
+        key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
+        restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
+
+    - name: "Composer"
+      run: "composer update ${{ matrix.composer }} --prefer-stable"
+
+    - name: "phpcs"
+      run: "vendor/bin/phpcs -q --no-colors --report=checkstyle | cs2pr"
+
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        extensions: mbstring, intl
+        ini-values: post_max_size=256M, short_open_tag=On
+        tools: "cs2pr"
+
+    - name: "Cache dependencies installed with composer"
+      uses: "actions/cache@v1"
+      with:
+        path: "~/.composer/cache"
+        key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
+        restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
+
+    - name: "Composer"
+      run: "composer update ${{ matrix.composer }} --prefer-stable"
+
     - name: "Psalm"
-      run: "php vendor/bin/psalm"
+      run: "vendor/bin/psalm --show-info=false --stats --output-format=github --threads=4"
