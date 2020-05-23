@@ -1,20 +1,24 @@
 # Gyro MVCBundle
 
-Decouple and simplify Symfony controllers by adding various abstractions that
-avoid having to use Symfony services or classes inside the controllers.
+A small framework on top of Symfony introducing a bunch of conventions,
+targeting users that want to upgrade from LTS to LTS.
+
+MVCBUndle decouples and simplifies Symfony controllers by adding various
+abstractions that avoid having to use Symfony services or classes inside the
+controllers.
 
 This bundle succeeds the "QafooLabsNoFrameworkBundle" package.
 
 ## Goals
 
 This allows to write controllers that only have dependencies on the
-domain/model and let them act as true "application services" that can even be
+domain/model and let them act as true "application services" that are easily
 testable.
 
-We want to achieve slim controllers that are registered as a service.  The
-number of services required in any controller should be very small (2-4).  We
-believe Context to controllers should be explicitly passed to avoid hiding it
-in services.
+Gyros goal is achieving slim controllers that are registered as a service
+explicitly (via YML or XML). The number of services required in any controller
+should be very small (2-4). We believe Context to controllers should be
+explicitly passed to avoid hiding it in services.
 
 Ultimately this should make Controllers testable with lightweight unit- and
 integration tests. Elaborate seperation of Symfony from your business logic

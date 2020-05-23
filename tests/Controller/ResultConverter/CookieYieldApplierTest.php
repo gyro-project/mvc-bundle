@@ -30,6 +30,6 @@ class CookieYieldApplierTest extends TestCase
 
         $this->applier->apply(new Cookie('foo', 'bar'), $request, $response);
 
-        $this->assertEquals('foo=bar; path=/; httponly', $response->headers->get('set-cookie'));
+        $this->assertStringContainsString('foo=bar; path=/; httponly', $response->headers->get('set-cookie'));
     }
 }
