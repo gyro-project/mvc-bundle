@@ -1,4 +1,4 @@
-on: [check_suite, check_run]
+on: push
 name: Check Suite
 jobs:
   ci:
