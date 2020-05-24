@@ -346,21 +346,3 @@ Notable facts about the conversion:
 - If an exception is converted the original exception will specifically logged
   before conversion. That means when an exception occurs it will be logged
   twice.
-
-## Turbolinks Support
-
-To improve performance with traditional HTML response webapplications Basecamp
-introduced [Turbolinks](https://github.com/turbolinks/turbolinks), a library
-that uses Ajax to follow same domain links and then replaces only head title
-and body to keep javascript and CSS in place.
-
-The GyroMVCBundle provides out of the box support for the
-turbolinks JS library in the browser by setting the `Turbolinks-Location`
-header after redirects.
-
-This feature needs to be enabled:
-
-```yaml
-gyro_mvc:
-    turbolinks: true
-```

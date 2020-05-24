@@ -31,9 +31,6 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('original')
                     ->prototype('scalar')->end()
                 ->end()
-                ->booleanNode('turbolinks')
-                    ->defaultValue(false)
-                ->end()
             ->end();
 
         return $treeBuilder;
