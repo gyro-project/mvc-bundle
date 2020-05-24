@@ -2,10 +2,12 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
+use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\EventListener\ConvertExceptionListener;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use OutOfBoundsException;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class ConvertExceptionListenerTest extends TestCase
 {
@@ -20,12 +22,7 @@ class ConvertExceptionListenerTest extends TestCase
             ['OutOfBoundsException' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
-            $event = new ExceptionEvent(
-                \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
-                \Phake::mock('Symfony\Component\HttpFoundation\Request'),
-                0,
-                $original = new OutOfBoundsException()
-            )
+            $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
         $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getException());
@@ -43,12 +40,7 @@ class ConvertExceptionListenerTest extends TestCase
             ['Exception' => 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException']
         );
         $listener->onKernelException(
-            $event = new ExceptionEvent(
-                \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
-                \Phake::mock('Symfony\Component\HttpFoundation\Request'),
-                0,
-                new OutOfBoundsException()
-            )
+            $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
         $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getException());
@@ -65,16 +57,33 @@ class ConvertExceptionListenerTest extends TestCase
             ['OutOfBoundsException' => 405]
         );
         $listener->onKernelException(
-            $event = new ExceptionEvent(
-                \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
-                \Phake::mock('Symfony\Component\HttpFoundation\Request'),
-                0,
-                $original = new OutOfBoundsException()
-            )
+            $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
         $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\HttpException', $event->getException());
         $this->assertEquals(405, $event->getException()->getStatusCode());
         $this->assertSame($original, $event->getException()->getPrevious());
+    }
+
+    /**
+     * @return ExceptionEvent|GetResponseForExceptionEvent
+     */
+    public function createExceptionEvent(\Throwable $original): object
+    {
+        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+            return new ExceptionEvent(
+                \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
+                \Phake::mock('Symfony\Component\HttpFoundation\Request'),
+                0,
+                $original
+            );
+        }
+
+        return new GetResponseForExceptionEvent(
+            \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
+            \Phake::mock('Symfony\Component\HttpFoundation\Request'),
+            0,
+            $original
+        );
     }
 }

@@ -2,8 +2,11 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
+use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +59,16 @@ class TurbolinksListenerTest extends TestCase
         $request->headers->set('Turbolinks-Referrer', '/');
         $request->setSession(\Phake::mock(SessionInterface::class));
 
-        return new ResponseEvent(
+        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+            return new ResponseEvent(
+                \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
+                $request,
+                HttpKernelInterface::MASTER_REQUEST,
+                $response
+            );
+        }
+
+        return new FilterResponseEvent(
             \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
             $request,
             HttpKernelInterface::MASTER_REQUEST,
