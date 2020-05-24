@@ -36,11 +36,9 @@ class GyroControllerNameParser
 
     private function parseServiceController(string $serviceId, string $method) : string
     {
-        $service = $this->container->get($serviceId);
-
-        if (! $service) {
-            throw new \RuntimeException(sprintf('No service found for id "%s".', $serviceId));
-        }
+        $service = $this->container->get($serviceId, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        \assert(\is_object($service));
 
         return get_class($service) . '::' . $method;
     }

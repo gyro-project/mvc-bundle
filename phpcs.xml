@@ -31,6 +31,7 @@
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />
         <exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
         <exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn" />
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
         <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
         <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
         <exclude name="Squiz.Arrays.ArrayDeclaration.NoComma" />

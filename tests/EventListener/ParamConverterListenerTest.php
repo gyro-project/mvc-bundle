@@ -2,6 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
+use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener;
 use Gyro\Bundle\MVCBundle\ParamConverter\SymfonyServiceProvider;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -35,7 +37,7 @@ class ParamConverterListenerTest extends TestCase
 
         $method = function (Session $session, TokenContext $context) : void {
         };
-        $event  = new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createControllerEvent($method, $request);
 
         $this->listener->onKernelController($event);
 
@@ -65,7 +67,7 @@ class ParamConverterListenerTest extends TestCase
     private function assertRequestHasContext($controller) : void
     {
         $request = new Request();
-        $event   = new ControllerEvent($this->kernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event   = $this->createControllerEvent($controller, $request);
 
         $this->listener->onKernelController($event);
 
@@ -113,5 +115,14 @@ class ParamConverterListenerTest extends TestCase
 
         $this->kernel   = \Phake::mock(HttpKernelInterface::class);
         $this->listener = new ParamConverterListener($serviceProvider);
+    }
+
+    public function createControllerEvent(callable $method, Request $request): object
+    {
+        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
+            return new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
+        }
+
+        return new FilterControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
     }
 }

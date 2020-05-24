@@ -15,7 +15,7 @@ class BundleLocation
     }
 
     /**
-     * @param class-string $className
+     * @psalm-param class-string $className
      */
     public function locationFor(string $className) : ?string
     {
@@ -29,7 +29,7 @@ class BundleLocation
     }
 
     /**
-     * @param class-string $className
+     * @psalm-param class-string $className
      */
     protected function getBundleForClass(string $className) : ?BundleInterface
     {

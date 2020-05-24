@@ -22,5 +22,8 @@
         <MoreSpecificReturnType errorLevel="info" />
         <LessSpecificReturnType errorLevel="info" />
         <LessSpecificReturnStatement errorLevel="info" />
+        <UndefinedDocblockClass errorLevel="info" />
+        <DeprecatedClass errorLevel="info" />
+        <DeprecatedMethod errorLevel="info" />
     </issueHandlers>
 </psalm>

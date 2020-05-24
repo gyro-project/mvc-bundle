@@ -20,8 +20,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('gyro_mvc');
-        $rootNode = $treeBuilder->getRootNode();
+        $treeBuilder = new CompatibleTreeBuilder();
+        $rootNode = $treeBuilder->root('gyro_mvc');
 
         assert($rootNode instanceof ArrayNodeDefinition);
 
@@ -31,11 +31,8 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('original')
                     ->prototype('scalar')->end()
                 ->end()
-                ->booleanNode('turbolinks')
-                    ->defaultValue(false)
-                ->end()
             ->end();
 
-        return $treeBuilder;
+        return $treeBuilder->getTreeBuilder();
     }
 }

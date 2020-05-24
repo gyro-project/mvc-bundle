@@ -32,21 +32,6 @@ class ContainerTest extends TestCase
     /**
      * @test
      */
-    public function it_compiles_with_turbolinks_container() : void
-    {
-        $container = $this->createContainer(['turbolinks' => true]);
-
-        $this->assertTrue($container->has('gyro_mvc.turbolinks_listener'));
-
-        $this->assertInstanceOf(
-            'Gyro\Bundle\MVCBundle\EventListener\TurbolinksListener',
-            $container->get('gyro_mvc.turbolinks_listener')
-        );
-    }
-
-    /**
-     * @test
-     */
     public function it_allows_configuring_convert_exceptions() : void
     {
         $container = $this->createContainer([

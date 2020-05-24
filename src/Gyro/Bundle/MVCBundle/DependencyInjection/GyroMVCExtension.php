@@ -20,6 +20,7 @@ class GyroMVCExtension extends Extension
     public function load(array $configs, ContainerBuilder $container) : void
     {
         $configuration = new Configuration();
+        /** @psalm-var array{convert_exceptions: array<class-string,string|int>} */
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -29,10 +30,6 @@ class GyroMVCExtension extends Extension
             $container->setParameter('gyro_mvc.convert_exceptions_map', $config['convert_exceptions']);
         } else {
             $container->removeDefinition('gyro_mvc.convert_exception_listener');
-        }
-
-        if ($config['turbolinks']) {
-            $loader->load('turbolinks.xml');
         }
     }
 }

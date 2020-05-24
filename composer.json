@@ -9,16 +9,12 @@
     ],
     "require-dev": {
         "php": "~7.2",
-        "phake/phake": "*",
-        "phpunit/phpunit": "^8.0",
-        "symfony/form": "^3.4|^4.4",
-        "symfony/security": "^3.4|^4.4",
-        "symfony/translation": "^3.4|^4.4",
-        "symfony/framework-bundle": "^3.4|^4.4",
-        "symfony/twig-bridge": "^3.4|^4.4",
-        "sensio/framework-extra-bundle": "~4.0",
-        "vimeo/psalm": "^3.8",
-        "doctrine/coding-standard": "^7.0"
+        "phake/phake": "^3.1",
+        "phpunit/phpunit": "^8.5|^9.1",
+        "symfony/symfony": "^3.4|^4.4",
+        "vimeo/psalm": "^3.11.4",
+        "nikic/php-parser": "^4.4",
+        "doctrine/coding-standard": "7.0.2"
     },
     "autoload": {
         "psr-0": {
@@ -30,5 +26,8 @@
         "psr-4": {
             "Gyro\\Bundle\\MVCBundle\\": "tests/"
         }
+    },
+    "require": {
+        "composer/package-versions-deprecated": "^1.8"
     }
 }
