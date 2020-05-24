@@ -39,6 +39,7 @@ class ParamConverterListener
     public function onKernelController($event) : void
     {
         $controller = $event->getController();
+        /** @psalm-suppress UndefinedClass */
         $request = $event->getRequest();
 
         if (\is_array($controller)) {

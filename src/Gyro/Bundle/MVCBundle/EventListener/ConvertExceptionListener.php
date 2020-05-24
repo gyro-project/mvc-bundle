@@ -56,6 +56,7 @@ class ConvertExceptionListener
         $this->logException($exception);
 
         $convertedException = $this->convertException($exception, $convertedExceptionClass);
+        /** @psalm-suppress UndefinedClass */
         $event->setException($convertedException);
     }
 

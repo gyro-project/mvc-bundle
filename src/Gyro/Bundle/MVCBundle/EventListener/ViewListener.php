@@ -43,6 +43,7 @@ class ViewListener
         }
 
         $controller = (string) $request->attributes->get('_controller');
+        /** @psalm-suppress UndefinedClass */
         $result = $event->getControllerResult();
 
         if (!$controller || $result instanceof Response) {
@@ -53,6 +54,7 @@ class ViewListener
             ? $this->unrollGenerator($result, $request)
             : $this->convert($result, $request);
 
+        /** @psalm-suppress UndefinedClass */
         $event->setResponse($response);
     }
 
