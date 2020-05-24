@@ -31,7 +31,8 @@ class ParamConverterListener
     }
 
     /**
-     * @param $event FilterControllerEvent|ControllerEvent
+     * @param FilterControllerEvent|ControllerEvent $event
+     *
      * @psalm-suppress ArgumentTypeCoercion
      * @psalm-suppress PossiblyNullReference
      */
