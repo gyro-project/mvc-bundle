@@ -16,10 +16,9 @@
         "symfony/translation": "^3.4|^4.4",
         "symfony/framework-bundle": "^3.4|^4.4",
         "symfony/twig-bridge": "^3.4|^4.4",
-        "sensio/framework-extra-bundle": "~4.0",
         "vimeo/psalm": "^3.11",
         "nikic/php-parser": "^4.4",
-        "doctrine/coding-standard": "^7.0"
+        "doctrine/coding-standard": "7.0.2"
     },
     "autoload": {
         "psr-0": {

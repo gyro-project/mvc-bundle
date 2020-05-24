@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class SymfonyTokenContext implements TokenContext
 {
@@ -57,7 +58,7 @@ class SymfonyTokenContext implements TokenContext
     {
         $user = $this->getToken()->getUser();
 
-        if (!is_object($user)) {
+        if (!is_object($user) || !($user instanceof UserInterface)) {
             throw new Exception\UnauthenticatedUserException();
         }
 

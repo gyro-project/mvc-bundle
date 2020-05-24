@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new CompatibleTreeBuilder();
         $rootNode = $treeBuilder->root('gyro_mvc');
 
         assert($rootNode instanceof ArrayNodeDefinition);
@@ -33,6 +33,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        return $treeBuilder;
+        return $treeBuilder->getTreeBuilder();
     }
 }

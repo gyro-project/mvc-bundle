@@ -36,7 +36,8 @@ class GyroControllerNameParser
 
     private function parseServiceController(string $serviceId, string $method) : string
     {
-        $service = $this->container->get($serviceId);
+        $service = $this->container->get($serviceId, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
+        \assert(\is_object($service));
 
         return get_class($service) . '::' . $method;
     }
