@@ -2,6 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,10 @@ class ViewListener
         $this->yieldAppliers[] = $applier;
     }
 
-    public function onKernelView(ViewEvent $event) : void
+    /**
+     * @param ViewEvent|GetResponseForControllerResultEvent $event
+     */
+    public function onKernelView($event) : void
     {
         $request = $event->getRequest();
 

@@ -2,7 +2,9 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
+use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -120,7 +122,16 @@ class ViewListenerTest extends TestCase
 
     private function createEventWith(Request $request, $controllerResult = null)
     {
-        return new ViewEvent(
+        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+            return new ViewEvent(
+                \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
+                $request,
+                HttpKernelInterface::MASTER_REQUEST,
+                $controllerResult
+            );
+        }
+
+        return new GetResponseForControllerResultEvent(
             \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
             $request,
             HttpKernelInterface::MASTER_REQUEST,

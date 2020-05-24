@@ -3,6 +3,7 @@
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Psr\Log\LoggerInterface;
@@ -25,7 +26,9 @@ class ConvertExceptionListener
     private $exceptionClassMap;
 
     /**
-     * @param array<class-string,class-string|int> $exceptionClassMap
+     * @param array<string,string> $exceptionClassMap
+     *
+     * @psalm-param array<class-string,class-string|int> $exceptionClassMap
      */
     public function __construct(?LoggerInterface $logger = null, array $exceptionClassMap = [])
     {
@@ -33,7 +36,10 @@ class ConvertExceptionListener
         $this->exceptionClassMap = $exceptionClassMap;
     }
 
-    public function onKernelException(ExceptionEvent $event) : void
+    /**
+     * @param ExceptionEvent|GetResponseForExceptionEvent $event
+     */
+    public function onKernelException($event) : void
     {
         $exception = $event->getException();
 
@@ -54,7 +60,9 @@ class ConvertExceptionListener
     }
 
     /**
-     * @param class-string|int $convertToExceptionClass
+     * @param string|int $convertToExceptionClass
+     *
+     * @psalm-param class-string|int $convertToExceptionClass
      */
     private function convertException(Exception $exception, $convertToExceptionClass) : Exception
     {
@@ -89,7 +97,9 @@ class ConvertExceptionListener
     }
 
     /**
-     * @return class-string|int|null
+     * @return string|int|null
+     *
+     * @psalm-return class-string|int|null
      */
     private function findConvertToExceptionClass(Exception $exception)
     {

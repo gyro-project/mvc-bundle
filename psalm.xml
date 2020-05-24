@@ -22,5 +22,6 @@
         <MoreSpecificReturnType errorLevel="info" />
         <LessSpecificReturnType errorLevel="info" />
         <LessSpecificReturnStatement errorLevel="info" />
+        <UndefinedDocblockClass errorLevel="info" />
     </issueHandlers>
 </psalm>

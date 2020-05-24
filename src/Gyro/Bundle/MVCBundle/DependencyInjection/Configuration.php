@@ -20,8 +20,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('gyro_mvc');
-        $rootNode = $treeBuilder->getRootNode();
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('gyro_mvc');
 
         assert($rootNode instanceof ArrayNodeDefinition);
 

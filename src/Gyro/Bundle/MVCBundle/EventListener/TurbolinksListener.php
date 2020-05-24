@@ -2,6 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\EventListener;
 
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 /**
@@ -18,7 +19,10 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 class TurbolinksListener
 {
-    public function onKernelResponse(ResponseEvent $event) : void
+    /**
+     * @param ResponseEvent|GetResponseEvent $event
+     */
+    public function onKernelResponse($event) : void
     {
         $request = $event->getRequest();
         $response = $event->getResponse();

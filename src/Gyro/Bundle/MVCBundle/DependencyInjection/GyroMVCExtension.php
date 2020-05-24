@@ -20,6 +20,7 @@ class GyroMVCExtension extends Extension
     public function load(array $configs, ContainerBuilder $container) : void
     {
         $configuration = new Configuration();
+        /** @psalm-var array{convert_exceptions: array<class-string,string|int>, turbolinks: bool} */
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));

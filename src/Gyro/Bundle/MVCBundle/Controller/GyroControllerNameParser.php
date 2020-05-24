@@ -38,10 +38,6 @@ class GyroControllerNameParser
     {
         $service = $this->container->get($serviceId);
 
-        if (! $service) {
-            throw new \RuntimeException(sprintf('No service found for id "%s".', $serviceId));
-        }
-
         return get_class($service) . '::' . $method;
     }
 }
