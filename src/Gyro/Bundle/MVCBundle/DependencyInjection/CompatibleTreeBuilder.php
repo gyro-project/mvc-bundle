@@ -17,7 +17,7 @@ class CompatibleTreeBuilder
     public function root(string $name) : NodeDefinition
     {
         if ($this->symfonyTreeBuilder === null) {
-            if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+            if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
                 /** @psalm-suppress TooManyArguments */
                 $this->symfonyTreeBuilder = new TreeBuilder($name);
                 /** @psalm-suppress UndefinedMethod */

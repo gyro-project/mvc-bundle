@@ -70,7 +70,7 @@ class ConvertExceptionListenerTest extends TestCase
      */
     public function createExceptionEvent(\Throwable $original): object
     {
-        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
             return new ExceptionEvent(
                 \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
                 \Phake::mock('Symfony\Component\HttpFoundation\Request'),

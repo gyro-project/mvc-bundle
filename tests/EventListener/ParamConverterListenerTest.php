@@ -119,7 +119,7 @@ class ParamConverterListenerTest extends TestCase
 
     public function createControllerEvent(callable $method, Request $request): object
     {
-        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
             return new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
         }
 

@@ -1,5 +1,5 @@
 on: push
-name: Check Suite
+name: CI
 jobs:
   tests:
     name: Tests

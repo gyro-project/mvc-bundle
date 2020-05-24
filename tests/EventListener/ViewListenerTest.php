@@ -122,7 +122,7 @@ class ViewListenerTest extends TestCase
 
     private function createEventWith(Request $request, $controllerResult = null)
     {
-        if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
             return new ViewEvent(
                 \Phake::mock('Symfony\Component\HttpKernel\HttpKernelInterface'),
                 $request,
