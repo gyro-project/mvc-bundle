@@ -66,6 +66,9 @@ jobs:
   psalm:
     name: Psalm
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        composer: ['--prefer-lowest', ' ']
 
     steps:
     - name: Checkout

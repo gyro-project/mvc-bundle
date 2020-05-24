@@ -16,7 +16,7 @@
         "symfony/translation": "^3.4|^4.4",
         "symfony/framework-bundle": "^3.4|^4.4",
         "symfony/twig-bridge": "^3.4|^4.4",
-        "vimeo/psalm": "^3.11",
+        "vimeo/psalm": "^3.11.4",
         "nikic/php-parser": "^4.4",
         "doctrine/coding-standard": "7.0.2"
     },

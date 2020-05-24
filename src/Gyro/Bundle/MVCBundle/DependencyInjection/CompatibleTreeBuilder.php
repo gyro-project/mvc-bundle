@@ -18,13 +18,15 @@ class CompatibleTreeBuilder
     {
         if ($this->symfonyTreeBuilder === null) {
             if (version_compare('4.4.0', Versions::getVersion('symfony/http-kernel'), '<=')) {
+                /** @psalm-suppress TooManyArguments */
                 $this->symfonyTreeBuilder = new TreeBuilder($name);
+                /** @psalm-suppress UndefinedMethod */
                 $this->rootNode = $this->symfonyTreeBuilder->getRootNode();
             } else {
                 /** @psalm-suppress TooFewArguments */
                 $this->symfonyTreeBuilder = new TreeBuilder();
                 /** @psalm-suppress UndefinedMethod */
-                $this->rootNode = $this->symfonyTreeBuilder->rootNode($name);
+                $this->rootNode = $this->symfonyTreeBuilder->root($name);
             }
         }
 
