@@ -47,9 +47,13 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @template T of TokenInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
+     *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getToken() : TokenInterface;
+    public function getToken(string $expectedClass) : TokenInterface;
 
     /**
      * @param mixed $attributes

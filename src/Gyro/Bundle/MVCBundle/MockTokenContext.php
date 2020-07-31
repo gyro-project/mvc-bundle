@@ -81,7 +81,7 @@ class MockTokenContext implements TokenContext
         return false;
     }
 
-    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+    public function getToken(string $expectedClass) : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
     {
         throw new \BadMethodCallException("getToken() not supported in MockTokenContext");
     }

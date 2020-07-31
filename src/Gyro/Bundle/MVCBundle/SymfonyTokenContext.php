@@ -45,7 +45,7 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUsername() : string
     {
-        return $this->getToken()->getUsername();
+        return $this->getToken(TokenInterface::class)->getUsername();
     }
 
     /**
@@ -61,7 +61,7 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
     {
-        $user = $this->getToken()->getUser();
+        $user = $this->getToken(TokenInterface::class)->getUser();
 
         if (!is_object($user) || !($user instanceof UserInterface) || !($user instanceof $expectedClass)) {
             throw new Exception\UnauthenticatedUserException(sprintf(
@@ -81,7 +81,7 @@ class SymfonyTokenContext implements TokenContext
 
     public function hasNonAnonymousToken() : bool
     {
-        return $this->hasToken() && ! ($this->getToken() instanceof AnonymousToken);
+        return $this->hasToken() && ! ($this->getToken(TokenInterface::class) instanceof AnonymousToken);
     }
 
     /**
@@ -89,14 +89,22 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @template T of TokenInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
+     *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getToken() : TokenInterface
+    public function getToken(string $expectedClass) : TokenInterface
     {
         $token = $this->tokenStorage->getToken();
 
-        if ($token === null) {
-            throw new Exception\UnauthenticatedUserException();
+        if ($token === null || !($token instanceof $expectedClass)) {
+            throw new Exception\UnauthenticatedUserException(sprintf(
+                "Expecting token class %s, but got %s",
+                $expectedClass,
+                is_object($token) ? get_class($token) : gettype($token)
+            ));
         }
 
         return $token;

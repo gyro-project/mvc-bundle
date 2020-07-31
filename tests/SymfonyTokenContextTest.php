@@ -33,7 +33,7 @@ class SymfonyTokenContextTest extends TestCase
         $context = new SymfonyTokenContext($this->tokenStorage, $this->authorizationChecker);
 
         $this->assertTrue($context->hasToken());
-        $this->assertSame($token, $context->getToken());
+        $this->assertSame($token, $context->getToken(TokenInterface::class));
     }
 
     /**
@@ -45,7 +45,7 @@ class SymfonyTokenContextTest extends TestCase
 
         $this->expectException(UnauthenticatedUserException::class);
 
-        $context->getToken();
+        $context->getToken(TokenInterface::class);
     }
 
     /**
