@@ -12,7 +12,7 @@
         "phake/phake": "^3.1",
         "phpunit/phpunit": "^8.5|^9.1",
         "symfony/symfony": "^3.4|^4.4",
-        "vimeo/psalm": "^3.11.4",
+        "vimeo/psalm": "^3.13",
         "nikic/php-parser": "^4.4",
         "doctrine/coding-standard": "7.0.2"
     },

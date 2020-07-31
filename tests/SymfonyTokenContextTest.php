@@ -2,8 +2,12 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests;
 
+use Gyro\MVC\Exception\UnauthenticatedUserException;
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class SymfonyTokenContextTest extends TestCase
 {
@@ -12,8 +16,9 @@ class SymfonyTokenContextTest extends TestCase
 
     public function setUp() : void
     {
-        $this->tokenStorage = \Phake::mock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-        $this->authorizationChecker = \Phake::mock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $this->tokenStorage = \Phake::mock(TokenStorageInterface::class);
+        $this->authorizationChecker = \Phake::mock(AuthorizationChecker::class);
+
         parent::setUp();
     }
 
@@ -22,13 +27,13 @@ class SymfonyTokenContextTest extends TestCase
      */
     public function it_retrieves_token_from_security_context() : void
     {
-        $token = \Phake::mock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        $token = \Phake::mock(TokenInterface::class);
         \Phake::when($this->tokenStorage)->getToken()->thenReturn($token);
 
         $context = new SymfonyTokenContext($this->tokenStorage, $this->authorizationChecker);
 
         $this->assertTrue($context->hasToken());
-        $this->assertSame($token, $context->getToken());
+        $this->assertSame($token, $context->getToken(TokenInterface::class));
     }
 
     /**
@@ -38,9 +43,9 @@ class SymfonyTokenContextTest extends TestCase
     {
         $context = new SymfonyTokenContext($this->tokenStorage, $this->authorizationChecker);
 
-        $this->expectException('Gyro\MVC\Exception\UnauthenticatedUserException');
+        $this->expectException(UnauthenticatedUserException::class);
 
-        $context->getToken();
+        $context->getToken(TokenInterface::class);
     }
 
     /**

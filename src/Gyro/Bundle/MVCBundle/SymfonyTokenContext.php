@@ -5,6 +5,7 @@ namespace Gyro\Bundle\MVCBundle;
 use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -32,7 +33,7 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUserId()
     {
-        return $this->getCurrentUser()->getId();
+        return $this->getCurrentUser(UserInterface::class)->getId();
     }
 
     /**
@@ -44,7 +45,7 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUsername() : string
     {
-        return $this->getToken()->getUsername();
+        return $this->getToken(TokenInterface::class)->getUsername();
     }
 
     /**
@@ -53,13 +54,21 @@ class SymfonyTokenContext implements TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     *
+     * @template T of UserInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
      */
-    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
     {
-        $user = $this->getToken()->getUser();
+        $user = $this->getToken(TokenInterface::class)->getUser();
 
-        if (!is_object($user) || !($user instanceof UserInterface)) {
-            throw new Exception\UnauthenticatedUserException();
+        if (!is_object($user) || !($user instanceof UserInterface) || !($user instanceof $expectedClass)) {
+            throw new Exception\UnauthenticatedUserException(sprintf(
+                "Expecting user class %s, but got %s",
+                $expectedClass,
+                is_object($user) ? get_class($user) : gettype($user)
+            ));
         }
 
         return $user;
@@ -72,7 +81,7 @@ class SymfonyTokenContext implements TokenContext
 
     public function hasNonAnonymousToken() : bool
     {
-        return $this->hasToken() && ! ($this->getToken() instanceof AnonymousToken);
+        return $this->hasToken() && ! ($this->getToken(TokenInterface::class) instanceof AnonymousToken);
     }
 
     /**
@@ -81,13 +90,21 @@ class SymfonyTokenContext implements TokenContext
      * Throws UnauthenticatedUserException when no valid token exists.
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     *
+     * @template T of TokenInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
      */
-    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+    public function getToken(string $expectedClass) : TokenInterface
     {
         $token = $this->tokenStorage->getToken();
 
-        if ($token === null) {
-            throw new Exception\UnauthenticatedUserException();
+        if ($token === null || !($token instanceof $expectedClass)) {
+            throw new Exception\UnauthenticatedUserException(sprintf(
+                "Expecting token class %s, but got %s",
+                $expectedClass,
+                is_object($token) ? get_class($token) : gettype($token)
+            ));
         }
 
         return $token;
