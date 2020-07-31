@@ -5,6 +5,7 @@ namespace Gyro\Bundle\MVCBundle;
 use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -32,7 +33,7 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUserId()
     {
-        return $this->getCurrentUser()->getId();
+        return $this->getCurrentUser(UserInterface::class)->getId();
     }
 
     /**
@@ -52,14 +53,22 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @template T of UserInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
+     *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
     {
         $user = $this->getToken()->getUser();
 
-        if (!is_object($user) || !($user instanceof UserInterface)) {
-            throw new Exception\UnauthenticatedUserException();
+        if (!is_object($user) || !($user instanceof UserInterface) || !($user instanceof $expectedClass)) {
+            throw new Exception\UnauthenticatedUserException(sprintf(
+                "Expecting user class %s, but got %s",
+                $expectedClass,
+                is_object($user) ? get_class($user) : gettype($user)
+            ));
         }
 
         return $user;
@@ -82,7 +91,7 @@ class SymfonyTokenContext implements TokenContext
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+    public function getToken() : TokenInterface
     {
         $token = $this->tokenStorage->getToken();
 

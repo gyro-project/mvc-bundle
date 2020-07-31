@@ -2,6 +2,9 @@
 
 namespace Gyro\MVC;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+
 interface TokenContext
 {
     /**
@@ -27,9 +30,13 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @template T of UserInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
+     *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface;
+    public function getCurrentUser(string $expectedClass) : UserInterface;
 
     public function hasToken() : bool;
 
@@ -42,7 +49,7 @@ interface TokenContext
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getToken() : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+    public function getToken() : TokenInterface;
 
     /**
      * @param mixed $attributes

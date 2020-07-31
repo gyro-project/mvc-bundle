@@ -56,11 +56,15 @@ class MockTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @template T of UserInterface
+     * @psalm-param class-string<T> $expectedClass
+     * @psalm-return T
+     *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUser() : \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
     {
-        if (!is_object($this->user)) {
+        if (!is_object($this->user) || !($this->user instanceof  $expectedClass)) {
             throw new UnauthenticatedUserException();
         }
 
