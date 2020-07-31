@@ -53,11 +53,11 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     *
      * @template T of UserInterface
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
-     *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
     public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
     {
@@ -89,11 +89,11 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
+     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     *
      * @template T of TokenInterface
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
-     *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
     public function getToken(string $expectedClass) : TokenInterface
     {
