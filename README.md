@@ -350,7 +350,8 @@ Notable facts about the conversion:
 
 The following excpetions are registered by default:
 
-| Exception Class | Converted To |
-| Doctrine\ORM\EntityNotFoundException | Symfony\Component\HttpKernel\Exception\NotFoundHttpException |
-| Elasticsearch\Common\Exceptions\Missing404Exception | Symfony\Component\HttpKernel\Exception\NotFoundHttpException |
+| Exception Class                                               | Converted To                                                  |
+| ------------------------------------------------------------- | ------------------------------------------------------------- |
+| Doctrine\ORM\EntityNotFoundException                          | Symfony\Component\HttpKernel\Exception\NotFoundHttpException  |
+| Elasticsearch\Common\Exceptions\Missing404Exception           | Symfony\Component\HttpKernel\Exception\NotFoundHttpException  |
 
