@@ -347,3 +347,10 @@ Notable facts about the conversion:
 - If an exception is converted the original exception will specifically logged
   before conversion. That means when an exception occurs it will be logged
   twice.
+
+The following excpetions are registered by default:
+
+| Exception Class | Converted To |
+| Doctrine\ORM\EntityNotFoundException | Symfony\Component\HttpKernel\Exception\NotFoundHttpException |
+| Elasticsearch\Common\Exceptions\Missing404Exception | Symfony\Component\HttpKernel\Exception\NotFoundHttpException |
+
