@@ -247,7 +247,7 @@ class DefaultController
     public function redirectAction(TokenContext $context)
     {
         if ($context->hasToken()) {
-            $user = $context->getCurrentUser();
+            $user = $context->getCurrentUser(MyUser::class);
         } else if ($context->hasAnonymousToken()) {
             // do anon stuff
         }
@@ -261,8 +261,9 @@ class DefaultController
 }
 ```
 
-For Symfony a concrete implementation `SymfonyTokenContext` is used for the
-interface that uses `security.context` internally.
+The methods `getCurrentUser` and `getToken` expect a concrecte class name string
+as first argument, in this example it is `MyUser::class`. This is used with Psalm
+template annotations to improve static analysis.
 
 In unit tests where you want to test the controller you can use the `MockTokenContext`
 instead. It doesnt work with complex `isGranted()` checks or the token, but if you only
