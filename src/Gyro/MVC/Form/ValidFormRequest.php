@@ -6,13 +6,13 @@ use Gyro\MVC\FormRequest;
 
 class ValidFormRequest implements FormRequest
 {
-    /** @var array<string,mixed> */
+    /** @var array<string,mixed>|object */
     private $validData;
 
     /**
-     * @param array<string,mixed> $validData
+     * @param array<string,mixed>|object $validData
      */
-    public function __construct(array $validData)
+    public function __construct($validData)
     {
         $this->validData = $validData;
     }
@@ -35,7 +35,7 @@ class ValidFormRequest implements FormRequest
      *
      * Only by using this method you can mock the form handling by providing a replacement valid value in tests.
      *
-     * @return mixed
+     * @return array<string,mixed>|object
      */
     public function getValidData()
     {
