@@ -8,13 +8,13 @@ class RedirectRoute
 {
     /** @var string */
     private $routeName;
-    /** @var array<string,string|int|float> */
+    /** @var array<string,string|int|float|bool|null> */
     private $parameters;
     /** @var ?Response */
     private $response;
 
     /**
-     * @param array<string,string|int|float> $parameters
+     * @param array<string,string|int|float|bool|null> $parameters
      */
     public function __construct(string $routeName, array $parameters = [], Response $response = null)
     {
@@ -29,7 +29,7 @@ class RedirectRoute
     }
 
     /**
-     * @return array<string,string|int|float>
+     * @return array<string,string|int|float|bool|null>
      */
     public function getParameters() : array
     {
