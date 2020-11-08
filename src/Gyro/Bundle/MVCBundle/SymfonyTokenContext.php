@@ -43,7 +43,7 @@ class SymfonyTokenContext implements TokenContext
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUsername() : string
+    public function getCurrentUsername(): string
     {
         return $this->getToken(TokenInterface::class)->getUsername();
     }
@@ -59,7 +59,7 @@ class SymfonyTokenContext implements TokenContext
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass): \Symfony\Component\Security\Core\User\UserInterface
     {
         $user = $this->getToken(TokenInterface::class)->getUser();
 
@@ -74,12 +74,12 @@ class SymfonyTokenContext implements TokenContext
         return $user;
     }
 
-    public function hasToken() : bool
+    public function hasToken(): bool
     {
         return $this->tokenStorage->getToken() !== null;
     }
 
-    public function hasNonAnonymousToken() : bool
+    public function hasNonAnonymousToken(): bool
     {
         return $this->hasToken() && ! ($this->getToken(TokenInterface::class) instanceof AnonymousToken);
     }
@@ -95,7 +95,7 @@ class SymfonyTokenContext implements TokenContext
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getToken(string $expectedClass) : TokenInterface
+    public function getToken(string $expectedClass): TokenInterface
     {
         $token = $this->tokenStorage->getToken();
 
@@ -113,7 +113,7 @@ class SymfonyTokenContext implements TokenContext
     /**
      * @param mixed $attributes
      */
-    public function isGranted($attributes, ?object $object = null) : bool
+    public function isGranted($attributes, ?object $object = null): bool
     {
         return $this->authorizationChecker->isGranted($attributes, $object);
     }
@@ -121,7 +121,7 @@ class SymfonyTokenContext implements TokenContext
     /**
      * @param mixed $attributes
      */
-    public function assertIsGranted($attributes, ?object $object = null) : void
+    public function assertIsGranted($attributes, ?object $object = null): void
     {
         if (!$this->isGranted($attributes, $object)) {
             throw new AccessDeniedHttpException();

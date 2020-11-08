@@ -49,7 +49,7 @@ class ConvertExceptionListener
     /**
      * @param ExceptionEvent|GetResponseForExceptionEvent $event
      */
-    public function onKernelException($event) : void
+    public function onKernelException($event): void
     {
         $exception = $event->getException();
 
@@ -75,7 +75,7 @@ class ConvertExceptionListener
      *
      * @psalm-param class-string|int $convertToExceptionClass
      */
-    private function convertException(Exception $exception, $convertToExceptionClass) : Exception
+    private function convertException(Exception $exception, $convertToExceptionClass): Exception
     {
         if (is_numeric($convertToExceptionClass)) {
             return new HttpException((int) $convertToExceptionClass, null, $exception);
@@ -125,7 +125,7 @@ class ConvertExceptionListener
         return null;
     }
 
-    private function logException(Exception $exception) : void
+    private function logException(Exception $exception): void
     {
         if ($this->logger === null) {
             return;

@@ -31,7 +31,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     /**
      * @param mixed $result
      */
-    public function supports($result) : bool
+    public function supports($result): bool
     {
         return is_array($result) || $result instanceof TemplateView || $result instanceof ViewStruct;
     }
@@ -39,7 +39,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     /**
      * @param mixed $result
      */
-    public function convert($result, Request $request) : Response
+    public function convert($result, Request $request): Response
     {
         $controller = (string) $request->attributes->get('_controller');
 
@@ -56,7 +56,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
         );
     }
 
-    private function makeResponseFor(string $controller, TemplateView $templateView, string $requestFormat) : Response
+    private function makeResponseFor(string $controller, TemplateView $templateView, string $requestFormat): Response
     {
         $viewName = $this->guesser->guessControllerTemplateName(
             $controller,

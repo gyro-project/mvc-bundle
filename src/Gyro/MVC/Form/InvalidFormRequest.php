@@ -14,7 +14,7 @@ class InvalidFormRequest implements FormRequest
      *
      * @throws \Gyro\MVC\Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle(string $formType, $bindData = null, array $options = []) : bool
+    public function handle(string $formType, $bindData = null, array $options = []): bool
     {
         return false;
     }
@@ -34,7 +34,7 @@ class InvalidFormRequest implements FormRequest
     /**
      * Is the bound form valid?
      */
-    public function isValid() : bool
+    public function isValid(): bool
     {
         return false;
     }
@@ -42,12 +42,12 @@ class InvalidFormRequest implements FormRequest
     /**
      * Is the request bound to a form?
      */
-    public function isBound() : bool
+    public function isBound(): bool
     {
         return true;
     }
 
-    public function getForm() : \Symfony\Component\Form\FormInterface
+    public function getForm(): \Symfony\Component\Form\FormInterface
     {
         throw new \BadMethodCallException("Not supported in InvalidFormRequest");
     }
@@ -57,7 +57,7 @@ class InvalidFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView() : \Symfony\Component\Form\FormView
+    public function createFormView(): \Symfony\Component\Form\FormView
     {
         return new \Symfony\Component\Form\FormView();
     }

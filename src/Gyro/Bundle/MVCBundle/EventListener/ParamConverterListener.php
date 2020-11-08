@@ -36,7 +36,7 @@ class ParamConverterListener
      * @psalm-suppress ArgumentTypeCoercion
      * @psalm-suppress PossiblyNullReference
      */
-    public function onKernelController($event) : void
+    public function onKernelController($event): void
     {
         $controller = $event->getController();
         /** @psalm-suppress UndefinedClass */
@@ -59,8 +59,10 @@ class ParamConverterListener
             $class = $param->getClass()->getName();
             $name = $param->getName();
 
-            if (is_subclass_of($class, SessionInterface::class) ||
-                   $class === SessionInterface::class) {
+            if (
+                is_subclass_of($class, SessionInterface::class) ||
+                   $class === SessionInterface::class
+            ) {
                 $value = $request->getSession();
             } elseif ($class === FormRequest::class) {
                 $value = new SymfonyFormRequest($request, $this->serviceProvider->getFormFactory());

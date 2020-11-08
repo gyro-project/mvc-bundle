@@ -59,7 +59,7 @@ abstract class ViewStruct
         $this->throwPropertyNotExists($name);
     }
 
-    private function throwPropertyNotExists(string $property) : void
+    private function throwPropertyNotExists(string $property): void
     {
         throw new \InvalidArgumentException(
             'View ' . static::class . ' does not support property "$' . $property .

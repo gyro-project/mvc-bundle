@@ -31,7 +31,7 @@ class TemplateView
     /**
      * @return array<string,mixed>
      */
-    public function getViewParams() : array
+    public function getViewParams(): array
     {
         $viewParams = $this->viewParams;
 
@@ -46,12 +46,12 @@ class TemplateView
         return $viewParams;
     }
 
-    public function getActionTemplateName() : ?string
+    public function getActionTemplateName(): ?string
     {
         return $this->actionTemplateName;
     }
 
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
@@ -59,7 +59,7 @@ class TemplateView
     /**
      * @return array<string,string>
      */
-    public function getHeaders() : array
+    public function getHeaders(): array
     {
         return $this->headers;
     }

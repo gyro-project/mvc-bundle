@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
      * @psalm-suppress PossiblyNullReference
      * @psalm-suppress PossiblyUndefinedMethod
      */
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new CompatibleTreeBuilder();
         $rootNode = $treeBuilder->root('gyro_mvc');

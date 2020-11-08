@@ -23,7 +23,7 @@ interface TokenContext
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUsername() : string;
+    public function getCurrentUsername(): string;
 
     /**
      * Get the current User object
@@ -36,11 +36,11 @@ interface TokenContext
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getCurrentUser(string $expectedClass) : UserInterface;
+    public function getCurrentUser(string $expectedClass): UserInterface;
 
-    public function hasToken() : bool;
+    public function hasToken(): bool;
 
-    public function hasNonAnonymousToken() : bool;
+    public function hasNonAnonymousToken(): bool;
 
     /**
      * Get the Security Token
@@ -53,17 +53,17 @@ interface TokenContext
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getToken(string $expectedClass) : TokenInterface;
+    public function getToken(string $expectedClass): TokenInterface;
 
     /**
      * @param mixed $attributes
      */
-    public function isGranted($attributes, ?object $object = null) : bool;
+    public function isGranted($attributes, ?object $object = null): bool;
 
     /**
      * @param mixed $attributes
      *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
-    public function assertIsGranted($attributes, ?object $object = null) : void;
+    public function assertIsGranted($attributes, ?object $object = null): void;
 }

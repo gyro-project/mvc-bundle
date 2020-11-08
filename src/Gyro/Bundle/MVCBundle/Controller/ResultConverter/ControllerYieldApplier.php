@@ -10,10 +10,10 @@ interface ControllerYieldApplier
     /**
      * @param mixed $yield
      */
-    public function supports($yield) : bool;
+    public function supports($yield): bool;
 
     /**
      * @param mixed $yield
      */
-    public function apply($yield, Request $request, Response $response) : void;
+    public function apply($yield, Request $request, Response $response): void;
 }

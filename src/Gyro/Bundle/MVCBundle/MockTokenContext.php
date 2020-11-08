@@ -42,7 +42,7 @@ class MockTokenContext implements TokenContext
      *
      * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
      */
-    public function getCurrentUsername() : string
+    public function getCurrentUsername(): string
     {
         if ($this->user === null) {
             throw new UnauthenticatedUserException();
@@ -62,7 +62,7 @@ class MockTokenContext implements TokenContext
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getCurrentUser(string $expectedClass) : \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass): \Symfony\Component\Security\Core\User\UserInterface
     {
         if (!is_object($this->user) || !($this->user instanceof  $expectedClass)) {
             throw new UnauthenticatedUserException();
@@ -71,17 +71,17 @@ class MockTokenContext implements TokenContext
         return $this->user;
     }
 
-    public function hasToken() : bool
+    public function hasToken(): bool
     {
         return true;
     }
 
-    public function hasNonAnonymousToken() : bool
+    public function hasNonAnonymousToken(): bool
     {
         return false;
     }
 
-    public function getToken(string $expectedClass) : \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+    public function getToken(string $expectedClass): \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
     {
         throw new \BadMethodCallException("getToken() not supported in MockTokenContext");
     }
@@ -91,7 +91,7 @@ class MockTokenContext implements TokenContext
      *
      * @psalm-suppress DeprecatedClass
      */
-    public function isGranted($attributes, ?object $object = null) : bool
+    public function isGranted($attributes, ?object $object = null): bool
     {
         if (!is_string($attributes) && strpos($attributes, 'ROLE_') === false) {
             throw new \BadMethodCallException("Only ROLE_* checks are possible with mock interface.");
@@ -117,7 +117,7 @@ class MockTokenContext implements TokenContext
     /**
      * @param mixed $attributes
      */
-    public function assertIsGranted($attributes, ?object $object = null) : void
+    public function assertIsGranted($attributes, ?object $object = null): void
     {
         if (!$this->isGranted($attributes, $object)) {
             throw new AccessDeniedHttpException();

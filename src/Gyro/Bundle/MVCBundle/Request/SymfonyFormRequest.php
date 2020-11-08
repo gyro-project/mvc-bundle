@@ -38,7 +38,7 @@ class SymfonyFormRequest implements FormRequest
      *
      * @throws Exception\FormAlreadyHandledException when a form was already bound on this request before.
      */
-    public function handle(string $formType, $bindData = null, array $options = []) : bool
+    public function handle(string $formType, $bindData = null, array $options = []): bool
     {
         if ($this->form !== null) {
             throw new Exception\FormAlreadyHandledException($this->form->getName());
@@ -67,7 +67,7 @@ class SymfonyFormRequest implements FormRequest
     /**
      * Is the bound form valid?
      */
-    public function isValid() : bool
+    public function isValid(): bool
     {
         $this->assertFormHandled();
 
@@ -77,14 +77,14 @@ class SymfonyFormRequest implements FormRequest
     /**
      * Is the request bound to a form?
      */
-    public function isBound() : bool
+    public function isBound(): bool
     {
         $this->assertFormHandled();
 
         return $this->form->isSubmitted();
     }
 
-    public function getForm() : \Symfony\Component\Form\FormInterface
+    public function getForm(): \Symfony\Component\Form\FormInterface
     {
         $this->assertFormHandled();
 
@@ -96,14 +96,14 @@ class SymfonyFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView() : \Symfony\Component\Form\FormView
+    public function createFormView(): \Symfony\Component\Form\FormView
     {
         $this->assertFormHandled();
 
         return $this->form->createView();
     }
 
-    private function assertFormHandled() : void
+    private function assertFormHandled(): void
     {
         if ($this->form === null) {
             throw new Exception\NoFormHandledException();

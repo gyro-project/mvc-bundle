@@ -17,7 +17,7 @@ class GyroMVCExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container) : void
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         /** @psalm-var array{convert_exceptions: array<class-string,string|int>} */

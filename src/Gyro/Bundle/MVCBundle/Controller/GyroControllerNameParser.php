@@ -19,7 +19,7 @@ class GyroControllerNameParser
         $this->container = $container;
     }
 
-    public function parse(string $controller) : string
+    public function parse(string $controller): string
     {
         $parts = explode(":", $controller);
 
@@ -34,7 +34,7 @@ class GyroControllerNameParser
         return $this->parseServiceController($parts[0], $parts[1]);
     }
 
-    private function parseServiceController(string $serviceId, string $method) : string
+    private function parseServiceController(string $serviceId, string $method): string
     {
         $service = $this->container->get($serviceId, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
         /** @psalm-suppress RedundantConditionGivenDocblockType */

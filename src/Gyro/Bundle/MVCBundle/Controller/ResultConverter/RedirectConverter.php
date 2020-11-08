@@ -19,7 +19,7 @@ class RedirectConverter implements ControllerResultConverter
     /**
      * @param mixed $result
      */
-    public function supports($result) : bool
+    public function supports($result): bool
     {
         return $result instanceof RedirectRoute;
     }
@@ -27,7 +27,7 @@ class RedirectConverter implements ControllerResultConverter
     /**
      * @param mixed $result
      */
-    public function convert($result, Request $request) : Response
+    public function convert($result, Request $request): Response
     {
         assert($result instanceof RedirectRoute);
 
