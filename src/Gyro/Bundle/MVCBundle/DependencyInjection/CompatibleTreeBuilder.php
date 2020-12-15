@@ -14,7 +14,7 @@ class CompatibleTreeBuilder
     /** @var NodeDefinition|null */
     private $rootNode;
 
-    public function root(string $name) : NodeDefinition
+    public function root(string $name): NodeDefinition
     {
         if ($this->symfonyTreeBuilder === null) {
             if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
@@ -37,7 +37,7 @@ class CompatibleTreeBuilder
         return $this->rootNode;
     }
 
-    public function getTreeBuilder() : TreeBuilder
+    public function getTreeBuilder(): TreeBuilder
     {
         if ($this->symfonyTreeBuilder === null) {
             throw new \RuntimeException("No root node was generated for this tree builder.");

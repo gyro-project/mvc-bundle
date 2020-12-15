@@ -23,7 +23,7 @@ class RedirectRoute
         $this->response = $response;
     }
 
-    public function getRouteName() : string
+    public function getRouteName(): string
     {
         return $this->routeName;
     }
@@ -31,12 +31,12 @@ class RedirectRoute
     /**
      * @return array<string,string|int|float|bool|null>
      */
-    public function getParameters() : array
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    public function getResponse() : ?Response
+    public function getResponse(): ?Response
     {
         return $this->response;
     }

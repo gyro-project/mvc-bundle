@@ -17,7 +17,7 @@ class BundleLocation
     /**
      * @psalm-param class-string $className
      */
-    public function locationFor(string $className) : ?string
+    public function locationFor(string $className): ?string
     {
         $bundle = $this->getBundleForClass($className);
 
@@ -31,7 +31,7 @@ class BundleLocation
     /**
      * @psalm-param class-string $className
      */
-    protected function getBundleForClass(string $className) : ?BundleInterface
+    protected function getBundleForClass(string $className): ?BundleInterface
     {
         $reflectionClass = new \ReflectionClass($className);
         $bundles = $this->kernel->getBundles();

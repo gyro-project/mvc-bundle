@@ -11,7 +11,7 @@ class HeadersYieldApplier implements ControllerYieldApplier
     /**
      * @param mixed $yield
      */
-    public function supports($yield) : bool
+    public function supports($yield): bool
     {
         return $yield instanceof Headers;
     }
@@ -19,7 +19,7 @@ class HeadersYieldApplier implements ControllerYieldApplier
     /**
      * @param mixed $yield
      */
-    public function apply($yield, Request $request, Response $response) : void
+    public function apply($yield, Request $request, Response $response): void
     {
         assert($yield instanceof Headers);
 

@@ -25,7 +25,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         $this->parser = $parser;
     }
 
-    public function guessControllerTemplateName(string $controller, ?string $actionName, string $format, string $engine) : string
+    public function guessControllerTemplateName(string $controller, ?string $actionName, string $format, string $engine): string
     {
         [$bundleName, $controllerName, $actionName] = $this->parseControllerCommand($controller, $actionName);
 
@@ -37,7 +37,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
      *
      * @psalm-suppress ArgumentTypeCoercion
      */
-    private function parseControllerCommand(string $controller, ?string $actionName = null) : array
+    private function parseControllerCommand(string $controller, ?string $actionName = null): array
     {
         [$className, $method] = $this->extractControllerCallable($controller);
 
@@ -55,7 +55,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return [$bundleName, $controllerName, $actionName];
     }
 
-    private function createTemplateReference(string $bundleName, string $controllerName, ?string $actionName, string $format, string $engine) : string
+    private function createTemplateReference(string $bundleName, string $controllerName, ?string $actionName, string $format, string $engine): string
     {
         if (!$bundleName) {
             return sprintf('%s/%s.%s.%s', $controllerName, (string) $actionName, $format, $engine);
@@ -65,7 +65,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     }
 
     /** @return array<int,string> */
-    private function extractControllerCallable(string $controller) : array
+    private function extractControllerCallable(string $controller): array
     {
         if (strpos($controller, '::') === false) {
             $controller = $this->parser->parse($controller);
@@ -74,7 +74,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return explode('::', $controller, 2);
     }
 
-    private function extractControllerName(string $className) : string
+    private function extractControllerName(string $className): string
     {
         if (!preg_match('/([^\\\\]+)Controller$/', $className, $matchController)) {
             throw new \InvalidArgumentException(sprintf('The "%s" class does not look like a controller class (it must be in a "Controller" sub-namespace and the class name must end with "Controller")', $className));
@@ -83,7 +83,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
         return $matchController[1];
     }
 
-    private function extractActionName(string $method) : string
+    private function extractActionName(string $method): string
     {
         if (!preg_match('/^(.+)Action$/', $method, $matchAction)) {
             throw new \InvalidArgumentException(sprintf('The "%s" method does not look like an action method (it does not end with Action)', $method));

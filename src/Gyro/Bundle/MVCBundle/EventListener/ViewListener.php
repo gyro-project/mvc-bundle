@@ -21,12 +21,12 @@ class ViewListener
     /** @var ControllerYieldApplier[] */
     private $yieldAppliers = [];
 
-    public function addConverter(ControllerResultConverter $converter) : void
+    public function addConverter(ControllerResultConverter $converter): void
     {
         $this->converters[] = $converter;
     }
 
-    public function addYieldApplier(ControllerYieldApplier $applier) : void
+    public function addYieldApplier(ControllerYieldApplier $applier): void
     {
         $this->yieldAppliers[] = $applier;
     }
@@ -34,7 +34,7 @@ class ViewListener
     /**
      * @param ViewEvent|GetResponseForControllerResultEvent $event
      */
-    public function onKernelView($event) : void
+    public function onKernelView($event): void
     {
         $request = $event->getRequest();
 
@@ -58,7 +58,7 @@ class ViewListener
         $event->setResponse($response);
     }
 
-    private function unrollGenerator(Generator $generator, Request $request) : Response
+    private function unrollGenerator(Generator $generator, Request $request): Response
     {
         /** @var array<object,array> $yields */
         $yields = iterator_to_array($generator);
@@ -87,7 +87,7 @@ class ViewListener
     /**
      * @param mixed $result
      */
-    private function convert($result, Request $request) : Response
+    private function convert($result, Request $request): Response
     {
         if ($result instanceof Response) {
             return $result;

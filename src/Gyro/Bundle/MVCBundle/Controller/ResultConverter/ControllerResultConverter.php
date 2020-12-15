@@ -10,10 +10,10 @@ interface ControllerResultConverter
     /**
      * @param mixed $result
      */
-    public function supports($result) : bool;
+    public function supports($result): bool;
 
     /**
      * @param mixed $result
      */
-    public function convert($result, Request $request) : Response;
+    public function convert($result, Request $request): Response;
 }
