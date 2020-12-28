@@ -75,5 +75,9 @@
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
+
+        <service id="gyro_mvc.event_dispatcher" class="Gyro\MVC\EventDispatcher\EventDispatcher">
+            <argument type="service" id="event_dispatcher" />
+        </service>
     </services>
 </container>
