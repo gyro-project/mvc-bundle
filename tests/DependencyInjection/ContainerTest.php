@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\DependencyInjection\GyroMVCExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ContainerTest extends TestCase
 {
@@ -62,6 +63,7 @@ class ContainerTest extends TestCase
         $container->set('controller_name_converter', \Phake::mock('Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser'));
         $container->set('logger', \Phake::mock('Psr\Log\LoggerInterface'));
         $container->set('router', \Phake::mock('Symfony\Component\Routing\Generator\UrlGeneratorInterface'));
+        $container->set('event_dispatcher', \Phake::mock(EventDispatcherInterface::class));
         $container->registerExtension($loader);
         $loader->load([$config], $container);
 

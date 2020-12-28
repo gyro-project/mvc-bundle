@@ -355,3 +355,44 @@ The following excpetions are registered by default:
 | Doctrine\ORM\EntityNotFoundException                          | Symfony\Component\HttpKernel\Exception\NotFoundHttpException  |
 | Elasticsearch\Common\Exceptions\Missing404Exception           | Symfony\Component\HttpKernel\Exception\NotFoundHttpException  |
 
+## EventDispatcher Adapter
+
+The API of Symfony EventDispatcher changed in special way between version 3 and
+4 and will again in 5. You don't pass the event name anymore, as required first
+argument but now you may pass it as optional second argument. This was done to
+align Symfony with [PSR-14
+(Event-Dispatcher)](https://www.php-fig.org/psr/psr-14/).
+
+The migration path for this code is a bit annoying and when using Psalm will
+lead to violations that need to be suppressed.
+
+Gyro ships an adapter for the EventDispatcher that avoids this problem. Its API
+is PSR-14 API compatible, but does not implement the interface. It then
+delegates to Symfony event dispatchers correctly.
+
+Inject the service `gyro_mvc.event_dispatcher` instead of the
+`event_dispatcher` service.
+
+```php
+use Gyro\MVC\EventDispatcher\EventDispatcher;
+
+class MyEvent
+{
+}
+
+class MyService
+{
+    private EventDispatcher $eventDispatcher;
+
+    public function __construct(EventDispatcher $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
+    public function performMyOperation()
+    {
+        // ....
+        $this->eventDispatcher->dispatch(new MyEvent());
+    }
+}
+```
