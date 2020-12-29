@@ -2,7 +2,7 @@
 
 namespace Gyro\Bundle\MVCBundle\DependencyInjection;
 
-use PackageVersions\Versions;
+use Gyro\MVC\SymfonyVersion;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -17,7 +17,7 @@ class CompatibleTreeBuilder
     public function root(string $name): NodeDefinition
     {
         if ($this->symfonyTreeBuilder === null) {
-            if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
+            if (SymfonyVersion::isVersion4Dot4AndAbove()) {
                 /** @psalm-suppress TooManyArguments */
                 $this->symfonyTreeBuilder = new TreeBuilder($name);
                 /** @psalm-suppress UndefinedMethod */

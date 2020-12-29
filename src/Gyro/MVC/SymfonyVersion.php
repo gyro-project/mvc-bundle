@@ -8,7 +8,12 @@ class SymfonyVersion
 {
     public static function isVersion4Dot4AndAbove(): bool
     {
-        $version = str_replace('v', '', Versions::getVersion('symfony/symfony'));
+        $packages = Versions::VERSIONS;
+        $package = isset($packages['symfony/framework-bundle'])
+            ? 'symfony/framework-bundle'
+            : 'symfony/symfony';
+
+        $version = str_replace('v', '', Versions::getVersion($package));
         $pos = strpos($version, '@');
 
         if ($pos !== false) {
