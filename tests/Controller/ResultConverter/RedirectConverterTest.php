@@ -55,4 +55,17 @@ class RedirectConverterTest extends TestCase
 
         $this->assertEquals('/foo?id=10', $response->headers->get('Location'));
     }
+
+    /**
+     * @test
+     */
+    public function it_redirects_with_status_code() : void
+    {
+        \Phake::when($this->router)->generate('foo', ['id' => 10])->thenReturn('/foo?id=10');
+        $request = Request::create('GET', '/');
+
+        $response = $this->converter->convert(new RedirectRoute('foo', ['id' => 10], 303), $request);
+
+        $this->assertSame(303, $response->getStatusCode());
+    }
 }

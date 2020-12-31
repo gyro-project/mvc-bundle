@@ -13,14 +13,30 @@ class RedirectRoute
     /** @var ?Response */
     private $response;
 
+    /** @var int */
+    private $statusCode = 302;
+
     /**
      * @param array<string,string|int|float|bool|null> $parameters
+     * @param Response|int|null                        $response
+     *
+     * @psalm-suppress RedundantConditionGivenDocblockType
      */
-    public function __construct(string $routeName, array $parameters = [], Response $response = null)
+    public function __construct(string $routeName, array $parameters = [], $response = null)
     {
         $this->routeName = $routeName;
         $this->parameters = $parameters;
-        $this->response = $response;
+
+        if (is_int($response)) {
+            $this->statusCode = $response;
+        } elseif ($response instanceof Response || $response === null) {
+            $this->response = $response;
+        } else {
+            throw new \InvalidArgumentException(sprintf(
+                '$response must be of type int|Response|null, %s given',
+                is_object($response) ? get_class($response) : gettype($response)
+            ));
+        }
     }
 
     public function getRouteName(): string
@@ -39,5 +55,10 @@ class RedirectRoute
     public function getResponse(): ?Response
     {
         return $this->response;
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
     }
 }
