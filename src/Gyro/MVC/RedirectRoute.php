@@ -18,7 +18,9 @@ class RedirectRoute
 
     /**
      * @param array<string,string|int|float|bool|null> $parameters
-     * @param Response|int $response
+     * @param Response|int|null                        $response
+     *
+     * @psalm-suppress RedundantConditionGivenDocblockType
      */
     public function __construct(string $routeName, array $parameters = [], $response = null)
     {
@@ -27,7 +29,7 @@ class RedirectRoute
 
         if (is_int($response)) {
             $this->statusCode = $response;
-        } else if ($response instanceof Response || $response === null) {
+        } elseif ($response instanceof Response || $response === null) {
             $this->response = $response;
         } else {
             throw new \InvalidArgumentException(sprintf(
