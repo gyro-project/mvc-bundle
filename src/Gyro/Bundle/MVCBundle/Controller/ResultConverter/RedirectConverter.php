@@ -31,7 +31,7 @@ class RedirectConverter implements ControllerResultConverter
     {
         assert($result instanceof RedirectRoute);
 
-        $response = new Response("", 302);
+        $response = new Response("", $result->getStatusCode());
 
         $response->headers->set(
             'Location',
