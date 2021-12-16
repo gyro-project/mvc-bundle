@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle\EventListener;
 
 use Gyro\Bundle\MVCBundle\ParamConverter\ServiceProvider;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Gyro\Bundle\MVCBundle\Request\SymfonyFormRequest;
 use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
@@ -31,12 +30,12 @@ class ParamConverterListener
     }
 
     /**
-     * @param FilterControllerEvent|ControllerEvent $event
+     * @param ControllerEvent|ControllerEvent $event
      *
      * @psalm-suppress ArgumentTypeCoercion
      * @psalm-suppress PossiblyNullReference
      */
-    public function onKernelController($event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
         /** @psalm-suppress UndefinedClass */

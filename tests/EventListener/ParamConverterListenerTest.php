@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -119,10 +118,6 @@ class ParamConverterListenerTest extends TestCase
 
     public function createControllerEvent(callable $method, Request $request): object
     {
-        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
-            return new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
-        }
-
-        return new FilterControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
+        return new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
     }
 }

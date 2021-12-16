@@ -60,7 +60,6 @@ class ContainerTest extends TestCase
         $loader = new GyroMVCExtension();
         $container->set('twig', \Phake::mock('Twig\Environment'));
         $container->set('kernel', \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'));
-        $container->set('controller_name_converter', \Phake::mock('Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser'));
         $container->set('logger', \Phake::mock('Psr\Log\LoggerInterface'));
         $container->set('router', \Phake::mock('Symfony\Component\Routing\Generator\UrlGeneratorInterface'));
         $container->set('event_dispatcher', \Phake::mock(EventDispatcherInterface::class));

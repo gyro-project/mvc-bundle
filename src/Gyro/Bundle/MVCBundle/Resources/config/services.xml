@@ -6,7 +6,6 @@
 
     <services>
         <service id="gyro_mvc.controller.name_parser" class="Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser">
-            <argument type="service" id="controller_name_converter" />
             <argument type="service" id="service_container" />
         </service>
 
