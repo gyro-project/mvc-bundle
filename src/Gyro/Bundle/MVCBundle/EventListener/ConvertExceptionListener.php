@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Psr\Log\LoggerInterface;
-use Exception;
+use Throwable;
 use ReflectionClass;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Doctrine\ORM\EntityNotFoundException;
@@ -75,7 +75,7 @@ class ConvertExceptionListener
      *
      * @psalm-param class-string|int $convertToExceptionClass
      */
-    private function convertException(Exception $exception, $convertToExceptionClass): Exception
+    private function convertException(Throwable $exception, $convertToExceptionClass): Throwable
     {
         if (is_numeric($convertToExceptionClass)) {
             return new HttpException((int) $convertToExceptionClass, null, $exception);
@@ -112,7 +112,7 @@ class ConvertExceptionListener
      *
      * @psalm-return class-string|int|null
      */
-    private function findConvertToExceptionClass(Exception $exception)
+    private function findConvertToExceptionClass(Throwable $exception)
     {
         $exceptionClass = get_class($exception);
 
@@ -125,7 +125,7 @@ class ConvertExceptionListener
         return null;
     }
 
-    private function logException(Exception $exception): void
+    private function logException(Throwable $exception): void
     {
         if ($this->logger === null) {
             return;

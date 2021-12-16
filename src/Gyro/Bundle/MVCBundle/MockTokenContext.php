@@ -104,9 +104,7 @@ class MockTokenContext implements TokenContext
         $roles = $this->user->getRoles();
 
         foreach ($roles as $role) {
-            if (is_string($role) && $role === $attributes) {
-                return true;
-            } elseif ($role instanceof Role && $role->getRole() === $attributes) {
+            if ($role === $attributes) {
                 return true;
             }
         }
