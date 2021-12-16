@@ -35,7 +35,7 @@ class ParamConverterListener
      * @psalm-suppress ArgumentTypeCoercion
      * @psalm-suppress PossiblyNullReference
      */
-    public function onKernelController($event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
         /** @psalm-suppress UndefinedClass */
