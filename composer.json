@@ -28,7 +28,5 @@
             "Gyro\\Bundle\\MVCBundle\\": "tests/"
         }
     },
-    "require": {
-        "composer/package-versions-deprecated": "^1.8"
-    }
+    "require": {}
 }
