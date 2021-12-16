@@ -10,11 +10,11 @@
     "require-dev": {
         "php": "~7.4|~8.0",
         "phake/phake": "^4.2.0",
-        "phpunit/phpunit": "^8.5|^9.4",
+        "phpunit/phpunit": "^9.4",
         "symfony/symfony": "^4.4|^5.4",
         "vimeo/psalm": "4.15.0",
         "nikic/php-parser": "^4.4",
-        "doctrine/coding-standard": "^8.2",
+        "doctrine/coding-standard": "^8.2.1",
         "twig/twig": "^1.44|^2.14|^3.1"
     },
     "autoload": {

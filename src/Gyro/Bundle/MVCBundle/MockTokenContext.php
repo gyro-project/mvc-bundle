@@ -4,7 +4,6 @@ namespace Gyro\Bundle\MVCBundle;
 
 use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception\UnauthenticatedUserException;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
