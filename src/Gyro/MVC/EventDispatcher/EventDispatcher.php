@@ -2,7 +2,6 @@
 
 namespace Gyro\MVC\EventDispatcher;
 
-use Gyro\MVC\SymfonyVersion;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher
@@ -19,12 +18,7 @@ class EventDispatcher
     {
         $eventName = $eventName ?: get_class($event);
 
-        if (SymfonyVersion::isVersion4Dot4AndAbove()) {
-            /** @psalm-suppress TooManyArguments, InvalidArgument */
-            $this->eventDispatcher->dispatch($event, $eventName);
-        } else {
-            /** @psalm-suppress TooManyArguments, InvalidArgument, ArgumentTypeCoercion */
-            $this->eventDispatcher->dispatch($eventName, $event);
-        }
+        /** @psalm-suppress TooManyArguments, InvalidArgument */
+        $this->eventDispatcher->dispatch($event, $eventName);
     }
 }

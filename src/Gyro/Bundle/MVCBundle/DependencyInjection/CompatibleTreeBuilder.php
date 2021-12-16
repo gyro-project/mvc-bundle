@@ -2,7 +2,6 @@
 
 namespace Gyro\Bundle\MVCBundle\DependencyInjection;
 
-use Gyro\MVC\SymfonyVersion;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -17,17 +16,10 @@ class CompatibleTreeBuilder
     public function root(string $name): NodeDefinition
     {
         if ($this->symfonyTreeBuilder === null) {
-            if (SymfonyVersion::isVersion4Dot4AndAbove()) {
-                /** @psalm-suppress TooManyArguments */
-                $this->symfonyTreeBuilder = new TreeBuilder($name);
-                /** @psalm-suppress UndefinedMethod */
-                $this->rootNode = $this->symfonyTreeBuilder->getRootNode();
-            } else {
-                /** @psalm-suppress TooFewArguments */
-                $this->symfonyTreeBuilder = new TreeBuilder();
-                /** @psalm-suppress UndefinedMethod */
-                $this->rootNode = $this->symfonyTreeBuilder->root($name);
-            }
+            /** @psalm-suppress TooManyArguments */
+            $this->symfonyTreeBuilder = new TreeBuilder($name);
+            /** @psalm-suppress UndefinedMethod */
+            $this->rootNode = $this->symfonyTreeBuilder->getRootNode();
         }
 
         if (!($this->rootNode instanceof NodeDefinition)) {
