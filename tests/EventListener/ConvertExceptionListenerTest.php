@@ -25,8 +25,8 @@ class ConvertExceptionListenerTest extends TestCase
             $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
-        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getException());
-        $this->assertSame($original, $event->getException()->getPrevious());
+        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getThrowable());
+        $this->assertSame($original, $event->getThrowable()->getPrevious());
     }
 
     /**
@@ -43,7 +43,7 @@ class ConvertExceptionListenerTest extends TestCase
             $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
-        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getException());
+        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $event->getThrowable());
     }
 
     /**
@@ -60,26 +60,17 @@ class ConvertExceptionListenerTest extends TestCase
             $event = $this->createExceptionEvent($original = new OutOfBoundsException())
         );
 
-        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\HttpException', $event->getException());
-        $this->assertEquals(405, $event->getException()->getStatusCode());
-        $this->assertSame($original, $event->getException()->getPrevious());
+        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\HttpException', $event->getThrowable());
+        $this->assertEquals(405, $event->getThrowable()->getStatusCode());
+        $this->assertSame($original, $event->getThrowable()->getPrevious());
     }
 
     /**
-     * @return ExceptionEvent|GetResponseForExceptionEvent
+     * @return ExceptionEvent
      */
     public function createExceptionEvent(\Throwable $original): object
     {
-        if (version_compare('4.4.0', Versions::getVersion('symfony/symfony'), '<=')) {
-            return new ExceptionEvent(
-                \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
-                \Phake::mock('Symfony\Component\HttpFoundation\Request'),
-                0,
-                $original
-            );
-        }
-
-        return new GetResponseForExceptionEvent(
+        return new ExceptionEvent(
             \Phake::mock('Symfony\Component\HttpKernel\KernelInterface'),
             \Phake::mock('Symfony\Component\HttpFoundation\Request'),
             0,

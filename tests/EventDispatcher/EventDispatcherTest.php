@@ -21,6 +21,8 @@ class EventDispatcherTest extends TestCase
 
         $event = new \stdclass;
 
+        \Phake::when($mock)->dispatch(\Phake::anyParameters())->thenReturn($event);
+
         $dispatcher->dispatch($event);
 
         \Phake::verify($mock)->dispatch($event, 'stdClass');

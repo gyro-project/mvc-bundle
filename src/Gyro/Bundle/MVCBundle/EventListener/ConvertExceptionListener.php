@@ -51,7 +51,7 @@ class ConvertExceptionListener
      */
     public function onKernelException($event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         if ($exception instanceof HttpExceptionInterface) {
             return;
@@ -67,7 +67,7 @@ class ConvertExceptionListener
 
         $convertedException = $this->convertException($exception, $convertedExceptionClass);
         /** @psalm-suppress UndefinedClass */
-        $event->setException($convertedException);
+        $event->setThrowable($convertedException);
     }
 
     /**
