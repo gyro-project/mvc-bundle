@@ -45,7 +45,15 @@ class SymfonyTokenContext implements TokenContext
      */
     public function getCurrentUsername(): string
     {
-        return $this->getToken(TokenInterface::class)->getUsername();
+        $token = $this->getToken(TokenInterface::class);
+
+        if (Versions::isSecurityVersion6()) {
+            /** @psalm-suppress UndefinedInterfaceMethod */
+            return $token->getUserIdentifier();
+        }
+
+        /** @psalm-suppress UndefinedInterfaceMethod */
+        return $token->getUsername();
     }
 
     /**
@@ -81,6 +89,11 @@ class SymfonyTokenContext implements TokenContext
 
     public function hasNonAnonymousToken(): bool
     {
+        if (Versions::isSecurityVersion6()) {
+            return $this->hasToken();
+        }
+
+        /** @psalm-suppress UndefinedClass */
         return $this->hasToken() && ! ($this->getToken(TokenInterface::class) instanceof AnonymousToken);
     }
 

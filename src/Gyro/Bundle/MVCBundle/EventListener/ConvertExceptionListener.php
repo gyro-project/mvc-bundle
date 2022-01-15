@@ -78,7 +78,7 @@ class ConvertExceptionListener
     private function convertException(Throwable $exception, $convertToExceptionClass): Throwable
     {
         if (is_numeric($convertToExceptionClass)) {
-            return new HttpException((int) $convertToExceptionClass, null, $exception);
+            return new HttpException((int) $convertToExceptionClass, '', $exception);
         }
 
         $reflectionClass = new ReflectionClass($convertToExceptionClass);

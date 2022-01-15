@@ -11,11 +11,14 @@
         "php": "~7.4|~8.0",
         "phake/phake": "^4.2.0",
         "phpunit/phpunit": "^9.4",
-        "symfony/symfony": "^4.4|^5.4",
+        "symfony/symfony": "^4.4|^5.4|^6.0",
         "vimeo/psalm": "4.15.0",
         "nikic/php-parser": "^4.4",
         "doctrine/coding-standard": "^8.2.1",
         "twig/twig": "^1.44|^2.14|^3.1"
+    },
+    "require": {
+        "composer-runtime-api": "*"
     },
     "autoload": {
         "psr-0": {
@@ -28,7 +31,6 @@
             "Gyro\\Bundle\\MVCBundle\\": "tests/"
         }
     },
-    "require": {},
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
