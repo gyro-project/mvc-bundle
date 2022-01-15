@@ -17,6 +17,9 @@
         "doctrine/coding-standard": "^8.2.1",
         "twig/twig": "^1.44|^2.14|^3.1"
     },
+    "require": {
+        "composer-runtime-api": "*"
+    },
     "autoload": {
         "psr-0": {
             "Gyro\\Bundle\\MVCBundle\\": "src/",
@@ -28,7 +31,6 @@
             "Gyro\\Bundle\\MVCBundle\\": "tests/"
         }
     },
-    "require": {},
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
