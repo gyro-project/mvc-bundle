@@ -23,6 +23,7 @@ class SymfonyFormRequestTest extends TestCase
         );
         \Phake::when($form)->isSubmitted()->thenReturn(true);
         \Phake::when($form)->isValid()->thenReturn(true);
+        \Phake::when($form)->handleRequest($request)->thenReturn($form);
 
         $handled = $formRequest->handle('form_type');
 
@@ -44,6 +45,7 @@ class SymfonyFormRequestTest extends TestCase
         \Phake::when($formFactory)->create('form_type', null, [])->thenReturn(
             $form = \Phake::mock('Symfony\Component\Form\Form')
         );
+        \Phake::when($form)->handleRequest($request)->thenReturn($form);
 
         $formRequest->handle('form_type');
 
