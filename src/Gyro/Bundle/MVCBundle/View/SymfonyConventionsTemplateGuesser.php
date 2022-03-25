@@ -57,11 +57,13 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
 
     private function createTemplateReference(string $bundleName, string $controllerName, ?string $actionName, string $format, string $engine): string
     {
+        $templatePath = sprintf('%s/%s.%s.%s', $controllerName, (string) $actionName, $format, $engine);
+
         if (!$bundleName) {
-            return sprintf('%s/%s.%s.%s', $controllerName, (string) $actionName, $format, $engine);
+            return $templatePath;
         }
 
-        return sprintf('%s:%s:%s.%s.%s', $bundleName, $controllerName, (string) $actionName, $format, $engine);
+        return sprintf('@%s/%s', str_replace('Bundle', '', $bundleName), $templatePath);
     }
 
     /** @return array<int,string> */
