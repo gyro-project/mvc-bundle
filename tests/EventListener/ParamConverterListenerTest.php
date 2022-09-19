@@ -47,6 +47,23 @@ class ParamConverterListenerTest extends TestCase
     /**
      * @test
      */
+    public function it_skips_union_types() : void
+    {
+        $request = new Request();
+        $request->setSession(new Session(new MockArraySessionStorage()));
+
+        $method = function (Session|TokenContext $context) : void {
+        };
+        $event = $this->createControllerEvent($method, $request);
+
+        $this->listener->onKernelController($event);
+
+        $this->assertFalse($request->attributes->has('context'));
+    }
+
+    /**
+     * @test
+     */
     public function it_supports_array_contollers() : void
     {
         $controller = new class()

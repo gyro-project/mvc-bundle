@@ -51,11 +51,18 @@ class ParamConverterListener
 
         // automatically apply conversion for non-configured objects
         foreach ($r->getParameters() as $param) {
-            if (!$param->getClass() || $param->getClass()->isInstance($request)) {
+            if (!$param->getType()) {
                 continue;
             }
 
-            $class = $param->getClass()->getName();
+            $type = $param->getType();
+
+            // skip union and intersection types (for now?)
+            if (!($type instanceof \ReflectionNamedType)) {
+                continue;
+            }
+
+            $class = $type->getName();
             $name = $param->getName();
 
             if (
