@@ -2,36 +2,32 @@
 
 namespace Gyro\Bundle\MVCBundle\ParamConverter;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class SymfonyServiceProvider implements ServiceProvider
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        private ?FormFactoryInterface $formFactory,
+        private ?TokenStorageInterface $tokenStorage,
+        private ?AuthorizationCheckerInterface $authorizationChecker,
+    ) {
     }
 
     public function getFormFactory(): FormFactoryInterface
     {
-        return $this->throwOnNull($this->container->get('form.factory'));
+        return $this->throwOnNull($this->formFactory);
     }
 
     public function getTokenStorage(): TokenStorageInterface
     {
-        return $this->throwOnNull($this->container->get('security.token_storage'));
+        return $this->throwOnNull($this->tokenStorage);
     }
 
     public function getAuthorizationChecker(): AuthorizationCheckerInterface
     {
-        return $this->throwOnNull($this->container->get('security.authorization_checker'));
+        return $this->throwOnNull($this->authorizationChecker);
     }
 
     private function throwOnNull(?object $service): object

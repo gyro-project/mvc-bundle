@@ -66,7 +66,9 @@
         </service>
 
         <service id="gyro_mvc.param_converter.service_provider" class="Gyro\Bundle\MVCBundle\ParamConverter\SymfonyServiceProvider">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="form.factory" on-invalid="null" />
+            <argument type="service" id="security.token_storage" on-invalid="null" />
+            <argument type="service" id="security.authorization_checker" on-invalid="null" />
         </service>
 
         <service id="gyro_mvc.param_converter_listener" class="Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener">

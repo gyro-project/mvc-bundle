@@ -118,16 +118,11 @@ class ParamConverterListenerTest extends TestCase
      */
     public function setUp() : void
     {
-        $container = new Container();
-        $container->set(
-            'security.token_storage',
-            \Phake::mock(TokenStorageInterface::class)
+        $serviceProvider = new SymfonyServiceProvider(
+            null,
+            \Phake::mock(TokenStorageInterface::class),
+            \Phake::mock(AuthorizationCheckerInterface::class),
         );
-        $container->set(
-            'security.authorization_checker',
-            \Phake::mock(AuthorizationCheckerInterface::class)
-        );
-        $serviceProvider = new SymfonyServiceProvider($container);
 
         $this->kernel   = \Phake::mock(HttpKernelInterface::class);
         $this->listener = new ParamConverterListener($serviceProvider);
