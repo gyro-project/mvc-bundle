@@ -21,7 +21,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     private $guesser;
     private $engine;
 
-    public function __construct(Environment $twig, TemplateGuesser $guesser, string $engine)
+    public function __construct(?Environment $twig, TemplateGuesser $guesser, string $engine)
     {
         $this->twig = $twig;
         $this->guesser = $guesser;

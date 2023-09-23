@@ -15,7 +15,7 @@
             <call method="addConverter">
                 <argument type="service">
                     <service class="Gyro\Bundle\MVCBundle\Controller\ResultConverter\ArrayToTemplateResponseConverter">
-                        <argument type="service" id="twig" />
+                        <argument type="service" id="twig" on-invalid="null" />
                         <argument type="service" id="gyro_mvc.template_guesser" />
                         <argument>twig</argument>
                     </service>
