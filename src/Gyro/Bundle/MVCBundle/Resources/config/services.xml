@@ -47,6 +47,14 @@
                     <service class="Gyro\Bundle\MVCBundle\Controller\ResultConverter\FlashYieldApplier" />
                 </argument>
             </call>
+
+            <call method="addYieldApplier">
+                <argument type="service" id="Gyro\Bundle\MVCBundle\Controller\ResultConverter\AfterResponseYieldApplier" />
+            </call>
+        </service>
+
+        <service id="Gyro\Bundle\MVCBundle\Controller\ResultConverter\AfterResponseYieldApplier">
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="gyro_mvc.template_guesser" class="Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser">
