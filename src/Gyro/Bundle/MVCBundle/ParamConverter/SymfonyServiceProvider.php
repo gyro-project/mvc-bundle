@@ -8,11 +8,18 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class SymfonyServiceProvider implements ServiceProvider
 {
+    private ?FormFactoryInterface $formFactory;
+    private ?TokenStorageInterface $tokenStorage;
+    private ?AuthorizationCheckerInterface $authorizationChecker;
+
     public function __construct(
-        private ?FormFactoryInterface $formFactory,
-        private ?TokenStorageInterface $tokenStorage,
-        private ?AuthorizationCheckerInterface $authorizationChecker,
+        ?FormFactoryInterface $formFactory,
+        ?TokenStorageInterface $tokenStorage,
+        ?AuthorizationCheckerInterface $authorizationChecker
     ) {
+        $this->formFactory = $formFactory;
+        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public function getFormFactory(): FormFactoryInterface
