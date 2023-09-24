@@ -52,7 +52,7 @@ class ParamConverterListenerTest extends TestCase
         $request = new Request();
         $request->setSession(new Session(new MockArraySessionStorage()));
 
-        $method = function (Session|TokenContext $context) : void {
+        $method = function ($context) : void {
         };
         $event = $this->createControllerEvent($method, $request);
 
