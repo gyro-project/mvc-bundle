@@ -11,7 +11,7 @@ class AfterResponseTask
         $this->callable = $callable;
     }
 
-    public function __invoke()
+    public function __invoke(): void
     {
         $callable = $this->callable;
         $callable();

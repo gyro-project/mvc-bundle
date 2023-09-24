@@ -58,6 +58,10 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
 
     private function makeResponseFor(string $controller, TemplateView $templateView, string $requestFormat): Response
     {
+        if ($this->twig === null) {
+            throw new \RuntimeException('Cannot convert to template response without Twig');
+        }
+
         $viewName = $this->guesser->guessControllerTemplateName(
             $controller,
             $templateView->getActionTemplateName(),

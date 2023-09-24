@@ -10,15 +10,24 @@ use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
 class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscriberInterface
 {
-    private $tasks = [];
+    /** @var array<callable> */
+    private array $tasks = [];
 
+    /**
+     * @param mixed $yield
+     */
     public function supports($yield): bool
     {
         return $yield instanceof AfterResponseTask;
     }
 
+    /**
+     * @param mixed $yield
+     */
     public function apply($yield, Request $request, Response $response): void
     {
+        assert(is_callable($yield));
+
         $this->tasks[] = $yield;
     }
 
@@ -29,6 +38,9 @@ class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscrib
         }
     }
 
+    /**
+     * @psalm-return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>>
+     */
     public static function getSubscribedEvents()
     {
         return ['kernel.terminate' => 'onKernelTerminate'];
