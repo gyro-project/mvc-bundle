@@ -221,6 +221,24 @@ class DefaultController
 }
 ```
 
+## Execute code after the response was sent
+
+For a simple way to delay work from the controller to Symfony's `kernel.terminate` event 
+the Gyro's yield applier abstraction handles a `AfterResponseTask` that accepts a closure
+to be executed after `Response::send` is called via event subscriber.
+
+```php
+public function registerAction($request): RedirectRoute
+{
+    $user = $this->createUser($request);
+    $this->entityManager->persist($user);
+
+    yield new AfterResponseTask(fn () => $this->sendEmail($user));
+
+    return new RedirectRoute('home');
+}
+```
+
 ## Inject TokenContext into actions
 
 In Symfony access to security related information is available through the
