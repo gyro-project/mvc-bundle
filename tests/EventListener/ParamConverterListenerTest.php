@@ -20,6 +20,8 @@ function iAmAController(TokenContext $context) : void
 {
 }
 
+#[PHP8] function iAmAFunctionWithAUnionTypeParameter(Session|TokenContext $context): void {}
+
 class ParamConverterListenerTest extends TestCase
 {
     private $kernel;
@@ -49,12 +51,14 @@ class ParamConverterListenerTest extends TestCase
      */
     public function it_skips_union_types() : void
     {
+        if (version_compare(phpversion(), '8.0') < 0) {
+            self::markTestSkipped('Union types are only available for PHP>=8.0');
+        }
+
         $request = new Request();
         $request->setSession(new Session(new MockArraySessionStorage()));
 
-        $method = function ($context) : void {
-        };
-        $event = $this->createControllerEvent($method, $request);
+        $event = $this->createControllerEvent('Gyro\Bundle\MVCBundle\Tests\EventListener\iAmAFunctionWithAUnionTypeParameter', $request);
 
         $this->listener->onKernelController($event);
 
