@@ -6,7 +6,6 @@ use Gyro\MVC\AfterResponseTask;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
 class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscriberInterface
 {

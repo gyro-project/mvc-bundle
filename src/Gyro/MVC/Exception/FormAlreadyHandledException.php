@@ -12,7 +12,6 @@ class FormAlreadyHandledException extends RuntimeException
         parent::__construct(sprintf(
             'The \Gyro\MVC\FormRequest was already handled with form %s earlier. ' .
             'You can only use a FormRequest with exactly one form.',
-
             $name ?: 'unnamed'
         ));
     }
