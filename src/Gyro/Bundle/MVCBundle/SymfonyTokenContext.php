@@ -10,16 +10,12 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Gyro\MVC\Exception\UnauthenticatedUserException;
 
 class SymfonyTokenContext implements TokenContext
 {
-    private $tokenStorage;
-    private $authorizationChecker;
-
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(private TokenStorageInterface $tokenStorage, private AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -41,7 +37,7 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      */
     public function getCurrentUsername(): string
     {
@@ -61,13 +57,13 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      *
      * @template T of UserInterface
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getCurrentUser(string $expectedClass): \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass): UserInterface
     {
         $user = $this->getToken(TokenInterface::class)->getUser();
 
@@ -102,7 +98,7 @@ class SymfonyTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      *
      * @template T of TokenInterface
      * @psalm-param class-string<T> $expectedClass

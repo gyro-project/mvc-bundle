@@ -5,21 +5,12 @@ namespace Gyro\Bundle\MVCBundle\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use RuntimeException;
 
 class SymfonyServiceProvider implements ServiceProvider
 {
-    private ?FormFactoryInterface $formFactory;
-    private ?TokenStorageInterface $tokenStorage;
-    private ?AuthorizationCheckerInterface $authorizationChecker;
-
-    public function __construct(
-        ?FormFactoryInterface $formFactory,
-        ?TokenStorageInterface $tokenStorage,
-        ?AuthorizationCheckerInterface $authorizationChecker
-    ) {
-        $this->formFactory = $formFactory;
-        $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $authorizationChecker;
+    public function __construct(private ?FormFactoryInterface $formFactory, private ?TokenStorageInterface $tokenStorage, private ?AuthorizationCheckerInterface $authorizationChecker)
+    {
     }
 
     public function getFormFactory(): FormFactoryInterface
@@ -40,7 +31,7 @@ class SymfonyServiceProvider implements ServiceProvider
     private function throwOnNull(?object $service): object
     {
         if ($service === null) {
-            throw new \RuntimeException("Non-existant service");
+            throw new RuntimeException("Non-existant service");
         }
 
         return $service;

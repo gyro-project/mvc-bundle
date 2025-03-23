@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieYieldApplierTest extends TestCase
 {
-    private $applier;
+    private \Gyro\Bundle\MVCBundle\Controller\ResultConverter\CookieYieldApplier $applier;
 
     public function setUp() : void
     {

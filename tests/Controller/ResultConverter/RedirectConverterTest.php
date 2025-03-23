@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RedirectConverterTest extends TestCase
 {
     private $router;
-    private $converter;
+    private \Gyro\Bundle\MVCBundle\Controller\ResultConverter\RedirectConverter $converter;
 
     public function setUp() : void
     {

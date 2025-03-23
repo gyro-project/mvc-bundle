@@ -10,16 +10,23 @@ use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerResultConverter;
 use Gyro\Bundle\MVCBundle\Controller\ResultConverter\ControllerYieldApplier;
 use Generator;
 
+use function assert;
+use function is_object;
+use function is_array;
+
+use LogicException;
+use RuntimeException;
+
 /**
  * Converts non Response results into various side effects from a controller.
  */
 class ViewListener
 {
     /** @var ControllerResultConverter[] */
-    private $converters = [];
+    private array $converters = [];
 
     /** @var ControllerYieldApplier[] */
-    private $yieldAppliers = [];
+    private array $yieldAppliers = [];
 
     public function addConverter(ControllerResultConverter $converter): void
     {
@@ -64,11 +71,11 @@ class ViewListener
         $yields = iterator_to_array($generator);
 
         $result = $generator->getReturn();
-        \assert(\is_object($result) || \is_array($result));
+        assert(is_object($result) || is_array($result));
 
         /** @psalm-suppress RiskyTruthyFalsyComparison */
         if (!$result) {
-            throw new \LogicException("Controllers with generators must return a result that is or can be converted to a Response.");
+            throw new LogicException("Controllers with generators must return a result that is or can be converted to a Response.");
         }
 
         $response = $this->convert($result, $request);
@@ -100,7 +107,7 @@ class ViewListener
             }
         }
 
-        throw new \RuntimeException(sprintf(
+        throw new RuntimeException(sprintf(
             'Could not convert type "%s" into a Response object. No converter found.',
             is_object($result) ? get_class($result) : gettype($result)
         ));

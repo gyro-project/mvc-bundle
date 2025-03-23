@@ -8,6 +8,7 @@ use Gyro\Bundle\MVCBundle\View\TemplateGuesser;
 use Gyro\MVC\TemplateView;
 use Gyro\MVC\ViewStruct;
 use Twig\Environment;
+use RuntimeException;
 
 /**
  * Convert array or {@link TemplateView} struct into templated response.
@@ -17,15 +18,8 @@ use Twig\Environment;
  */
 class ArrayToTemplateResponseConverter implements ControllerResultConverter
 {
-    private $twig;
-    private $guesser;
-    private $engine;
-
-    public function __construct(?Environment $twig, TemplateGuesser $guesser, string $engine)
+    public function __construct(private ?Environment $twig, private TemplateGuesser $guesser, private string $engine)
     {
-        $this->twig = $twig;
-        $this->guesser = $guesser;
-        $this->engine = $engine;
     }
 
     /**
@@ -46,7 +40,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
         if (is_array($result) || $result instanceof ViewStruct) {
             $result = new TemplateView($result);
         } elseif (! ($result instanceof TemplateView)) {
-            throw new \RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
+            throw new RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
         }
 
         /** @psalm-suppress RiskyTruthyFalsyComparison */
@@ -60,7 +54,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     private function makeResponseFor(string $controller, TemplateView $templateView, string $requestFormat): Response
     {
         if ($this->twig === null) {
-            throw new \RuntimeException('Cannot convert to template response without Twig');
+            throw new RuntimeException('Cannot convert to template response without Twig');
         }
 
         $viewName = $this->guesser->guessControllerTemplateName(

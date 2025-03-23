@@ -6,14 +6,13 @@ use Gyro\MVC\TokenContext;
 use Gyro\MVC\Exception\UnauthenticatedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use BadMethodCallException;
 
 class MockTokenContext implements TokenContext
 {
-    private $user;
-
-    public function __construct(?UserInterface $user = null)
+    public function __construct(private ?UserInterface $user = null)
     {
-        $this->user = $user;
     }
 
     /**
@@ -39,7 +38,7 @@ class MockTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      */
     public function getCurrentUsername(): string
     {
@@ -61,13 +60,13 @@ class MockTokenContext implements TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      *
      * @template T of UserInterface
      * @psalm-param class-string<T> $expectedClass
      * @psalm-return T
      */
-    public function getCurrentUser(string $expectedClass): \Symfony\Component\Security\Core\User\UserInterface
+    public function getCurrentUser(string $expectedClass): UserInterface
     {
         if (!is_object($this->user) || !($this->user instanceof  $expectedClass)) {
             throw new UnauthenticatedUserException();
@@ -86,9 +85,9 @@ class MockTokenContext implements TokenContext
         return false;
     }
 
-    public function getToken(string $expectedClass): \Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+    public function getToken(string $expectedClass): TokenInterface
     {
-        throw new \BadMethodCallException("getToken() not supported in MockTokenContext");
+        throw new BadMethodCallException("getToken() not supported in MockTokenContext");
     }
 
     /**
@@ -99,7 +98,7 @@ class MockTokenContext implements TokenContext
     public function isGranted($attributes, ?object $object = null): bool
     {
         if (!is_string($attributes) && strpos($attributes, 'ROLE_') === false) {
-            throw new \BadMethodCallException("Only ROLE_* checks are possible with mock interface.");
+            throw new BadMethodCallException("Only ROLE_* checks are possible with mock interface.");
         }
 
         if ($this->user === null) {

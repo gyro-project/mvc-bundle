@@ -3,26 +3,15 @@
 namespace Gyro\Bundle\MVCBundle\View;
 
 use Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser;
+use InvalidArgumentException;
 
 /**
  * Guess Templates based on Symfony and SensioFrameworkExtra conventions
  */
 class SymfonyConventionsTemplateGuesser implements TemplateGuesser
 {
-    /**
-     * @var BundleLocation
-     */
-    private $bundleLocation;
-
-    /**
-     * @var \Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser
-     */
-    private $parser;
-
-    public function __construct(BundleLocation $bundleLocation, GyroControllerNameParser $parser)
+    public function __construct(private BundleLocation $bundleLocation, private GyroControllerNameParser $parser)
     {
-        $this->bundleLocation = $bundleLocation;
-        $this->parser = $parser;
     }
 
     public function guessControllerTemplateName(string $controller, ?string $actionName, string $format, string $engine): string
@@ -79,7 +68,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     private function extractControllerName(string $className): string
     {
         if (!preg_match('/([^\\\\]+)Controller$/', $className, $matchController)) {
-            throw new \InvalidArgumentException(sprintf('The "%s" class does not look like a controller class (it must be in a "Controller" sub-namespace and the class name must end with "Controller")', $className));
+            throw new InvalidArgumentException(sprintf('The "%s" class does not look like a controller class (it must be in a "Controller" sub-namespace and the class name must end with "Controller")', $className));
         }
 
         return $matchController[1];
@@ -88,7 +77,7 @@ class SymfonyConventionsTemplateGuesser implements TemplateGuesser
     private function extractActionName(string $method): string
     {
         if (!preg_match('/^(.+)Action$/', $method, $matchAction)) {
-            throw new \InvalidArgumentException(sprintf('The "%s" method does not look like an action method (it does not end with Action)', $method));
+            throw new InvalidArgumentException(sprintf('The "%s" method does not look like an action method (it does not end with Action)', $method));
         }
 
         return $matchAction[1];

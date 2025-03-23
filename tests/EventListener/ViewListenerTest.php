@@ -21,7 +21,7 @@ class ViewListenerTest extends TestCase
     public const A_TEMPLATE = 'bar';
     public const A_TEMPLATE_OVERWRITE = 'baz';
 
-    private $listener;
+    private \Gyro\Bundle\MVCBundle\EventListener\ViewListener $listener;
     private $converter;
     private $applier;
 

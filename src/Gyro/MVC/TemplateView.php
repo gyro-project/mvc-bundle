@@ -7,25 +7,12 @@ namespace Gyro\MVC;
  */
 class TemplateView
 {
-    /** @var object|array<string,mixed> */
-    private $viewParams;
-    /** @var ?string */
-    private $actionTemplateName;
-    /** @var int */
-    private $statusCode;
-    /** @var array<string,string> */
-    private $headers;
-
     /**
      * @param object|array<string,mixed> $viewParams
      * @param array<string,string>       $headers
      */
-    public function __construct($viewParams, ?string $actionTemplateName = null, int $statusCode = 200, array $headers = [])
+    public function __construct(private $viewParams, private ?string $actionTemplateName = null, private int $statusCode = 200, private array $headers = [])
     {
-        $this->viewParams = $viewParams;
-        $this->actionTemplateName = $actionTemplateName;
-        $this->statusCode = $statusCode;
-        $this->headers = $headers;
     }
 
     /**

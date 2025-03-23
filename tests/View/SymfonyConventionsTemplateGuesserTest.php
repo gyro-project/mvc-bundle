@@ -7,7 +7,7 @@ use Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser;
 
 class SymfonyConventionsTemplateGuesserTest extends TestCase
 {
-    private $guesser;
+    private \Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser $guesser;
     private $bundleLocation;
     private $parser;
 

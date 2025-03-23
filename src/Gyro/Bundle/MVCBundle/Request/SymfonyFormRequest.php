@@ -6,28 +6,15 @@ use Gyro\MVC\Exception;
 use Gyro\MVC\FormRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 class SymfonyFormRequest implements FormRequest
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\Request
-     */
-    private $request;
+    private ?FormInterface $form = null;
 
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
-     * @var ?\Symfony\Component\Form\FormInterface
-     */
-    private $form;
-
-    public function __construct(Request $request, FormFactoryInterface $formFactory)
+    public function __construct(private Request $request, private FormFactoryInterface $formFactory)
     {
-        $this->request = $request;
-        $this->formFactory = $formFactory;
     }
 
     /**
@@ -84,7 +71,7 @@ class SymfonyFormRequest implements FormRequest
         return $this->form->isSubmitted();
     }
 
-    public function getForm(): \Symfony\Component\Form\FormInterface
+    public function getForm(): FormInterface
     {
         $this->assertFormHandled();
 
@@ -96,7 +83,7 @@ class SymfonyFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView(): \Symfony\Component\Form\FormView
+    public function createFormView(): FormView
     {
         $this->assertFormHandled();
 

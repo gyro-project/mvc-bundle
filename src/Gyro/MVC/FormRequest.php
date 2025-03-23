@@ -2,6 +2,9 @@
 
 namespace Gyro\MVC;
 
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+
 interface FormRequest
 {
     /**
@@ -33,12 +36,12 @@ interface FormRequest
      */
     public function isBound(): bool;
 
-    public function getForm(): \Symfony\Component\Form\FormInterface;
+    public function getForm(): FormInterface;
 
     /**
      * Create the form view for the handled form.
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView(): ?\Symfony\Component\Form\FormView;
+    public function createFormView(): ?FormView;
 }

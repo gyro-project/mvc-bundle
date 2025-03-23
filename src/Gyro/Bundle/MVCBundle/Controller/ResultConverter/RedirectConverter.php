@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RedirectConverter implements ControllerResultConverter
 {
-    private $router;
-
-    public function __construct(UrlGeneratorInterface $router)
+    public function __construct(private UrlGeneratorInterface $router)
     {
-        $this->router = $router;
     }
 
     /**

@@ -20,14 +20,8 @@ use Technically\CallableReflection\CallableReflection;
  */
 class ParamConverterListener
 {
-    /**
-     * @var ServiceProvider
-     */
-    private $serviceProvider;
-
-    public function __construct(ServiceProvider $container)
+    public function __construct(private ServiceProvider $serviceProvider)
     {
-        $this->serviceProvider = $container;
     }
 
     /**
