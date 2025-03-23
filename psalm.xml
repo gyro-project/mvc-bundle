@@ -27,5 +27,6 @@
         <PossiblyUnusedMethod errorLevel="info" />
         <MissingOverrideAttribute errorLevel="info" />
         <ClassMustBeFinal errorLevel="info" />
+        <UnusedClass errorLevel="info" />
     </issueHandlers>
 </psalm>
