@@ -10,7 +10,7 @@ use Gyro\MVC\Headers;
 
 class HeadersYieldApplierTest extends TestCase
 {
-    private $applier;
+    private \Gyro\Bundle\MVCBundle\Controller\ResultConverter\HeadersYieldApplier $applier;
 
     public function setUp() : void
     {

@@ -9,15 +9,9 @@ use Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser;
  */
 class SymfonyConventionsTemplateGuesser implements TemplateGuesser
 {
-    /**
-     * @var BundleLocation
-     */
-    private $bundleLocation;
+    private \Gyro\Bundle\MVCBundle\View\BundleLocation $bundleLocation;
 
-    /**
-     * @var \Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser
-     */
-    private $parser;
+    private \Gyro\Bundle\MVCBundle\Controller\GyroControllerNameParser $parser;
 
     public function __construct(BundleLocation $bundleLocation, GyroControllerNameParser $parser)
     {

@@ -25,7 +25,7 @@ class ParamConverterListenerTest extends TestCase
 {
     private $kernel;
 
-    private $listener;
+    private \Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener $listener;
 
     /**
      * @test

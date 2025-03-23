@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class GyroControllerNameParser
 {
-    private $container;
+    private \Symfony\Component\DependencyInjection\ContainerInterface $container;
 
     /**
      * @psalm-suppress DeprecatedClass

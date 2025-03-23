@@ -20,10 +20,7 @@ use Technically\CallableReflection\CallableReflection;
  */
 class ParamConverterListener
 {
-    /**
-     * @var ServiceProvider
-     */
-    private $serviceProvider;
+    private \Gyro\Bundle\MVCBundle\ParamConverter\ServiceProvider $serviceProvider;
 
     public function __construct(ServiceProvider $container)
     {

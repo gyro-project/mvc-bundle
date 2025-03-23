@@ -6,15 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectRoute
 {
-    /** @var string */
-    private $routeName;
+    private string $routeName;
     /** @var array<string,string|int|float|bool|null> */
-    private $parameters;
+    private array $parameters;
     /** @var ?Response */
     private $response;
 
-    /** @var int */
-    private $statusCode = 302;
+    private int $statusCode = 302;
 
     /**
      * @param array<string,string|int|float|bool|null> $parameters

@@ -13,8 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class SymfonyTokenContext implements TokenContext
 {
-    private $tokenStorage;
-    private $authorizationChecker;
+    private \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage;
+    private \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
     {

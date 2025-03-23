@@ -6,22 +6,16 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 use ReflectionClass;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Doctrine\ORM\EntityNotFoundException;
 
 /**
  * Converts Exceptions into Symfony HttpKernel Exceptions before rendering the exception page.
  */
 class ConvertExceptionListener
 {
-    /**
-     * @var ?LoggerInterface
-     */
-    private $logger;
+    private ?\Psr\Log\LoggerInterface $logger;
 
     /**
      * Using the classes works with ::class because it does not trigger the
@@ -30,10 +24,7 @@ class ConvertExceptionListener
      * @psalm-suppress UndefinedClass
      * @var array<class-string, class-string|int>
      */
-    private $exceptionClassMap = [
-        Missing404Exception::class => NotFoundHttpException::class,
-        EntityNotFoundException::class => NotFoundHttpException::class,
-    ];
+    private array $exceptionClassMap;
 
     /**
      * @param array<string,string> $exceptionClassMap

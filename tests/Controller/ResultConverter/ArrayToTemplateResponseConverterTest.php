@@ -13,7 +13,7 @@ class ArrayToTemplateResponseConverterTest extends TestCase
 {
     private $twig;
     private $guesser;
-    private $converter;
+    private \Gyro\Bundle\MVCBundle\Controller\ResultConverter\ArrayToTemplateResponseConverter $converter;
 
     public function setUp() : void
     {

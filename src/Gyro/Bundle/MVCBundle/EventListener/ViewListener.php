@@ -16,10 +16,10 @@ use Generator;
 class ViewListener
 {
     /** @var ControllerResultConverter[] */
-    private $converters = [];
+    private array $converters = [];
 
     /** @var ControllerYieldApplier[] */
-    private $yieldAppliers = [];
+    private array $yieldAppliers = [];
 
     public function addConverter(ControllerResultConverter $converter): void
     {

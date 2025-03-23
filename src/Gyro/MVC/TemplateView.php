@@ -9,12 +9,10 @@ class TemplateView
 {
     /** @var object|array<string,mixed> */
     private $viewParams;
-    /** @var ?string */
-    private $actionTemplateName;
-    /** @var int */
-    private $statusCode;
+    private ?string $actionTemplateName;
+    private int $statusCode;
     /** @var array<string,string> */
-    private $headers;
+    private array $headers;
 
     /**
      * @param object|array<string,mixed> $viewParams

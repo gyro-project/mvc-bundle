@@ -12,7 +12,7 @@ use Gyro\MVC\Flash;
 
 class FlashYieldApplierTest extends TestCase
 {
-    private $applier;
+    private \Gyro\Bundle\MVCBundle\Controller\ResultConverter\FlashYieldApplier $applier;
 
     public function setUp() : void
     {

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class MockTokenContext implements TokenContext
 {
-    private $user;
+    private ?\Symfony\Component\Security\Core\User\UserInterface $user;
 
     public function __construct(?UserInterface $user = null)
     {

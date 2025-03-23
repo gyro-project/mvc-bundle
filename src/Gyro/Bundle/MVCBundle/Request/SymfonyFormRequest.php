@@ -9,15 +9,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 class SymfonyFormRequest implements FormRequest
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\Request
-     */
-    private $request;
+    private \Symfony\Component\HttpFoundation\Request $request;
 
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $formFactory;
+    private \Symfony\Component\Form\FormFactoryInterface $formFactory;
 
     /**
      * @var ?\Symfony\Component\Form\FormInterface

@@ -6,8 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher
 {
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

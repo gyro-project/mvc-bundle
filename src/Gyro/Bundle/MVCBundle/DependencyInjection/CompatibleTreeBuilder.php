@@ -7,11 +7,9 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class CompatibleTreeBuilder
 {
-    /** @var TreeBuilder|null */
-    private $symfonyTreeBuilder;
+    private ?\Symfony\Component\Config\Definition\Builder\TreeBuilder $symfonyTreeBuilder = null;
 
-    /** @var NodeDefinition|null */
-    private $rootNode;
+    private ?\Symfony\Component\Config\Definition\Builder\NodeDefinition $rootNode = null;
 
     public function root(string $name): NodeDefinition
     {

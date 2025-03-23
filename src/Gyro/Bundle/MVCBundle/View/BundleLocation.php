@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleLocation
 {
-    private $kernel;
+    private \Symfony\Component\HttpKernel\KernelInterface $kernel;
 
     public function __construct(KernelInterface $kernel)
     {

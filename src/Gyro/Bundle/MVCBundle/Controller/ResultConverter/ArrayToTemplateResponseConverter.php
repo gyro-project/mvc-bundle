@@ -17,9 +17,9 @@ use Twig\Environment;
  */
 class ArrayToTemplateResponseConverter implements ControllerResultConverter
 {
-    private $twig;
-    private $guesser;
-    private $engine;
+    private ?\Twig\Environment $twig;
+    private \Gyro\Bundle\MVCBundle\View\TemplateGuesser $guesser;
+    private string $engine;
 
     public function __construct(?Environment $twig, TemplateGuesser $guesser, string $engine)
     {

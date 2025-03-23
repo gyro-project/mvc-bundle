@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class AfterResponseTaskYieldApplierTest extends TestCase
 {
-    private $taskExecuted = false;
+    private bool $taskExecuted = false;
 
     public function testEndToEnd(): void
     {
