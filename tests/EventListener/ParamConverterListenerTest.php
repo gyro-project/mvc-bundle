@@ -2,12 +2,11 @@
 
 namespace Gyro\Bundle\MVCBundle\Tests\EventListener;
 
-use PackageVersions\Versions;
+use Gyro\Bundle\MVCBundle\Versions;
 use PHPUnit\Framework\TestCase;
 use Gyro\Bundle\MVCBundle\EventListener\ParamConverterListener;
 use Gyro\Bundle\MVCBundle\ParamConverter\SymfonyServiceProvider;
 use Gyro\MVC\TokenContext;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -130,6 +129,9 @@ class ParamConverterListenerTest extends TestCase
 
     public function createControllerEvent(callable $method, Request $request): object
     {
-        return new ControllerEvent($this->kernel, $method, $request, HttpKernelInterface::MASTER_REQUEST);
+        return new ControllerEvent($this->kernel, $method, $request,Versions::hasMainRequestConstant()
+            ? HttpKernelInterface::MAIN_REQUEST
+            : HttpKernelInterface::MASTER_REQUEST
+        );
     }
 }

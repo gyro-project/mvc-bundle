@@ -8,6 +8,8 @@ use Gyro\Bundle\MVCBundle\View\SymfonyConventionsTemplateGuesser;
 class SymfonyConventionsTemplateGuesserTest extends TestCase
 {
     private $guesser;
+    private $bundleLocation;
+    private $parser;
 
     public function setUp() : void
     {
