@@ -3,6 +3,7 @@
 namespace Gyro\MVC;
 
 use Symfony\Component\HttpFoundation\Response;
+use InvalidArgumentException;
 
 class RedirectRoute
 {
@@ -30,7 +31,7 @@ class RedirectRoute
         } elseif ($response instanceof Response || $response === null) {
             $this->response = $response;
         } else {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 '$response must be of type int|Response|null, %s given',
                 get_debug_type($response)
             ));

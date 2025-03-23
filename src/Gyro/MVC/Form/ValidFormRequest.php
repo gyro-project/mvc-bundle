@@ -3,6 +3,10 @@
 namespace Gyro\MVC\Form;
 
 use Gyro\MVC\FormRequest;
+use Symfony\Component\Form\FormInterface;
+use BadMethodCallException;
+use Symfony\Component\Form\FormView;
+use Gyro\MVC\Exception\FormAlreadyHandledException;
 
 class ValidFormRequest implements FormRequest
 {
@@ -23,7 +27,7 @@ class ValidFormRequest implements FormRequest
      * @param array<string,mixed>|object $bindData
      * @param array<string,mixed>        $options
      *
-     * @throws \Gyro\MVC\Exception\FormAlreadyHandledException when a form was already bound on this request before.
+     * @throws FormAlreadyHandledException when a form was already bound on this request before.
      */
     public function handle(string $formType, $bindData = null, array $options = []): bool
     {
@@ -58,9 +62,9 @@ class ValidFormRequest implements FormRequest
         return true;
     }
 
-    public function getForm(): \Symfony\Component\Form\FormInterface
+    public function getForm(): FormInterface
     {
-        throw new \BadMethodCallException("Not supported in ValidFormRequest");
+        throw new BadMethodCallException("Not supported in ValidFormRequest");
     }
 
     /**
@@ -68,8 +72,8 @@ class ValidFormRequest implements FormRequest
      *
      * Throws exception when no form was handled yet.
      */
-    public function createFormView(): \Symfony\Component\Form\FormView
+    public function createFormView(): FormView
     {
-        return new \Symfony\Component\Form\FormView();
+        return new FormView();
     }
 }

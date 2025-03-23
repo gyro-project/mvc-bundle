@@ -15,7 +15,7 @@ use ReflectionClass;
  */
 class ConvertExceptionListener
 {
-    private ?\Psr\Log\LoggerInterface $logger;
+    private ?LoggerInterface $logger;
 
     /**
      * Using the classes works with ::class because it does not trigger the

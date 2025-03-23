@@ -4,6 +4,8 @@ namespace Gyro\MVC;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Gyro\MVC\Exception\UnauthenticatedUserException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 interface TokenContext
 {
@@ -21,7 +23,7 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      */
     public function getCurrentUsername(): string;
 
@@ -30,7 +32,7 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      *
      * @template T of UserInterface
      * @psalm-param class-string<T> $expectedClass
@@ -47,7 +49,7 @@ interface TokenContext
      *
      * Throws UnauthenticatedUserException when no valid token exists.
      *
-     * @throws \Gyro\MVC\Exception\UnauthenticatedUserException
+     * @throws UnauthenticatedUserException
      *
      * @template T of TokenInterface
      * @psalm-param class-string<T> $expectedClass
@@ -63,7 +65,7 @@ interface TokenContext
     /**
      * @param mixed $attributes
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @throws AccessDeniedHttpException
      */
     public function assertIsGranted($attributes, ?object $object = null): void;
 }

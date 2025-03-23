@@ -2,6 +2,8 @@
 
 namespace Gyro\MVC;
 
+use InvalidArgumentException;
+
 /**
  * View Model Base class.
  *
@@ -61,7 +63,7 @@ abstract class ViewStruct
 
     private function throwPropertyNotExists(string $property): void
     {
-        throw new \InvalidArgumentException(
+        throw new InvalidArgumentException(
             'View ' . static::class . ' does not support property "$' . $property .
             ' The following properties exist: ' . implode(", ", array_keys(get_object_vars($this)))
         );

@@ -4,12 +4,13 @@ namespace Gyro\Bundle\MVCBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use RuntimeException;
 
 class CompatibleTreeBuilder
 {
-    private ?\Symfony\Component\Config\Definition\Builder\TreeBuilder $symfonyTreeBuilder = null;
+    private ?TreeBuilder $symfonyTreeBuilder = null;
 
-    private ?\Symfony\Component\Config\Definition\Builder\NodeDefinition $rootNode = null;
+    private ?NodeDefinition $rootNode = null;
 
     public function root(string $name): NodeDefinition
     {
@@ -21,7 +22,7 @@ class CompatibleTreeBuilder
         }
 
         if (!($this->rootNode instanceof NodeDefinition)) {
-            throw new \RuntimeException("Incompatibale node definition for the root node, must be NodeDefinition.");
+            throw new RuntimeException("Incompatibale node definition for the root node, must be NodeDefinition.");
         }
 
         return $this->rootNode;
@@ -30,7 +31,7 @@ class CompatibleTreeBuilder
     public function getTreeBuilder(): TreeBuilder
     {
         if ($this->symfonyTreeBuilder === null) {
-            throw new \RuntimeException("No root node was generated for this tree builder.");
+            throw new RuntimeException("No root node was generated for this tree builder.");
         }
 
         return $this->symfonyTreeBuilder;

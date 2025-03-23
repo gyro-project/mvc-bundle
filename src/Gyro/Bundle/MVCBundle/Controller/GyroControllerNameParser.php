@@ -3,10 +3,14 @@
 namespace Gyro\Bundle\MVCBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use RuntimeException;
+
+use function assert;
+use function is_object;
 
 class GyroControllerNameParser
 {
-    private \Symfony\Component\DependencyInjection\ContainerInterface $container;
+    private ContainerInterface $container;
 
     /**
      * @psalm-suppress DeprecatedClass
@@ -21,7 +25,7 @@ class GyroControllerNameParser
         $parts = explode(":", $controller);
 
         if (count($parts) !== 2) {
-            throw new \RuntimeException("Cannot parse controller name");
+            throw new RuntimeException("Cannot parse controller name");
         }
 
         return $this->parseServiceController($parts[0], $parts[1]);
@@ -31,7 +35,7 @@ class GyroControllerNameParser
     {
         $service = $this->container->get($serviceId, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
         /** @psalm-suppress RedundantConditionGivenDocblockType */
-        \assert(\is_object($service));
+        assert(is_object($service));
 
         return get_class($service) . '::' . $method;
     }
