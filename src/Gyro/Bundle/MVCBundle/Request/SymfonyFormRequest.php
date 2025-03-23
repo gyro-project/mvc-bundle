@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormView;
 
 class SymfonyFormRequest implements FormRequest
 {
-    private ?\Symfony\Component\Form\FormInterface $form = null;
+    private ?FormInterface $form = null;
 
     public function __construct(private Request $request, private FormFactoryInterface $formFactory)
     {

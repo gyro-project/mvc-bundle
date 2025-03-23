@@ -21,6 +21,7 @@
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName" />
         <exclude name="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses.IncorrectlyOrderedUses" />
         <exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification" />
         <exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit" />
         <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.WriteOnlyProperty" />
         <exclude name="SlevomatCodingStandard.Variables.UselessVariable.UselessVariable" /> <!-- this cannot be safely detected sadly -->
