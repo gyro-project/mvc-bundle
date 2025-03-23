@@ -17,7 +17,7 @@
         "phpunit/phpunit": "^9.4|^10.4|^11.4",
         "vimeo/psalm": "^5.26|^6.9",
         "nikic/php-parser": "^4.4|^5.0",
-        "symfony/symfony": "7.2",
+        "symfony/symfony": "~4.4|~5.4|~6.0|~7.0",
         "doctrine/coding-standard": "^8.2.1",
         "twig/twig": "^1.44|^2.14|^3.1"
     },
