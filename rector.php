@@ -12,6 +12,10 @@ return RectorConfig::configure()
     ->withConfiguredRule(\Rector\TypeDeclaration\Rector\Property\TypedPropertyFromAssignsRector::class, [
         'inline_public' => false,
     ])
+    ->withConfiguredRule(\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class, [
+        'inline_public' => false,
+        'rename_property' => true,
+    ])
     ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',

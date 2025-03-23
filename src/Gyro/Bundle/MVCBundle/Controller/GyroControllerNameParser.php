@@ -10,14 +10,11 @@ use function is_object;
 
 class GyroControllerNameParser
 {
-    private ContainerInterface $container;
-
     /**
      * @psalm-suppress DeprecatedClass
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function parse(string $controller): string

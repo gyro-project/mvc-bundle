@@ -15,26 +15,13 @@ use ReflectionClass;
  */
 class ConvertExceptionListener
 {
-    private ?LoggerInterface $logger;
-
-    /**
-     * Using the classes works with ::class because it does not trigger the
-     * autoloader.
-     *
-     * @psalm-suppress UndefinedClass
-     * @var array<class-string, class-string|int>
-     */
-    private array $exceptionClassMap;
-
     /**
      * @param array<string,string> $exceptionClassMap
      *
      * @psalm-param array<class-string,class-string|int> $exceptionClassMap
      */
-    public function __construct(?LoggerInterface $logger = null, array $exceptionClassMap = [])
+    public function __construct(private ?LoggerInterface $logger = null, private array $exceptionClassMap = [])
     {
-        $this->logger = $logger;
-        $this->exceptionClassMap = $exceptionClassMap;
     }
 
     /**

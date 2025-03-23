@@ -7,9 +7,6 @@ use InvalidArgumentException;
 
 class RedirectRoute
 {
-    private string $routeName;
-    /** @var array<string,string|int|float|bool|null> */
-    private array $parameters;
     /** @var ?Response */
     private $response;
 
@@ -21,11 +18,8 @@ class RedirectRoute
      *
      * @psalm-suppress RedundantConditionGivenDocblockType
      */
-    public function __construct(string $routeName, array $parameters = [], $response = null)
+    public function __construct(private string $routeName, private array $parameters = [], $response = null)
     {
-        $this->routeName = $routeName;
-        $this->parameters = $parameters;
-
         if (is_int($response)) {
             $this->statusCode = $response;
         } elseif ($response instanceof Response || $response === null) {

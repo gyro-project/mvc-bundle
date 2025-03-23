@@ -9,18 +9,8 @@ use RuntimeException;
 
 class SymfonyServiceProvider implements ServiceProvider
 {
-    private ?FormFactoryInterface $formFactory;
-    private ?TokenStorageInterface $tokenStorage;
-    private ?AuthorizationCheckerInterface $authorizationChecker;
-
-    public function __construct(
-        ?FormFactoryInterface $formFactory,
-        ?TokenStorageInterface $tokenStorage,
-        ?AuthorizationCheckerInterface $authorizationChecker
-    ) {
-        $this->formFactory = $formFactory;
-        $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $authorizationChecker;
+    public function __construct(private ?FormFactoryInterface $formFactory, private ?TokenStorageInterface $tokenStorage, private ?AuthorizationCheckerInterface $authorizationChecker)
+    {
     }
 
     public function getFormFactory(): FormFactoryInterface

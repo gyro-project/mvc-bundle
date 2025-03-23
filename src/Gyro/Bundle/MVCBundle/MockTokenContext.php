@@ -11,11 +11,8 @@ use BadMethodCallException;
 
 class MockTokenContext implements TokenContext
 {
-    private ?UserInterface $user;
-
-    public function __construct(?UserInterface $user = null)
+    public function __construct(private ?UserInterface $user = null)
     {
-        $this->user = $user;
     }
 
     /**

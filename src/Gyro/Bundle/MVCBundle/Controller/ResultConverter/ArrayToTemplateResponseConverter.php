@@ -18,15 +18,8 @@ use RuntimeException;
  */
 class ArrayToTemplateResponseConverter implements ControllerResultConverter
 {
-    private ?Environment $twig;
-    private TemplateGuesser $guesser;
-    private string $engine;
-
-    public function __construct(?Environment $twig, TemplateGuesser $guesser, string $engine)
+    public function __construct(private ?Environment $twig, private TemplateGuesser $guesser, private string $engine)
     {
-        $this->twig = $twig;
-        $this->guesser = $guesser;
-        $this->engine = $engine;
     }
 
     /**

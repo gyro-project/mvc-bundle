@@ -11,19 +11,10 @@ use Symfony\Component\Form\FormView;
 
 class SymfonyFormRequest implements FormRequest
 {
-    private Request $request;
+    private ?\Symfony\Component\Form\FormInterface $form = null;
 
-    private FormFactoryInterface $formFactory;
-
-    /**
-     * @var ?FormInterface
-     */
-    private $form;
-
-    public function __construct(Request $request, FormFactoryInterface $formFactory)
+    public function __construct(private Request $request, private FormFactoryInterface $formFactory)
     {
-        $this->request = $request;
-        $this->formFactory = $formFactory;
     }
 
     /**

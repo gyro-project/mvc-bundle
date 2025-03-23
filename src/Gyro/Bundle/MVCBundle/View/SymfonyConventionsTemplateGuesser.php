@@ -10,14 +10,8 @@ use InvalidArgumentException;
  */
 class SymfonyConventionsTemplateGuesser implements TemplateGuesser
 {
-    private BundleLocation $bundleLocation;
-
-    private GyroControllerNameParser $parser;
-
-    public function __construct(BundleLocation $bundleLocation, GyroControllerNameParser $parser)
+    public function __construct(private BundleLocation $bundleLocation, private GyroControllerNameParser $parser)
     {
-        $this->bundleLocation = $bundleLocation;
-        $this->parser = $parser;
     }
 
     public function guessControllerTemplateName(string $controller, ?string $actionName, string $format, string $engine): string
