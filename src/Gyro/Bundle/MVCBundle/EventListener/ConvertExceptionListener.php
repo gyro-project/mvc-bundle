@@ -59,6 +59,7 @@ class ConvertExceptionListener
 
         $convertedExceptionClass = $this->findConvertToExceptionClass($exception);
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if (!$convertedExceptionClass) {
             return;
         }

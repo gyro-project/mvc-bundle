@@ -49,6 +49,7 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
             throw new \RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
         }
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         return $this->makeResponseFor(
             $controller,
             $result,

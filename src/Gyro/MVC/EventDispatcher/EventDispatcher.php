@@ -16,6 +16,7 @@ class EventDispatcher
 
     public function dispatch(object $event, ?string $eventName = null): void
     {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         $eventName = $eventName ?: get_class($event);
 
         /** @psalm-suppress TooManyArguments, InvalidArgument */

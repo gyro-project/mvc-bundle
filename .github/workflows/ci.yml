@@ -64,6 +64,7 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         composer: ['--prefer-lowest', ' ']
 

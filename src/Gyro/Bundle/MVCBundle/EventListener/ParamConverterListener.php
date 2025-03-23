@@ -9,6 +9,7 @@ use Gyro\Bundle\MVCBundle\Request\SymfonyFormRequest;
 use Gyro\Bundle\MVCBundle\SymfonyTokenContext;
 use Gyro\MVC\FormRequest;
 use Gyro\MVC\TokenContext;
+use Technically\CallableReflection\CallableReflection;
 
 /**
  * Convert the request parameters into objects when typehinted.
@@ -41,28 +42,22 @@ class ParamConverterListener
         /** @psalm-suppress UndefinedClass */
         $request = $event->getRequest();
 
-        if (\is_array($controller)) {
-            $r = new \ReflectionMethod($controller[0], $controller[1]);
-        } elseif ($controller instanceof \Closure || \method_exists($controller, '__invoke')) {
-            $r = new \ReflectionMethod($controller, '__invoke');
-        } else {
-            $r = new \ReflectionFunction($controller);
-        }
+        $r = CallableReflection::fromCallable($controller);
 
         // automatically apply conversion for non-configured objects
         foreach ($r->getParameters() as $param) {
-            if (!$param->getType()) {
+            if (!$param->getTypes()) {
                 continue;
             }
 
-            $type = $param->getType();
+            $types = $param->getTypes();
 
             // skip union and intersection types (for now?)
-            if (!($type instanceof \ReflectionNamedType)) {
+            if (count($types) > 1) {
                 continue;
             }
 
-            $class = $type->getName();
+            $class = $types[0]->getType();
             $name = $param->getName();
 
             if (

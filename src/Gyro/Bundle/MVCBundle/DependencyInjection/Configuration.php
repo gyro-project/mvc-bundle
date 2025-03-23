@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
 
         assert($rootNode instanceof ArrayNodeDefinition);
 
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $rootNode
             ->children()
                 ->arrayNode('convert_exceptions')

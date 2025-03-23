@@ -31,7 +31,7 @@ class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscrib
         $this->tasks[] = $yield;
     }
 
-    public function onKernelTerminate(TerminateEvent $event): void
+    public function onKernelTerminate(): void
     {
         foreach ($this->tasks as $task) {
             $task();
