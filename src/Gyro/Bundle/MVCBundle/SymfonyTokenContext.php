@@ -75,7 +75,7 @@ class SymfonyTokenContext implements TokenContext
             throw new Exception\UnauthenticatedUserException(sprintf(
                 "Expecting user class %s, but got %s",
                 $expectedClass,
-                is_object($user) ? get_class($user) : gettype($user)
+                get_debug_type($user),
             ));
         }
 

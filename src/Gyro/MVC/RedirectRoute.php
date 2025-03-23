@@ -34,7 +34,7 @@ class RedirectRoute
         } else {
             throw new \InvalidArgumentException(sprintf(
                 '$response must be of type int|Response|null, %s given',
-                is_object($response) ? get_class($response) : gettype($response)
+                get_debug_type($response)
             ));
         }
     }

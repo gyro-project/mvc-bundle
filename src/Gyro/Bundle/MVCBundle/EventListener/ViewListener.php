@@ -60,12 +60,13 @@ class ViewListener
 
     private function unrollGenerator(Generator $generator, Request $request): Response
     {
-        /** @var array<object,array> $yields */
+        /** @var list<object|array> $yields */
         $yields = iterator_to_array($generator);
 
         $result = $generator->getReturn();
         \assert(\is_object($result) || \is_array($result));
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if (!$result) {
             throw new \LogicException("Controllers with generators must return a result that is or can be converted to a Response.");
         }

@@ -21,4 +21,20 @@ class Versions
 
         return false;
     }
+
+    public static function hasMainRequestConstant(): bool
+    {
+        $version = null;
+        if (InstalledVersions::isInstalled('symfony/symfony')) {
+            $version = InstalledVersions::getVersion('symfony/symfony');
+        } elseif (InstalledVersions::isInstalled('symfony/http-kernel')) {
+            $version = InstalledVersions::getVersion('symfony/http-kernel');
+        }
+
+        if ($version !== null && version_compare($version, '7.0.0') >= 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

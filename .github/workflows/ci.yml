@@ -5,8 +5,9 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        php-versions: ['7.4', '8.0', '8.1']
+        php-versions: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
         composer: ['--prefer-lowest', ' ']
 
     steps:
@@ -20,7 +21,7 @@ jobs:
         tools: "cs2pr"
 
     - name: "Cache dependencies installed with composer"
-      uses: "actions/cache@v1"
+      uses: "actions/cache@v3"
       with:
         path: "~/.composer/cache"
         key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -47,7 +48,7 @@ jobs:
         tools: "cs2pr"
 
     - name: "Cache dependencies installed with composer"
-      uses: "actions/cache@v1"
+      uses: "actions/cache@v3"
       with:
         path: "~/.composer/cache"
         key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -63,6 +64,7 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         composer: ['--prefer-lowest', ' ']
 
@@ -73,11 +75,11 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 8.1
+        php-version: 8.4
         tools: "cs2pr"
 
     - name: "Cache dependencies installed with composer"
-      uses: "actions/cache@v1"
+      uses: "actions/cache@v3"
       with:
         path: "~/.composer/cache"
         key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"

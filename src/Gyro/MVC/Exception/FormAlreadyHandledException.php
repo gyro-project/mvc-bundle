@@ -8,6 +8,7 @@ class FormAlreadyHandledException extends RuntimeException
 {
     public function __construct(?string $name)
     {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         parent::__construct(sprintf(
             'The \Gyro\MVC\FormRequest was already handled with form %s earlier. ' .
             'You can only use a FormRequest with exactly one form.',

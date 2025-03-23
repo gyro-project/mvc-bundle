@@ -11,7 +11,7 @@ class MockTokenContext implements TokenContext
 {
     private $user;
 
-    public function __construct(UserInterface $user = null)
+    public function __construct(?UserInterface $user = null)
     {
         $this->user = $user;
     }
