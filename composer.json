@@ -18,7 +18,6 @@
         "php": "~8.0",
         "phake/phake": "^4.2.0",
         "phpunit/phpunit": "^9.6|^10.5|^11.4",
-        "vimeo/psalm": "^5.26|^6.9",
         "nikic/php-parser": "^4.4|^5.0",
         "symfony/symfony": "~4.4|~5.4|~6.4|~7.0",
         "twig/twig": "^1.44|^2.14|^3.1",
