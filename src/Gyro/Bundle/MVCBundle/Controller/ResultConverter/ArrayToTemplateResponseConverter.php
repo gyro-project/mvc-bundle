@@ -22,17 +22,13 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
     {
     }
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function supports($result): bool
     {
         return is_array($result) || $result instanceof TemplateView || $result instanceof ViewStruct;
     }
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function convert($result, Request $request): Response
     {
         $controller = (string) $request->attributes->get('_controller');
@@ -40,14 +36,14 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
         if (is_array($result) || $result instanceof ViewStruct) {
             $result = new TemplateView($result);
         } elseif (! ($result instanceof TemplateView)) {
-            throw new RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? get_class($result) : gettype($result)));
+            throw new RuntimeException(sprintf('Result must be array or TemplateView, %s given', is_object($result) ? $result::class : gettype($result)));
         }
 
         /** @psalm-suppress RiskyTruthyFalsyComparison */
         return $this->makeResponseFor(
             $controller,
             $result,
-            $request->getRequestFormat() ?: 'html'
+            $request->getRequestFormat() ?: 'html',
         );
     }
 
@@ -61,13 +57,13 @@ class ArrayToTemplateResponseConverter implements ControllerResultConverter
             $controller,
             $templateView->getActionTemplateName(),
             $requestFormat,
-            $this->engine
+            $this->engine,
         );
 
         return new Response(
             $this->twig->render($viewName, $templateView->getViewParams()),
             $templateView->getStatusCode(),
-            $templateView->getHeaders()
+            $templateView->getHeaders(),
         );
     }
 }

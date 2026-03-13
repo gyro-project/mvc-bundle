@@ -10,9 +10,7 @@ use Gyro\MVC\Exception\FormAlreadyHandledException;
 
 class ValidFormRequest implements FormRequest
 {
-    /**
-     * @param array<string,mixed>|object $validData
-     */
+    /** @param array<string,mixed>|object $validData */
     public function __construct(private $validData)
     {
     }

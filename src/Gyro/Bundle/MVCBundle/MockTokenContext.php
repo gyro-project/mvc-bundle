@@ -116,9 +116,7 @@ class MockTokenContext implements TokenContext
         return false;
     }
 
-    /**
-     * @param mixed $attributes
-     */
+    /** @param mixed $attributes */
     public function assertIsGranted($attributes, ?object $object = null): void
     {
         if (!$this->isGranted($attributes, $object)) {

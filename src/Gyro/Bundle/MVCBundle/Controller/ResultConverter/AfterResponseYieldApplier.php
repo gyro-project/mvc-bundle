@@ -12,17 +12,13 @@ class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscrib
     /** @var array<callable> */
     private array $tasks = [];
 
-    /**
-     * @param mixed $yield
-     */
+    /** @param mixed $yield */
     public function supports($yield): bool
     {
         return $yield instanceof AfterResponseTask;
     }
 
-    /**
-     * @param mixed $yield
-     */
+    /** @param mixed $yield */
     public function apply($yield, Request $request, Response $response): void
     {
         assert(is_callable($yield));
@@ -37,9 +33,7 @@ class AfterResponseYieldApplier implements ControllerYieldApplier, EventSubscrib
         }
     }
 
-    /**
-     * @psalm-return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>>
-     */
+    /** @psalm-return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>> */
     public static function getSubscribedEvents()
     {
         return ['kernel.terminate' => 'onKernelTerminate'];

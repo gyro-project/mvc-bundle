@@ -7,13 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface ControllerResultConverter
 {
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function supports($result): bool;
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function convert($result, Request $request): Response;
 }

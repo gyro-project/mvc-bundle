@@ -37,9 +37,7 @@ use InvalidArgumentException;
  */
 abstract class ViewStruct
 {
-    /**
-     * @param array<string,mixed> $data
-     */
+    /** @param array<string,mixed> $data */
     public function __construct(array $data)
     {
         foreach ($data as $property => $value) {
@@ -65,7 +63,7 @@ abstract class ViewStruct
     {
         throw new InvalidArgumentException(
             'View ' . static::class . ' does not support property "$' . $property .
-            ' The following properties exist: ' . implode(", ", array_keys(get_object_vars($this)))
+            ' The following properties exist: ' . implode(", ", array_keys(get_object_vars($this))),
         );
     }
 }

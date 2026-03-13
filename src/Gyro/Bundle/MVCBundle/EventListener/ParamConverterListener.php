@@ -25,8 +25,6 @@ class ParamConverterListener
     }
 
     /**
-     * @param ControllerEvent|ControllerEvent $event
-     *
      * @psalm-suppress ArgumentTypeCoercion
      * @psalm-suppress PossiblyNullReference
      */
@@ -64,7 +62,7 @@ class ParamConverterListener
             } elseif ($class === TokenContext::class) {
                 $value = new SymfonyTokenContext(
                     $this->serviceProvider->getTokenStorage(),
-                    $this->serviceProvider->getAuthorizationChecker()
+                    $this->serviceProvider->getAuthorizationChecker(),
                 );
             } else {
                 continue;

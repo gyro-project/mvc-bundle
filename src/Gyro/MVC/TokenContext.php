@@ -57,9 +57,7 @@ interface TokenContext
      */
     public function getToken(string $expectedClass): TokenInterface;
 
-    /**
-     * @param mixed $attributes
-     */
+    /** @param mixed $attributes */
     public function isGranted($attributes, ?object $object = null): bool;
 
     /**

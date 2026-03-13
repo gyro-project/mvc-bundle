@@ -112,24 +112,20 @@ class SymfonyTokenContext implements TokenContext
             throw new Exception\UnauthenticatedUserException(sprintf(
                 "Expecting token class %s, but got %s",
                 $expectedClass,
-                is_object($token) ? get_class($token) : gettype($token)
+                is_object($token) ? $token::class : gettype($token),
             ));
         }
 
         return $token;
     }
 
-    /**
-     * @param mixed $attributes
-     */
+    /** @param mixed $attributes */
     public function isGranted($attributes, ?object $object = null): bool
     {
         return $this->authorizationChecker->isGranted($attributes, $object);
     }
 
-    /**
-     * @param mixed $attributes
-     */
+    /** @param mixed $attributes */
     public function assertIsGranted($attributes, ?object $object = null): void
     {
         if (!$this->isGranted($attributes, $object)) {

@@ -38,9 +38,7 @@ class ViewListener
         $this->yieldAppliers[] = $applier;
     }
 
-    /**
-     * @param ViewEvent|GetResponseForControllerResultEvent $event
-     */
+    /** @param ViewEvent|GetResponseForControllerResultEvent $event */
     public function onKernelView($event): void
     {
         $request = $event->getRequest();
@@ -92,9 +90,7 @@ class ViewListener
         return $response;
     }
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     private function convert($result, Request $request): Response
     {
         if ($result instanceof Response) {
@@ -109,7 +105,7 @@ class ViewListener
 
         throw new RuntimeException(sprintf(
             'Could not convert type "%s" into a Response object. No converter found.',
-            is_object($result) ? get_class($result) : gettype($result)
+            is_object($result) ? $result::class : gettype($result),
         ));
     }
 }
