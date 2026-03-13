@@ -10,9 +10,7 @@ use function is_object;
 
 class GyroControllerNameParser
 {
-    /**
-     * @psalm-suppress DeprecatedClass
-     */
+    /** @psalm-suppress DeprecatedClass */
     public function __construct(private ContainerInterface $container)
     {
     }
@@ -34,6 +32,6 @@ class GyroControllerNameParser
         /** @psalm-suppress RedundantConditionGivenDocblockType */
         assert(is_object($service));
 
-        return get_class($service) . '::' . $method;
+        return $service::class . '::' . $method;
     }
 }

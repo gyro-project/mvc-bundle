@@ -13,7 +13,7 @@ class EventDispatcher
     public function dispatch(object $event, ?string $eventName = null): void
     {
         /** @psalm-suppress RiskyTruthyFalsyComparison */
-        $eventName = $eventName ?: get_class($event);
+        $eventName = $eventName ?: $event::class;
 
         /** @psalm-suppress TooManyArguments, InvalidArgument */
         $this->eventDispatcher->dispatch($event, $eventName);

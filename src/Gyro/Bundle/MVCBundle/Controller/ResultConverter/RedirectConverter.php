@@ -13,17 +13,13 @@ class RedirectConverter implements ControllerResultConverter
     {
     }
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function supports($result): bool
     {
         return $result instanceof RedirectRoute;
     }
 
-    /**
-     * @param mixed $result
-     */
+    /** @param mixed $result */
     public function convert($result, Request $request): Response
     {
         assert($result instanceof RedirectRoute);
@@ -34,8 +30,8 @@ class RedirectConverter implements ControllerResultConverter
             'Location',
             $this->router->generate(
                 $result->getRouteName(),
-                $result->getParameters()
-            )
+                $result->getParameters(),
+            ),
         );
 
         return $response;

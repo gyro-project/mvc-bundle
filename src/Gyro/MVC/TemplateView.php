@@ -15,9 +15,7 @@ class TemplateView
     {
     }
 
-    /**
-     * @return array<string,mixed>
-     */
+    /** @return array<string,mixed> */
     public function getViewParams(): array
     {
         $viewParams = $this->viewParams;
@@ -43,9 +41,7 @@ class TemplateView
         return $this->statusCode;
     }
 
-    /**
-     * @return array<string,string>
-     */
+    /** @return array<string,string> */
     public function getHeaders(): array
     {
         return $this->headers;

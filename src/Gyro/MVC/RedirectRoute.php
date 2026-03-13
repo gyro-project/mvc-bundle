@@ -27,7 +27,7 @@ class RedirectRoute
         } else {
             throw new InvalidArgumentException(sprintf(
                 '$response must be of type int|Response|null, %s given',
-                get_debug_type($response)
+                get_debug_type($response),
             ));
         }
     }
@@ -37,9 +37,7 @@ class RedirectRoute
         return $this->routeName;
     }
 
-    /**
-     * @return array<string,string|int|float|bool|null>
-     */
+    /** @return array<string,string|int|float|bool|null> */
     public function getParameters(): array
     {
         return $this->parameters;

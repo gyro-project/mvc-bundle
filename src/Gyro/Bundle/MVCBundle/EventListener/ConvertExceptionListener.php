@@ -24,9 +24,7 @@ class ConvertExceptionListener
     {
     }
 
-    /**
-     * @param ExceptionEvent|GetResponseForExceptionEvent $event
-     */
+    /** @param ExceptionEvent|GetResponseForExceptionEvent $event */
     public function onKernelException($event): void
     {
         $exception = $event->getThrowable();
@@ -93,7 +91,7 @@ class ConvertExceptionListener
      */
     private function findConvertToExceptionClass(Throwable $exception)
     {
-        $exceptionClass = get_class($exception);
+        $exceptionClass = $exception::class;
 
         foreach ($this->exceptionClassMap as $originalExceptionClass => $convertedExceptionClass) {
             if ($exceptionClass === $originalExceptionClass || is_subclass_of($exceptionClass, $originalExceptionClass)) {
@@ -112,10 +110,10 @@ class ConvertExceptionListener
 
         $message = sprintf(
             'Uncaught PHP Exception %s: "%s" at %s line %s',
-            get_class($exception),
+            $exception::class,
             $exception->getMessage(),
             $exception->getFile(),
-            $exception->getLine()
+            $exception->getLine(),
         );
 
         $this->logger->critical($message, ['exception' => $exception]);
