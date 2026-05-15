@@ -3,7 +3,7 @@
 A small framework on top of Symfony introducing a bunch of conventions,
 targeting users that want to upgrade from LTS to LTS.
 
-MVCBUndle decouples and simplifies Symfony controllers by adding various
+MVCBundle decouples and simplifies Symfony controllers by adding various
 abstractions that avoid having to use Symfony services or classes inside the
 controllers.
 
